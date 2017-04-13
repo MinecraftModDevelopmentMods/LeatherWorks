@@ -1,0 +1,9 @@
+{
+  "tool_scrape": {
+    "category": "player",
+    "sounds": [
+      "leatherworks:tool_scrape"
+    ],
+    "subtitle": "leatherworks.subtitle.tool_scrape"
+  }
+}
