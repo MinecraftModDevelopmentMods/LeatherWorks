@@ -85,7 +85,7 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 					//String localized = TutorialMod.proxy.localize(stack.getUnlocalizedName() + ".name");
 					player.addChatMessage(new TextComponentString(stack.stackSize + "x " + stack.getDisplayName()));
 				} else {
-					player..addChatMessage(new TextComponentString("Empty"));
+					player.addChatMessage(new TextComponentString("Empty"));
 				}
 			}
 		}
