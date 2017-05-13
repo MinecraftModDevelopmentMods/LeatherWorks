@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -29,6 +30,7 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 
 import panda.leatherworks.LeatherWorks;
@@ -38,13 +40,19 @@ import panda.leatherworks.util.recipe.DryingRecipes;
 
 public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 
-	public static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class);
+	public static final PropertyEnum<EnumFacing> FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>()
+    {
+        public boolean apply(@Nullable EnumFacing p_apply_1_)
+        {
+            return p_apply_1_ != EnumFacing.DOWN;
+        }
+    });
 	
 	public BlockRackTest() {
 		super(Material.WOOD, "drying_rack");
 		this.setSoundType(SoundType.WOOD);
 		this.setCreativeTab(LeatherWorks.LeatherTab);
-		this.setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		this.setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.UP));
 	}
 	
 	@Override
@@ -53,12 +61,14 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 			TileEntityDryingRack tile = getTileEntity(world, pos);
 			IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 			if (!player.isSneaking()) {
-				if (heldItem == null ) {
-					player.setHeldItem(hand, itemHandler.extractItem(0, 1, false));
+				if (heldItem == null ||(!DryingRecipes.containsRecipe(heldItem.getItem()))  ) {
+					player.inventory.addItemStackToInventory(itemHandler.extractItem(0, 1, false));
 				} else if(!(heldItem.getItem() instanceof ItemBlock) ){
-					player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
+					
 					
 					if(DryingRecipes.containsRecipe(heldItem.getItem())){
+						//System.out.println();
+						player.setHeldItem(hand,itemHandler.insertItem(0, heldItem, false) );
 						DryingRecipe recipe = DryingRecipes.getDryingResults(heldItem);
 						if(recipe != null){
 							tile.setEndTime(world.getTotalWorldTime()+ recipe.getTicks());
@@ -75,7 +85,7 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 					//String localized = TutorialMod.proxy.localize(stack.getUnlocalizedName() + ".name");
 					player.addChatMessage(new TextComponentString(stack.stackSize + "x " + stack.getDisplayName()));
 				} else {
-					player.addChatMessage(new TextComponentString("Empty"));
+					player..addChatMessage(new TextComponentString("Empty"));
 				}
 			}
 		}
@@ -85,7 +95,25 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getStateFromMeta(meta).withProperty(FACING, facing.getOpposite());
+        if (this.canPlaceAt(worldIn, pos, facing))
+        {
+            if(facing == EnumFacing.UP){
+            	return this.getDefaultState().withProperty(FACING, facing);
+            }
+            return this.getDefaultState().withProperty(FACING, facing.getOpposite());
+        }
+        else
+        {
+            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
+            {
+                if (worldIn.isSideSolid(pos.offset(enumfacing.getOpposite()), enumfacing, true))
+                {
+                    return this.getDefaultState().withProperty(FACING, enumfacing);
+                }
+            }
+
+            return this.getDefaultState();
+        }
     }
 
 	
@@ -122,10 +150,6 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
         return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
     }
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
 	@Override
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
@@ -136,23 +160,60 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 	@Nonnull
 	  @Override
 	  public IBlockState getStateFromMeta(int meta) {
-	    return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+		IBlockState iblockstate = this.getDefaultState();
+
+        switch (meta)
+        {
+            case 1:
+                iblockstate = iblockstate.withProperty(FACING, EnumFacing.EAST);
+                break;
+            case 2:
+                iblockstate = iblockstate.withProperty(FACING, EnumFacing.WEST);
+                break;
+            case 3:
+                iblockstate = iblockstate.withProperty(FACING, EnumFacing.SOUTH);
+                break;
+            case 4:
+                iblockstate = iblockstate.withProperty(FACING, EnumFacing.NORTH);
+                break;
+            case 5:
+            default:
+                iblockstate = iblockstate.withProperty(FACING, EnumFacing.UP);
+        }
+
+        return iblockstate;
 	  }
 
-	  /**
-	   * Convert the BlockState into the correct metadata value
-	   */
-	  @Override
-	  public int getMetaFromState(IBlockState state) {
+	public int getMetaFromState(IBlockState state)
+    {
+        int i = 0;
 
-	    return state.getValue(FACING).getHorizontalIndex();
+        switch ((EnumFacing)state.getValue(FACING))
+        {
+            case EAST:
+                i = i | 1;
+                break;
+            case WEST:
+                i = i | 2;
+                break;
+            case SOUTH:
+                i = i | 3;
+                break;
+            case NORTH:
+                i = i | 4;
+                break;
+            case DOWN:
+            case UP:
+            default:
+                i = i | 5;
+        }
 
-	  }
+        return i;
+    }
 	  
 	  @Nonnull
 	  @Override
 	  protected BlockStateContainer createBlockState() {
-	    // FACING is used to orientate the item, while ORIENTATION is the location of the rack. This mainly affects centered racks
 	    return new BlockStateContainer(this, new IProperty[]{FACING});
 	  }
 	  
@@ -166,6 +227,39 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 	    return false;
 	  }
 	  
+	  
+	  private boolean canPlaceOn(World worldIn, BlockPos pos)
+	    {
+	        IBlockState state = worldIn.getBlockState(pos);
+	        if (state.isSideSolid(worldIn, pos, EnumFacing.UP))
+	        {
+	            return true;
+	        }
+	        return false;
+	    }
+	  
+	  
+	  
+	  public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	    {
+	        for (EnumFacing enumfacing : FACING.getAllowedValues())
+	        {
+	            if (this.canPlaceAt(worldIn, pos, enumfacing))
+	            {
+	                return true;
+	            }
+	        }
+
+	        return false;
+	    }
+	  
+	  private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing)
+	    {
+	        BlockPos blockpos = pos.offset(facing.getOpposite());
+	        boolean flag = facing.getAxis().isHorizontal();
+	        return flag && worldIn.isSideSolid(blockpos, facing, true) || facing.equals(EnumFacing.UP) && this.canPlaceOn(worldIn, blockpos);
+	    }
+	  
 	  private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
 
 	  static {
@@ -174,6 +268,7 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 	    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0, 0.75, 0.75, 1, 1, 1));
 	    builder.put(EnumFacing.EAST, new AxisAlignedBB(0.75, 0.75, 0, 1, 1, 1));
 	    builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.75, 0, 0.25, 1, 1));
+	    builder.put(EnumFacing.UP, new AxisAlignedBB(0, 0.75, 0, 1, 1, 0.25));//TODO fix
 	    BOUNDS = builder.build();
 	  }
 

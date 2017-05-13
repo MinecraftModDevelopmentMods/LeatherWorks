@@ -12,8 +12,7 @@
             "south": { "model": "leatherworks:rack_side" },
             "east": { "model": "leatherworks:rack_side", "y": 270 },
             "west": { "model": "leatherworks:rack_side", "y": 90 },
-	    "up": { "model": "leatherworks:rack_side" },
-	    "down": { "model": "leatherworks:rack_side" }
+	    "up": { "model": "leatherworks:rack_side" }
         },
 		"inventory": [{}]
     }

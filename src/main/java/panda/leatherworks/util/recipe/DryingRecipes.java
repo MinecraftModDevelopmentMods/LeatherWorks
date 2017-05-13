@@ -26,13 +26,9 @@ public class DryingRecipes {
 	public static void addDryingRecipe(ItemStack input, ItemStack output,int ticks,ItemStack failed,float failureChance) {
 
 		Item item = input.getItem();
-		int meta = input.getMetadata();
-		int amount = input.stackSize;
-		ItemStack stack = new ItemStack(output.getItem(), amount, meta);
 		DryingRecipe recipe = new DryingRecipe(input,output,ticks,failed,failureChance);
 		
 		if (getAllDryingResults(item) == null) { 
-			
 			MultiList.put(item, recipe);
 			return;
 		}
@@ -45,23 +41,23 @@ public class DryingRecipes {
 	}
 
 	public static void addDryingRecipe(Item input, ItemStack output,int ticks,ItemStack failed,float failureChance) {
-		addDryingRecipe(new ItemStack(input), output,ticks,failed,failureChance);
+		addDryingRecipe(new ItemStack(input,1), output,ticks,failed,failureChance);
 	}
 
 	public static void addDryingRecipe(ItemStack input, Item output,int ticks,ItemStack failed,float failureChance) {
-		addDryingRecipe(input, new ItemStack(output),ticks,failed,failureChance);
+		addDryingRecipe(input, new ItemStack(output,1),ticks,failed,failureChance);
 	}
 	
 	public static void addDryingRecipe(Item input, ItemStack output,int ticks,Item failed,float failureChance) {
-		addDryingRecipe(new ItemStack(input), output,ticks,new ItemStack(failed),failureChance);
+		addDryingRecipe(new ItemStack(input,1), output,ticks,new ItemStack(failed,1),failureChance);
 	}
 
 	public static void addDryingRecipe(ItemStack input, Item output,int ticks,Item failed,float failureChance) {
-		addDryingRecipe(input, new ItemStack(output),ticks,new ItemStack(failed),failureChance);
+		addDryingRecipe(input, new ItemStack(output,1),ticks,new ItemStack(failed,1),failureChance);
 	}
 
 	public static void addDryingRecipe(Item input, Item output,int ticks,ItemStack failed,float failureChance) {
-		addDryingRecipe(new ItemStack(input), new ItemStack(output),ticks,failed,failureChance);
+		addDryingRecipe(new ItemStack(input,1), new ItemStack(output,1),ticks,failed,failureChance);
 	}
 
 	private static DryingRecipe getAllDryingResults(Item input) {
@@ -80,7 +76,7 @@ public class DryingRecipes {
 	}
 
 	
-	@Nullable
+	
 	public static DryingRecipe getDryingResults(ItemStack input) {
 		DryingRecipe result = getAllDryingResults(input);
 		//DryingRecipe returned = new ArrayList<ItemStack>();

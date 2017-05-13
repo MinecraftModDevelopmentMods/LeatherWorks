@@ -44,7 +44,6 @@ public final class BlockList {
 		list.add(TANNIN);
 		list.add(BARREL);
 		list.add(RACK);
-		System.out.println(list);
 		
 		return list;
 	}

@@ -49,7 +49,10 @@ public class PacketUpdateRack implements IMessage {
 			public IMessage onMessage(PacketUpdateRack message, MessageContext ctx) {
 				Minecraft.getMinecraft().addScheduledTask(() -> {
 					TileEntityItemRack te = (TileEntityItemRack)Minecraft.getMinecraft().theWorld.getTileEntity(message.pos);
+					//if(te != null){
 						te.inventory.setStackInSlot(0, message.stack);	
+					//}
+						
 				});
 				return null;
 			}

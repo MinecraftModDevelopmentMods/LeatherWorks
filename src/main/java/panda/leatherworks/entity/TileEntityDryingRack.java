@@ -6,6 +6,7 @@ import panda.leatherworks.util.recipe.DryingRecipe;
 import panda.leatherworks.util.recipe.DryingRecipes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -45,7 +46,7 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 	    {
 	        if (stack == null || stack.stackSize == 0)
 	            return null;
-	        if(DryingRecipes.containsRecipe(stack.getItem())){
+	        //if(DryingRecipes.containsRecipe(stack.getItem())){
 	        validateSlotIndex(slot);
 
 	        ItemStack existing = this.stacks[slot];
@@ -79,21 +80,21 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 	        }
 
 	        return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.stackSize - limit) : null;
-	    }return null;
+	    //}return null;
 	    }
 	};
 	
 	public TileEntityDryingRack(){
-		tickCounter = 0;
-		currentTime = 0;
-		endTime = 0;
+		this.tickCounter = 0;
+		this.currentTime = 0;
+		this.endTime = 0;
 	}
 	
 
 	@Override
 	public void update() {
 		World world = this.getWorld();
-		//System.out.println(tickCounter);
+		
 		if(!world.isRemote)
 		{
 			++tickCounter;
@@ -103,33 +104,36 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 				IItemHandler cap = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 				ItemStack stack = cap.getStackInSlot(0);
 				tickCounter = 0;
-				
-				//System.out.println(stack);
-				if(stack != null && endTime>0) {
-					currentTime = world.getTotalWorldTime();
+				currentTime = world.getTotalWorldTime();
+				//endTime = currentTime +
+				System.out.println(this.endTime);
+				if(stack != null && this.endTime>0) {
+					
 					//System.out.println(currentTime+":"+endTime);
-					//System.out.println(stack);
+					System.out.println(stack);
 					DryingRecipe recipe = DryingRecipes.getDryingResults(stack);
 					
 					if(recipe != null){
 						if(world.rand.nextFloat()< recipe.getFailureChance()){
-							System.out.println("ROT");
-							if(cap.extractItem(0, 1, true) != null){
-								cap.extractItem(0, 1, false);
-								
-								}
-							cap.insertItem(0, recipe.getFailed(), false);
-							endTime = 0;
+							System.out.println("ROT:"+stack);
+							//if(cap.extractItem(0, 1, true) != null){
+							cap.extractItem(0, 1, false);
+							//System.out.println(cap.getStackInSlot(0));
+							//	}
+							cap.insertItem(0, new ItemStack(Items.ROTTEN_FLESH), false);
+							//System.out.println(cap.getStackInSlot(0));
+
+							this.endTime = 0;
 						}else{
 							System.out.println(currentTime+":"+endTime);
 						if(endTime > 0 && currentTime >= endTime){
-							System.out.println("LEATHER");
-							if(cap.extractItem(0, 1, true) != null){
+							System.out.println("LEATHER:"+stack);
+							//if(cap.extractItem(0, 1, true) != null){
 							cap.extractItem(0, 1, false);
 							
-							}
-							cap.insertItem(0, recipe.getOutput(), false);
-							endTime = 0;
+							//}
+							cap.insertItem(0, new ItemStack(Items.LEATHER), false);
+							this.endTime = 0;
 						}
 						}
 						
@@ -140,7 +144,8 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 				}
 			}
 		}
-	}
+	} 
+	//when we collect, all endTimes are set to zero
 		
 	
 	

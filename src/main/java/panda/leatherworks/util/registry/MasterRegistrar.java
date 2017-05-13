@@ -45,8 +45,8 @@ public final class MasterRegistrar {
 			Object k = iterator.next();
 			if (k instanceof Block) {
 				Block block = (Block) k;
-				GameRegistry.register(block);
 				block.setUnlocalizedName(LeatherWorks.MODID + "." + block.getRegistryName().getResourcePath());
+				GameRegistry.register(block);
 				if (Item.getItemFromBlock(block) == null)
 					GameRegistry.register(new ItemBlock(block), block.getRegistryName());
 				if (block instanceof BlockTileEntity) {
