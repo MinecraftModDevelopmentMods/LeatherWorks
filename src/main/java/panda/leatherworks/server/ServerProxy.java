@@ -6,5 +6,6 @@ import panda.leatherworks.common.CommonProxy;
 
 @SideOnly(Side.SERVER)
 public class ServerProxy extends CommonProxy {
-
+	@Override
+	public void registerColorHandlers() {}
 }

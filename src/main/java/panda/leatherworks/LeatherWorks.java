@@ -99,8 +99,9 @@ public class LeatherWorks {
 		RecipeSorter.INSTANCE.register("leatherworks:shearsrecipe", ShearsRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		RecipeSorter.INSTANCE.register("leatherworks:repairleatherarmorrecipe", RecipeRepairLeatherArmor.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		RecipeSorter.INSTANCE.register("leatherworks:repairrecipe", RecipeRepair.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		
-		registerColorHandlers(event);
+
+		PROXY.registerColorHandlers();
+
 		CraftingManager.getInstance().addRecipe(new ScrapingRecipe(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(ItemList.RAWHIDE,1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.FLINT)))));
 		CraftingManager.getInstance().addRecipe(new ScrapingRecipe(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.RABBIT_HIDE), new ItemStack(Items.FLINT)))));
 		
@@ -121,17 +122,4 @@ public class LeatherWorks {
 
 	};
 	
-	@SideOnly(Side.CLIENT)
-	public static void registerColorHandlers(FMLInitializationEvent e) {
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(
-			(stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemBrokenArmor) stack.getItem()).getColor(stack),
-			ItemList.BROKEN_LEATHER_CHESTPLATE,
-			ItemList.BROKEN_LEATHER_HELMET,
-			ItemList.BROKEN_LEATHER_LEGGINGS,
-			ItemList.BROKEN_LEATHER_BOOTS
-		);
-	}
-	
-	
-
 }
