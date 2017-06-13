@@ -1,19 +1,15 @@
-package panda.leatherworks.entity;
+package panda.leatherworks.common.tileentity;
 
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.util.network.PacketUpdateRack;
 import panda.leatherworks.util.recipe.DryingRecipe;
 import panda.leatherworks.util.recipe.DryingRecipes;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;

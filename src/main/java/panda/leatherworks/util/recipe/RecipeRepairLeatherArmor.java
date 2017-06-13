@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import panda.leatherworks.items.armor.ItemBrokenArmor;
+import panda.leatherworks.common.item.armor.ItemBrokenArmor;
 import panda.leatherworks.util.registry.ItemList;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;

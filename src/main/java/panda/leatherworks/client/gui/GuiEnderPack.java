@@ -1,4 +1,4 @@
-package panda.leatherworks.gui;
+package panda.leatherworks.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;

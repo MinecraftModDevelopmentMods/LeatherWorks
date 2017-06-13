@@ -3,19 +3,18 @@ package panda.leatherworks.util.registry;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
-import panda.leatherworks.items.ItemBark;
-import panda.leatherworks.items.ItemBase;
-import panda.leatherworks.items.ItemBucketTannin;
-import panda.leatherworks.items.ItemCraftingLeather;
-import panda.leatherworks.items.ItemEnderPack;
-import panda.leatherworks.items.ItemPack;
-import panda.leatherworks.items.ItemRawhide;
-import panda.leatherworks.items.armor.ItemBrokenArmor;
-import panda.leatherworks.items.armor.ItemLeatherworksArmor;
+import panda.leatherworks.common.item.ItemBark;
+import panda.leatherworks.common.item.ItemBase;
+import panda.leatherworks.common.item.ItemBucketTannin;
+import panda.leatherworks.common.item.ItemCraftingLeather;
+import panda.leatherworks.common.item.ItemEnderPack;
+import panda.leatherworks.common.item.ItemPack;
+import panda.leatherworks.common.item.ItemRawhide;
+import panda.leatherworks.common.item.armor.ItemBrokenArmor;
+import panda.leatherworks.common.item.armor.ItemLeatherworksArmor;
 
 
 public final class ItemList {

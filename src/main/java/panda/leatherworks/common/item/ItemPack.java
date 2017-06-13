@@ -1,13 +1,12 @@
-package panda.leatherworks.items;
+package panda.leatherworks.common.item;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.blocks.BlockBarrel;
-import panda.leatherworks.gui.GuiHandler;
-import panda.leatherworks.gui.InventoryPack;
+import panda.leatherworks.common.block.BlockBarrel;
+import panda.leatherworks.common.GuiHandler;
 import panda.leatherworks.util.registry.IMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;

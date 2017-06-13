@@ -4,17 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPane;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.Fluid;
-import panda.leatherworks.blocks.BlockBarrel;
-import panda.leatherworks.blocks.BlockDebarkedLog;
-import panda.leatherworks.blocks.BlockEmpty;
-import panda.leatherworks.blocks.BlockRackTest;
-import panda.leatherworks.blocks.BlockTanninFluid;
-import panda.leatherworks.blocks.TanninFluid;
+import panda.leatherworks.common.block.BlockBarrel;
+import panda.leatherworks.common.block.BlockDebarkedLog;
+import panda.leatherworks.common.block.BlockEmpty;
+import panda.leatherworks.common.block.BlockRackTest;
+import panda.leatherworks.common.block.BlockTanninFluid;
+import panda.leatherworks.common.block.TanninFluid;
 
 public final class BlockList {
 

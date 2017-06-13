@@ -1,12 +1,14 @@
-package panda.leatherworks.gui;
+package panda.leatherworks.common;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import panda.leatherworks.client.gui.GuiEnderPack;
+import panda.leatherworks.client.gui.GuiPack;
+import panda.leatherworks.common.inventory.ContainerPack;
 
 public class GuiHandler implements IGuiHandler {
 	public static final int Pack_GUI = 0;

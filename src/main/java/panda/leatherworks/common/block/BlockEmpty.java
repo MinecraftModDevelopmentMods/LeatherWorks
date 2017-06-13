@@ -1,9 +1,7 @@
-package panda.leatherworks.blocks;
+package panda.leatherworks.common.block;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

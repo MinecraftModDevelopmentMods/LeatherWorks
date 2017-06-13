@@ -1,19 +1,15 @@
-package panda.leatherworks.items;
+package panda.leatherworks.common.item;
 
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.gui.GuiHandler;
+import panda.leatherworks.common.GuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class ItemEnderPack extends ItemBase{

@@ -1,6 +1,6 @@
 package panda.leatherworks.util.events;
 
-import panda.leatherworks.blocks.BlockDebarkedLog;
+import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.util.registry.BlockList;
 import panda.leatherworks.util.registry.ItemList;
 import panda.leatherworks.util.registry.MasterRegistrar;
@@ -12,9 +12,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;

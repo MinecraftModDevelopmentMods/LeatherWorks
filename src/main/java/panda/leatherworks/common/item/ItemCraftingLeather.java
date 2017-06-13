@@ -1,19 +1,11 @@
-package panda.leatherworks.items;
+package panda.leatherworks.common.item;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nullable;
-
-import com.google.common.base.Predicate;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityAreaEffectCloud;
-import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,11 +1,9 @@
-package panda.leatherworks.items.armor;
+package panda.leatherworks.common.item.armor;
 
 import java.util.Random;
 
-import panda.leatherworks.util.registry.ItemList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -14,7 +12,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
 public class ItemLeatherworksArmor extends ItemArmor implements ISpecialArmor{
 

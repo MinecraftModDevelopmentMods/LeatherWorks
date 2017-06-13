@@ -1,11 +1,9 @@
-package panda.leatherworks.gui;
-
-import java.util.List;
+package panda.leatherworks.common.inventory;
 
 import javax.annotation.Nullable;
 
-import panda.leatherworks.items.ItemEnderPack;
-import panda.leatherworks.items.ItemPack;
+import panda.leatherworks.common.item.ItemEnderPack;
+import panda.leatherworks.common.item.ItemPack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,7 +12,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class ContainerPack extends Container {
 

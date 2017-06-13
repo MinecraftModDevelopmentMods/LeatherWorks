@@ -1,4 +1,4 @@
-package panda.leatherworks.items;
+package panda.leatherworks.common.item;
 
 import javax.annotation.Nullable;
 

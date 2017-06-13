@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.leatherworks.common.CommonProxy;
-import panda.leatherworks.items.armor.ItemBrokenArmor;
+import panda.leatherworks.common.item.armor.ItemBrokenArmor;
 import panda.leatherworks.util.registry.ItemList;
 
 @SideOnly(Side.CLIENT)

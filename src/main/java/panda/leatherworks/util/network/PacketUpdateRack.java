@@ -1,8 +1,7 @@
 package panda.leatherworks.util.network;
 
 import io.netty.buffer.ByteBuf;
-import panda.leatherworks.entity.TileEntityDryingRack;
-import panda.leatherworks.entity.TileEntityItemRack;
+import panda.leatherworks.common.tileentity.TileEntityItemRack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;

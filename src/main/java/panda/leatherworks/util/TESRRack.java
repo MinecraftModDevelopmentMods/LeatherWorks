@@ -2,8 +2,8 @@ package panda.leatherworks.util;
 
 import org.lwjgl.opengl.GL11;
 
-import panda.leatherworks.blocks.BlockRackTest;
-import panda.leatherworks.entity.TileEntityItemRack;
+import panda.leatherworks.common.block.BlockRackTest;
+import panda.leatherworks.common.tileentity.TileEntityItemRack;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

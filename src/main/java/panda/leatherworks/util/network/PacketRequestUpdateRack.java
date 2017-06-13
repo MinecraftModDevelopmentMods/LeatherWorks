@@ -7,8 +7,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import panda.leatherworks.entity.TileEntityDryingRack;
-import panda.leatherworks.entity.TileEntityItemRack;
+import panda.leatherworks.common.tileentity.TileEntityItemRack;
 
 public class PacketRequestUpdateRack implements IMessage {
 

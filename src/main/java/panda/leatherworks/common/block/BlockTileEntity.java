@@ -1,4 +1,4 @@
-package panda.leatherworks.blocks;
+package panda.leatherworks.common.block;
 
 
 import net.minecraft.block.Block;

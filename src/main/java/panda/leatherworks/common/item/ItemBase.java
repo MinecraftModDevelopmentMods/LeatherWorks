@@ -1,4 +1,4 @@
-package panda.leatherworks.items;
+package panda.leatherworks.common.item;
 
 import net.minecraft.item.Item;
 import panda.leatherworks.LeatherWorks;

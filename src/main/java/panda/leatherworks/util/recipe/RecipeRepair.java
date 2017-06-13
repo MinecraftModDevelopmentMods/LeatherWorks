@@ -7,14 +7,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import panda.leatherworks.items.armor.ItemBrokenArmor;
-import panda.leatherworks.items.armor.ItemLeatherworksArmor;
+import panda.leatherworks.common.item.armor.ItemLeatherworksArmor;
 import panda.leatherworks.util.registry.ItemList;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
 public class RecipeRepair implements IRecipe

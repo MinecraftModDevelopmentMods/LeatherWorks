@@ -1,4 +1,4 @@
-package panda.leatherworks.blocks;
+package panda.leatherworks.common.block;
 
 import java.util.List;
 import java.util.Random;
@@ -6,13 +6,11 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.items.ItemCraftingLeather;
-import panda.leatherworks.items.ItemPack;
-import panda.leatherworks.items.armor.ItemBrokenArmor;
+import panda.leatherworks.common.item.ItemCraftingLeather;
+import panda.leatherworks.common.item.ItemPack;
 import panda.leatherworks.util.registry.BlockList;
 import panda.leatherworks.util.registry.ItemList;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

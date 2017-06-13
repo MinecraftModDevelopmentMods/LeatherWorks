@@ -1,8 +1,6 @@
-package panda.leatherworks.items.armor;
+package panda.leatherworks.common.item.armor;
 
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 import panda.leatherworks.LeatherWorks;
 import net.minecraft.enchantment.Enchantment;

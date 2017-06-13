@@ -1,10 +1,10 @@
-package panda.leatherworks.blocks;
+package panda.leatherworks.common.block;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import panda.leatherworks.util.registry.BlockList;
-import net.minecraft.block.material.MaterialLiquid;
+
 public class TanninFluid extends Fluid {
 
 	public TanninFluid() {

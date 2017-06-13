@@ -1,8 +1,6 @@
-package panda.leatherworks.blocks;
+package panda.leatherworks.common.block;
 
-import net.minecraft.block.BlockLog;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -12,7 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -34,7 +31,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.entity.TileEntityDryingRack;
+import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.util.recipe.DryingRecipe;
 import panda.leatherworks.util.recipe.DryingRecipes;
 

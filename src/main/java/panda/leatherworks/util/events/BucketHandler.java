@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import panda.leatherworks.blocks.BlockTanninFluid;
+import panda.leatherworks.common.block.BlockTanninFluid;
 import panda.leatherworks.util.registry.BlockList;
 import panda.leatherworks.util.registry.ItemList;
 
