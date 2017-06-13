@@ -3,6 +3,7 @@ package panda.leatherworks.common.item;
 import net.minecraft.item.Item;
 import panda.leatherworks.LeatherWorks;
 
+@Deprecated
 public class ItemBase extends Item {
 
 	public ItemBase(String name) {
