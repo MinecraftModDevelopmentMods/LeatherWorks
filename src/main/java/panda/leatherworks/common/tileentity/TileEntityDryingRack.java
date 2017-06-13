@@ -1,7 +1,7 @@
 package panda.leatherworks.common.tileentity;
 
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.util.network.PacketUpdateRack;
+import panda.leatherworks.common.network.message.MessageUpdateRack;
 import panda.leatherworks.util.recipe.DryingRecipe;
 import panda.leatherworks.util.recipe.DryingRecipes;
 import net.minecraft.client.Minecraft;
@@ -28,7 +28,7 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 		protected void onContentsChanged(int slot) {
 			World world = Minecraft.getMinecraft().theWorld;
 
-			LeatherWorks.wrapper.sendToAllAround(new PacketUpdateRack(TileEntityDryingRack.this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
+			LeatherWorks.wrapper.sendToAllAround(new MessageUpdateRack(TileEntityDryingRack.this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
 			
 		}
 		@Override

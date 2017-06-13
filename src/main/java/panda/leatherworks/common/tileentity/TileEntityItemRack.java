@@ -3,8 +3,8 @@ package panda.leatherworks.common.tileentity;
 import javax.annotation.Nullable;
 
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.util.network.PacketRequestUpdateRack;
-import panda.leatherworks.util.network.PacketUpdateRack;
+import panda.leatherworks.common.network.message.MessageRequestUpdateRack;
+import panda.leatherworks.common.network.message.MessageUpdateRack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,7 +23,7 @@ public class TileEntityItemRack extends TileEntity {
 		protected void onContentsChanged(int slot) {
 			World world = Minecraft.getMinecraft().theWorld;
 
-			LeatherWorks.wrapper.sendToAllAround(new PacketUpdateRack(TileEntityItemRack.this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
+			LeatherWorks.wrapper.sendToAllAround(new MessageUpdateRack(TileEntityItemRack.this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
 			
 		}
 		@Override
@@ -37,7 +37,7 @@ public class TileEntityItemRack extends TileEntity {
 	
 	@Override
 	public void onLoad() {
-		LeatherWorks.wrapper.sendToServer(new PacketRequestUpdateRack(this));
+		LeatherWorks.wrapper.sendToServer(new MessageRequestUpdateRack(this));
 	}
 	
 	@Override

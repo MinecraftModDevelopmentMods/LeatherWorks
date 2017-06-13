@@ -33,8 +33,8 @@ import panda.leatherworks.common.GuiHandler;
 import panda.leatherworks.util.events.BucketHandler;
 import panda.leatherworks.util.events.DebarkHandler;
 import panda.leatherworks.util.events.LivingDropsHandler;
-import panda.leatherworks.util.network.PacketRequestUpdateRack;
-import panda.leatherworks.util.network.PacketUpdateRack;
+import panda.leatherworks.common.network.message.MessageRequestUpdateRack;
+import panda.leatherworks.common.network.message.MessageUpdateRack;
 import panda.leatherworks.util.recipe.RecipeRepair;
 import panda.leatherworks.util.recipe.RecipeRepairLeatherArmor;
 import panda.leatherworks.util.recipe.ScrapingRecipe;
@@ -64,9 +64,8 @@ public class LeatherWorks {
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) throws ExistingSubstitutionException {
 		wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(LeatherWorks.MODID);
-		wrapper.registerMessage(new PacketUpdateRack.Handler(), PacketUpdateRack.class, 0, Side.CLIENT);
-		wrapper.registerMessage(new PacketRequestUpdateRack.Handler(), PacketRequestUpdateRack.class, 1, Side.SERVER);
-		
+		PROXY.registerMessageHandlers(wrapper);
+
 		DUMMYLEATHER = EnumHelper.addArmorMaterial("leather", "leatherworks:leather", 5, new int[]{0,0,0,0}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 		MasterRegistrar.callRegistry(event);
 		MinecraftForge.EVENT_BUS.register(new LivingDropsHandler());
