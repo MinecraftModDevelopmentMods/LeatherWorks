@@ -1,4 +1,4 @@
-package panda.leatherworks.util.recipe;
+package panda.leatherworks.common.crafting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,13 +26,13 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-public class ShearsRecipe implements IRecipe{
+public class RecipeScraping implements IRecipe{
 
 
 	private final ItemStack recipeOutput;
     public final List<ItemStack> recipeItems;
 
-    public ShearsRecipe(ItemStack output, List<ItemStack> inputList)
+    public RecipeScraping(ItemStack output, List<ItemStack> inputList)
     {
         this.recipeOutput = output;
         this.recipeItems = inputList;
@@ -101,8 +101,8 @@ public class ShearsRecipe implements IRecipe{
         return this.recipeItems.size();
     }
 
-@Override
-public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+
+	public ItemStack[] getRemainingItems(InventoryCrafting inv) {
 		
 		ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 
@@ -110,18 +110,12 @@ public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         {
             ItemStack itemstack = inv.getStackInSlot(i);
             if(itemstack != null){
-            	if(itemstack.getItem() == Items.SHEARS){
+            	if(itemstack.getItem() == Items.FLINT){
                 	ItemStack shearscopy = itemstack.copy();
-                	if(shearscopy.attemptDamageItem(1, Minecraft.getMinecraft().theWorld.rand)){
-                		ForgeEventFactory.onPlayerDestroyItem(ForgeHooks.getCraftingPlayer(), itemstack, null);
-                		aitemstack[i] = null;
-                	}else{
                 		aitemstack[i] = shearscopy;
                 	}
             }
-            }else{
-            	aitemstack[i] = ForgeHooks.getContainerItem(itemstack);
-            } 
+            
         }
 
         return aitemstack;

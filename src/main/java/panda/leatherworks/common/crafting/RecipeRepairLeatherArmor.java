@@ -1,4 +1,4 @@
-package panda.leatherworks.util.recipe;
+package panda.leatherworks.common.crafting;
 
 import com.google.common.collect.Lists;
 

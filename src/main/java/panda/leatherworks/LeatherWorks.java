@@ -32,10 +32,10 @@ import panda.leatherworks.common.GuiHandler;
 import panda.leatherworks.common.eventhandler.BucketHandler;
 import panda.leatherworks.common.eventhandler.DebarkHandler;
 import panda.leatherworks.common.eventhandler.LivingDropsHandler;
-import panda.leatherworks.util.recipe.RecipeRepair;
-import panda.leatherworks.util.recipe.RecipeRepairLeatherArmor;
-import panda.leatherworks.util.recipe.ScrapingRecipe;
-import panda.leatherworks.util.recipe.ShearsRecipe;
+import panda.leatherworks.common.crafting.RecipeRepair;
+import panda.leatherworks.common.crafting.RecipeRepairLeatherArmor;
+import panda.leatherworks.common.crafting.RecipeScraping;
+import panda.leatherworks.common.crafting.RecipeShears;
 import panda.leatherworks.util.registry.ItemList;
 import panda.leatherworks.util.registry.MasterRegistrar;
 
@@ -83,18 +83,18 @@ public class LeatherWorks {
 	@EventHandler
 	public void init(FMLInitializationEvent event) throws ExistingSubstitutionException {
 		
-		RecipeSorter.INSTANCE.register("leatherworks:scrapingrecipe", ScrapingRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.INSTANCE.register("leatherworks:shearsrecipe", ShearsRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.INSTANCE.register("leatherworks:scrapingrecipe", RecipeScraping.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.INSTANCE.register("leatherworks:shearsrecipe", RecipeShears.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		RecipeSorter.INSTANCE.register("leatherworks:repairleatherarmorrecipe", RecipeRepairLeatherArmor.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		RecipeSorter.INSTANCE.register("leatherworks:repairrecipe", RecipeRepair.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		PROXY.registerColorHandlers();
 
-		CraftingManager.getInstance().addRecipe(new ScrapingRecipe(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(ItemList.RAWHIDE,1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.FLINT)))));
-		CraftingManager.getInstance().addRecipe(new ScrapingRecipe(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.RABBIT_HIDE), new ItemStack(Items.FLINT)))));
+		CraftingManager.getInstance().addRecipe(new RecipeScraping(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(ItemList.RAWHIDE,1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.FLINT)))));
+		CraftingManager.getInstance().addRecipe(new RecipeScraping(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.RABBIT_HIDE), new ItemStack(Items.FLINT)))));
 		
-		CraftingManager.getInstance().addRecipe(new ShearsRecipe(new ItemStack(ItemList.LEATHER_STRIP,4),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.LEATHER), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
-		CraftingManager.getInstance().addRecipe(new ShearsRecipe(new ItemStack(ItemList.LEATHER_STRIP,8),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(ItemList.LEATHER_SHEET), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
+		CraftingManager.getInstance().addRecipe(new RecipeShears(new ItemStack(ItemList.LEATHER_STRIP,4),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.LEATHER), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
+		CraftingManager.getInstance().addRecipe(new RecipeShears(new ItemStack(ItemList.LEATHER_STRIP,8),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(ItemList.LEATHER_SHEET), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
 		CraftingManager.getInstance().addRecipe( new RecipeRepairLeatherArmor());
 		CraftingManager.getInstance().addRecipe( new RecipeRepair());
 		
