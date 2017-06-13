@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockTileEntity;
 import panda.leatherworks.common.tileentity.TileEntityItemRack;
-import panda.leatherworks.util.TESRRack;
+import panda.leatherworks.client.renderer.tileentity.TileEntityItemRackRenderer;
 
 public final class MasterRegistrar {
 
@@ -88,7 +88,7 @@ public final class MasterRegistrar {
 		RecipeRegistry.register();
 		
 		if (e.getSide() == Side.CLIENT){
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemRack.class, new TESRRack());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemRack.class, new TileEntityItemRackRenderer());
 		}
 	}
 

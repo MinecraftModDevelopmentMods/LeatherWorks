@@ -1,5 +1,7 @@
-package panda.leatherworks.util;
+package panda.leatherworks.client.renderer.tileentity;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import panda.leatherworks.common.block.BlockRackTest;
@@ -15,7 +17,8 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 
-public class TESRRack extends TileEntitySpecialRenderer<TileEntityItemRack> {
+@SideOnly(Side.CLIENT)
+public class TileEntityItemRackRenderer extends TileEntitySpecialRenderer<TileEntityItemRack> {
 	@Override
 	public void renderTileEntityAt(TileEntityItemRack te, double x, double y, double z, float partialTicks, int destroyStage) {
 		ItemStack stack = te.inventory.getStackInSlot(0);
