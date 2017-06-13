@@ -53,7 +53,7 @@ import panda.leatherworks.util.registry.MasterRegistrar;
 
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "0.46.0";
+	public static final String VERSION = "1.46.0";
 	public static final String NAME = "Leather Works";
 	public static ArmorMaterial DUMMYLEATHER;
 	public static SimpleNetworkWrapper wrapper;

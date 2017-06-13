@@ -106,16 +106,16 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 				tickCounter = 0;
 				currentTime = world.getTotalWorldTime();
 				//endTime = currentTime +
-				System.out.println(this.endTime);
+				//System.out.println(this.endTime);
 				if(stack != null && this.endTime>0) {
 					
 					//System.out.println(currentTime+":"+endTime);
-					System.out.println(stack);
+					//System.out.println(stack);
 					DryingRecipe recipe = DryingRecipes.getDryingResults(stack);
 					
 					if(recipe != null){
 						if(world.rand.nextFloat()< recipe.getFailureChance()){
-							System.out.println("ROT:"+stack);
+							//System.out.println("ROT:"+stack);
 							//if(cap.extractItem(0, 1, true) != null){
 							cap.extractItem(0, 1, false);
 							//System.out.println(cap.getStackInSlot(0));
@@ -125,9 +125,9 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 
 							this.endTime = 0;
 						}else{
-							System.out.println(currentTime+":"+endTime);
+							//System.out.println(currentTime+":"+endTime);
 						if(endTime > 0 && currentTime >= endTime){
-							System.out.println("LEATHER:"+stack);
+							//System.out.println("LEATHER:"+stack);
 							//if(cap.extractItem(0, 1, true) != null){
 							cap.extractItem(0, 1, false);
 							

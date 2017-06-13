@@ -22,6 +22,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
@@ -56,6 +57,7 @@ public class BlockBarrel extends Block
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)).withProperty(FLUID, Integer.valueOf(0)));
         this.setCreativeTab(LeatherWorks.LeatherTab);
         this.setRegistryName("barrel");
+        this.setTickRandomly(true);
     }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
@@ -108,10 +110,27 @@ public class BlockBarrel extends Block
         }
         else
         {
+        	
+
+        	
             int i = ((Integer)state.getValue(LEVEL)).intValue();
             int f = ((Integer)state.getValue(FLUID)).intValue();
             Item item = heldItem.getItem();
+        	if (item == Item.getItemFromBlock(Blocks.WOODEN_PRESSURE_PLATE))
+            {
+                if (!worldIn.isRemote )
+                {
+                    if (!playerIn.capabilities.isCreativeMode)
+                    {
+                    	--heldItem.stackSize;
 
+                    }
+
+                    worldIn.setBlockState(pos,BlockList.BARREL_SEALED.getDefaultState(), 2);
+                }
+
+                return true;
+            }
             if (item == Items.WATER_BUCKET)
             {
                 if (i == 0 && !worldIn.isRemote )
@@ -141,6 +160,60 @@ public class BlockBarrel extends Block
 
                     return true;
                 }
+            
+            if (item == ItemList.TANNIN_BOTTLE && i < 3 && !worldIn.isRemote && (f == 1 || i==0 ))
+            {
+                if (!playerIn.capabilities.isCreativeMode)
+                {
+                    ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
+
+                    if (--heldItem.stackSize == 0)
+                    {
+                        playerIn.setHeldItem(hand, itemstack1);
+                    }
+                    else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+                    {
+                        playerIn.dropItem(itemstack1, false);
+                    }
+                    else if (playerIn instanceof EntityPlayerMP)
+                    {
+                        ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                    }
+                }
+                if(f==0){
+                	state.cycleProperty(FLUID);//TODO DOESNT CHANGE PROPERTY?
+                }
+                this.setFluidLevel(worldIn, pos, state, i + 1);
+                
+            }
+            
+            if (item == Items.POTIONITEM && i < 3 && !worldIn.isRemote && (f == 0 || i==0 ))
+            {
+            	if(PotionUtils.getPotionFromItem(new ItemStack(item)) == PotionTypes.WATER ){
+                if (!playerIn.capabilities.isCreativeMode)
+                {
+                    ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
+
+                    if (--heldItem.stackSize == 0)
+                    {
+                        playerIn.setHeldItem(hand, itemstack1);
+                    }
+                    else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+                    {
+                        playerIn.dropItem(itemstack1, false);
+                    }
+                    else if (playerIn instanceof EntityPlayerMP)
+                    {
+                        ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                    }
+                }
+                if(f==1){
+                	worldIn.setBlockState(pos,state.withProperty(FLUID, 0),3);
+                }
+                this.setFluidLevel(worldIn, pos, state, i + 1);
+                
+            	}
+            }
             if (item == Items.WATER_BUCKET)
             {
                 if (i <3 && !worldIn.isRemote && f ==0)
@@ -325,6 +398,8 @@ public class BlockBarrel extends Block
                             return true;
                     	}
                 }
+                
+                
 
                 if (i > 0 && item instanceof ItemBanner && f ==0)
                 {
@@ -369,7 +444,16 @@ public class BlockBarrel extends Block
         }
     }
 
-    public void setFluidLevel(World worldIn, BlockPos pos, IBlockState state, int level)
+	@Override
+	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    {
+        this.updateTick(worldIn, pos, state, random);
+    }
+
+
+
+
+	public void setFluidLevel(World worldIn, BlockPos pos, IBlockState state, int level)
     {
         worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(level, 0, 3))), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
@@ -381,8 +465,8 @@ public class BlockBarrel extends Block
     public void fillWithRain(World worldIn, BlockPos pos)
     {
 
-        if (worldIn.rand.nextInt(4) == 1)
-        {
+       // if (worldIn.rand.nextInt(2) == 0)
+        //{
 
             float f = worldIn.getBiome(pos).getFloatTemperature(pos);
 
@@ -395,7 +479,7 @@ public class BlockBarrel extends Block
                     worldIn.setBlockState(pos, iblockstate.cycleProperty(LEVEL), 2);
                 }
             }
-        }
+        //}
     }
 
     /**

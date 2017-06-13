@@ -7,12 +7,14 @@ import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionHelper;
+import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -30,7 +32,8 @@ public class RecipeRegistry {
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.TANNIN_BALL, 2), new ItemStack(ItemList.BARK,1,0), new ItemStack(ItemList.BARK,1,0));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.TANNIN_BALL, 1), new ItemStack(ItemList.BARK,1,3), new ItemStack(ItemList.BARK,1,3),new ItemStack(ItemList.BARK,1,3));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.TANNIN_BALL, 1), new ItemStack(ItemList.BARK,1,2), new ItemStack(ItemList.BARK,1,2),new ItemStack(ItemList.BARK,1,2),new ItemStack(ItemList.BARK,1,2));
-	
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.TANNIN_BOTTLE),new ItemStack(ItemList.TANNIN_BALL, 1),PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER));
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.TANNIN_BUCKET),new ItemStack(ItemList.TANNIN_BALL, 1),new ItemStack(Items.WATER_BUCKET));
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PLANKS,4,0), new ItemStack(BlockList.DEBARKED_LOG_OAK));
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PLANKS,4,1), new ItemStack(BlockList.DEBARKED_LOG_SPRUCE));
@@ -43,11 +46,16 @@ public class RecipeRegistry {
 		
 		GameRegistry.addShapedRecipe(new ItemStack(ItemList.PACK), new Object[] {"SLS", "LIL", "SLS", 'S',  new ItemStack(ItemList.LEATHER_STRIP), 'L', new ItemStack(ItemList.LEATHER_SHEET), 'I', new ItemStack(Items.GOLD_INGOT)});
 		GameRegistry.addShapedRecipe(new ItemStack(ItemList.ENDER_PACK), new Object[] {"EEE", "EPE", "EYE", 'P',  new ItemStack(ItemList.PACK), 'E', new ItemStack(Items.ENDER_PEARL), 'Y', new ItemStack(Items.ENDER_EYE)});
+		GameRegistry.addShapedRecipe(new ItemStack(BlockList.RACK), new Object[] {"SSS", 'S',  new ItemStack(Blocks.WOODEN_SLAB,1,OreDictionary.WILDCARD_VALUE)});
 		
 		for(ItemStack stack :OreDictionary.getOres("plankWood")){
 			GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL), new Object[] {"P P", "P P", "PPP", 'P',  stack});
+			GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL_SEALED), new Object[] {"PLP", "P P", "PPP", 'P',  stack,'L',  Blocks.WOODEN_PRESSURE_PLATE});
 		}
 		
+		GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL_SEALED), new Object[] {"L", "P", 'P',  BlockList.BARREL,'L',  Blocks.WOODEN_PRESSURE_PLATE});
+		GameRegistry.addShapelessRecipe(new ItemStack(BlockList.BARREL),new ItemStack(BlockList.BARREL_SEALED));
+				
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.PACK,1,1),new ItemStack(ItemList.PACK), new ItemStack(Items.DYE,1,1));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.PACK,1,2),new ItemStack(ItemList.PACK), new ItemStack(Items.DYE,1,14));
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.PACK,1,3),new ItemStack(ItemList.PACK), new ItemStack(Items.DYE,1,11));
@@ -68,16 +76,6 @@ public class RecipeRegistry {
 		
 	
 	}
-
-	
-
-		//removeRecipe(Items.GLASS_BOTTLE);
-
-		//GameRegistry.addSmelting(Blocks.GLASS, new ItemStack(ItemList.MOLTEN_GLASS), 0.2f);
-
-		//GameRegistry.addShapelessRecipe(new ItemStack(ItemList.GLASS_MIX, 2), new ItemStack(ItemList.SODA_ASH),new ItemStack(Blocks.SAND), new ItemStack(Blocks.SAND));
-
-	
 
 	public static void removeFurnaceRecipe(ItemStack resultItem) {
 		Map<ItemStack, ItemStack> recipes = FurnaceRecipes.instance().getSmeltingList();

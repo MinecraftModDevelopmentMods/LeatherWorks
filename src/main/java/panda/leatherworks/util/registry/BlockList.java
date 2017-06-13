@@ -6,10 +6,12 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.Fluid;
 import panda.leatherworks.blocks.BlockBarrel;
 import panda.leatherworks.blocks.BlockDebarkedLog;
+import panda.leatherworks.blocks.BlockEmpty;
 import panda.leatherworks.blocks.BlockRackTest;
 import panda.leatherworks.blocks.BlockTanninFluid;
 import panda.leatherworks.blocks.TanninFluid;
@@ -32,6 +34,7 @@ public final class BlockList {
 	public static final Block DEBARKED_LOG_JUNGLE = new BlockDebarkedLog("jungle");
 	public static final Block BARREL = new BlockBarrel();
 	public static final Block RACK = new BlockRackTest();
+	public static final Block BARREL_SEALED = new BlockEmpty();
 	
 	public static List<Block> getList() {
 		List<Block> list = new ArrayList<Block>();
@@ -43,6 +46,7 @@ public final class BlockList {
 		list.add(DEBARKED_LOG_DARKOAK);
 		list.add(TANNIN);
 		list.add(BARREL);
+		list.add(BARREL_SEALED);
 		list.add(RACK);
 		
 		return list;

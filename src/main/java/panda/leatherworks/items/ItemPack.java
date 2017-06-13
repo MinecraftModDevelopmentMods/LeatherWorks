@@ -59,6 +59,16 @@ public class ItemPack extends ItemBase implements IMeta{
 	public int getMaxMeta() {
 		return 15;
 	}
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
+	{
+		list.add("WARNING: Filling more than one pack in an inventory is not always item safe.");
+		list.add("Do so at your own risk");
+		
+	}
+	
+	
 
 	@Override
 	public List<ModelResourceLocation> getMetaModelLocations(List<ModelResourceLocation> map) {

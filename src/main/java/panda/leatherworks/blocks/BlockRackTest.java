@@ -72,7 +72,7 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 						DryingRecipe recipe = DryingRecipes.getDryingResults(heldItem);
 						if(recipe != null){
 							tile.setEndTime(world.getTotalWorldTime()+ recipe.getTicks());
-							System.out.println("found recipe!");
+							//System.out.println("found recipe!");
 						}
 						
 					}

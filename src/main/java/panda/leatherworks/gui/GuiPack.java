@@ -10,6 +10,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiPack extends GuiContainer {
-	private static final ResourceLocation PACK_GUI_TEXTURES = new ResourceLocation("leatherworks:textures/gui/container/pack.png");
+	private static ResourceLocation PACK_GUI_TEXTURES = new ResourceLocation("leatherworks:textures/gui/container/pack.png");
 
 
 	private ItemStack item;
@@ -42,6 +43,11 @@ public class GuiPack extends GuiContainer {
 		this.guiLeft = Math.abs((this.width - this.xSize) / 2);
 		this.guiTop = Math.abs((this.height - this.ySize) / 2);
 		this.item = Packitem;
+		setGuiTexture(this.item);
+	}
+
+	private void setGuiTexture(ItemStack item) {
+		PACK_GUI_TEXTURES = new ResourceLocation("leatherworks:textures/gui/container/pack_"+item.getItemDamage()+".png");
 	}
 
 	@Override

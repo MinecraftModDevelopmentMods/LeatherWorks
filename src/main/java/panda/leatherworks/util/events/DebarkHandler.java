@@ -15,6 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -34,21 +35,20 @@ public class DebarkHandler {
 			
 			return;
 		}
-		//System.out.println("doot");
-		
-		//if(world.getTotalWorldTime() % 4 ==0){
-			world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 2F, 1.0F);
+		//if(world.getTotalWorldTime() % 2 ==0){
+			world.playSound(player, player.posX, player.posY, player.posZ, MasterRegistrar.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
 		//}
-		
+
 		if(!world.isRemote){
 		ItemStack heldStack = player.getHeldItemMainhand();
+	
 		if (heldStack != null)
 		{
 			if(heldStack.getItem() == Items.FLINT){
 				if (world.rand.nextInt(20) == 0)
 				{
 					IBlockState newState = findCorrectState(state);
-					
+					if(newState != null){
 					world.setBlockState(event.getPos(), newState, 3);
 					 ItemStack stackOut = findCorrectStack(state);
 					 if (stackOut != null) {
@@ -59,9 +59,20 @@ public class DebarkHandler {
 						 entityitem.onCollideWithPlayer(player);
 						 }
 					}
+					}
 				}
 			}
 		}
+		}else{
+			ItemStack heldStack = player.getHeldItemMainhand();
+			
+			if (heldStack != null)
+			{
+				if(heldStack.getItem() == Items.FLINT){
+						player.swingArm(EnumHand.MAIN_HAND);	
+				}
+			}
+			
 		}
 	}
 
@@ -100,6 +111,7 @@ public class DebarkHandler {
 		return null;
 	}
 	
+
 	private ItemStack findCorrectStack(IBlockState state) {
 		Block block = state.getBlock();
 		int meta;
@@ -111,7 +123,7 @@ public class DebarkHandler {
 		}else 
 		if( block== Blocks.LOG2){
 			meta = block.getMetaFromState(state);
-			System.out.println(meta%4);
+			//System.out.println(meta%4);
 			switch(meta%4){
 			case 0:
 				return new ItemStack(ItemList.BARK,1,meta%4);
