@@ -11,6 +11,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+/**
+ * Using a base class for blocks limits inheritance of other subclasses of Block.
+ * The functionality of this class can easily be added to an external method, perhaps applied
+ * when blocks are registered.
+ */
+@Deprecated
 public abstract class BlockTileEntity<TE extends TileEntity> extends Block {
 
 	public BlockTileEntity(Material material, String name) {
