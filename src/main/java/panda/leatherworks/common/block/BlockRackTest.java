@@ -32,8 +32,8 @@ import com.google.common.collect.ImmutableMap;
 
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.tileentity.TileEntityDryingRack;
-import panda.leatherworks.util.recipe.DryingRecipe;
-import panda.leatherworks.util.recipe.DryingRecipes;
+import panda.leatherworks.common.crafting.DryingRecipe;
+import panda.leatherworks.common.crafting.DryingRecipes;
 
 public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 

@@ -2,8 +2,8 @@ package panda.leatherworks.common.tileentity;
 
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.network.message.MessageUpdateRack;
-import panda.leatherworks.util.recipe.DryingRecipe;
-import panda.leatherworks.util.recipe.DryingRecipes;
+import panda.leatherworks.common.crafting.DryingRecipe;
+import panda.leatherworks.common.crafting.DryingRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

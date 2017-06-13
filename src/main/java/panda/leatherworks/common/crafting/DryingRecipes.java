@@ -1,14 +1,9 @@
-package panda.leatherworks.util.recipe;
+package panda.leatherworks.common.crafting;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import panda.leatherworks.util.registry.ItemList;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

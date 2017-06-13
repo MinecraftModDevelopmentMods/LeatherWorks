@@ -13,13 +13,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionUtils;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.util.recipe.DryingRecipes;
+import panda.leatherworks.common.crafting.DryingRecipes;
 
 public class RecipeRegistry {
 
