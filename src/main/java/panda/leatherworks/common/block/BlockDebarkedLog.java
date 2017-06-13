@@ -13,7 +13,7 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockDebarkedLog extends BlockLog
 {
-	public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.<BlockLog.EnumAxis>create("axis", BlockLog.EnumAxis.class);
+	public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis.class);
 	
 
 	
@@ -38,7 +38,7 @@ public class BlockDebarkedLog extends BlockLog
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {LOG_AXIS});
+        return new BlockStateContainer(this, LOG_AXIS);
     }
     
     public boolean isOpaqueCube(IBlockState state)
@@ -81,7 +81,7 @@ public class BlockDebarkedLog extends BlockLog
     {
         int i = 0;
 
-        switch ((BlockLog.EnumAxis)state.getValue(LOG_AXIS))
+        switch (state.getValue(LOG_AXIS))
         {
             case X:
                 i |= 0;

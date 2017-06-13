@@ -39,18 +39,26 @@ public class RecipeRegistry {
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PLANKS,4,4), new ItemStack(BlockList.DEBARKED_LOG_ACACIA));
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.PLANKS,4,5), new ItemStack(BlockList.DEBARKED_LOG_DARKOAK));
 		
-		GameRegistry.addShapedRecipe(new ItemStack(ItemList.LEATHER_SHEET), new Object[] {"SL", "LS", 'S',  new ItemStack(Items.LEATHER), 'L', new ItemStack(Items.STRING)});
+		GameRegistry.addShapedRecipe(new ItemStack(ItemList.LEATHER_SHEET), "SL", "LS", 'S', new ItemStack(Items.LEATHER),
+			'L', new ItemStack(Items.STRING));
 		
-		GameRegistry.addShapedRecipe(new ItemStack(ItemList.PACK), new Object[] {"SLS", "LIL", "SLS", 'S',  new ItemStack(ItemList.LEATHER_STRIP), 'L', new ItemStack(ItemList.LEATHER_SHEET), 'I', new ItemStack(Items.GOLD_INGOT)});
-		GameRegistry.addShapedRecipe(new ItemStack(ItemList.ENDER_PACK), new Object[] {"EEE", "EPE", "EYE", 'P',  new ItemStack(ItemList.PACK), 'E', new ItemStack(Items.ENDER_PEARL), 'Y', new ItemStack(Items.ENDER_EYE)});
-		GameRegistry.addShapedRecipe(new ItemStack(BlockList.RACK), new Object[] {"SSS", 'S',  new ItemStack(Blocks.WOODEN_SLAB,1,OreDictionary.WILDCARD_VALUE)});
+		GameRegistry.addShapedRecipe(new ItemStack(ItemList.PACK), "SLS", "LIL", "SLS", 'S', new ItemStack(ItemList.LEATHER_STRIP),
+			'L', new ItemStack(ItemList.LEATHER_SHEET), 'I', new ItemStack(Items.GOLD_INGOT));
+		GameRegistry.addShapedRecipe(new ItemStack(ItemList.ENDER_PACK), "EEE", "EPE", "EYE", 'P',
+			new ItemStack(ItemList.PACK), 'E', new ItemStack(Items.ENDER_PEARL), 'Y',
+			new ItemStack(Items.ENDER_EYE));
+		GameRegistry.addShapedRecipe(new ItemStack(BlockList.RACK), "SSS", 'S',
+			new ItemStack(Blocks.WOODEN_SLAB,1,OreDictionary.WILDCARD_VALUE));
 		
 		for(ItemStack stack :OreDictionary.getOres("plankWood")){
-			GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL), new Object[] {"P P", "P P", "PPP", 'P',  stack});
-			GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL_SEALED), new Object[] {"PLP", "P P", "PPP", 'P',  stack,'L',  Blocks.WOODEN_PRESSURE_PLATE});
+			GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL), "P P", "P P", "PPP", 'P',
+				stack);
+			GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL_SEALED), "PLP", "P P", "PPP",
+				'P', stack,'L', Blocks.WOODEN_PRESSURE_PLATE);
 		}
 		
-		GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL_SEALED), new Object[] {"L", "P", 'P',  BlockList.BARREL,'L',  Blocks.WOODEN_PRESSURE_PLATE});
+		GameRegistry.addShapedRecipe(new ItemStack(BlockList.BARREL_SEALED), "L", "P", 'P',
+			BlockList.BARREL,'L', Blocks.WOODEN_PRESSURE_PLATE);
 		GameRegistry.addShapelessRecipe(new ItemStack(BlockList.BARREL),new ItemStack(BlockList.BARREL_SEALED));
 				
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemList.PACK,1,1),new ItemStack(ItemList.PACK), new ItemStack(Items.DYE,1,1));

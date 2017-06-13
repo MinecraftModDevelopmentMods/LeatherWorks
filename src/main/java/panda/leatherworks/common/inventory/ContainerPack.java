@@ -30,7 +30,7 @@ public class ContainerPack extends Container {
 		//PACK INVENTORY
 		for (i = 0; i < 16; ++i)
 		{
-			this.addSlotToContainer(new SlotPack(this.inventory, i, 54 + (18 * (int)(i/4)), 18 + (18*(i%4))));
+			this.addSlotToContainer(new SlotPack(this.inventory, i, 54 + (18 * i/4), 18 + (18*(i%4))));
 		}
 
 		// PLAYER INVENTORY 

@@ -90,7 +90,7 @@ public class BlockBarrel extends Block
      */
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        int i = ((Integer)state.getValue(LEVEL)).intValue();
+        int i = state.getValue(LEVEL).intValue();
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
 
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getEntityBoundingBox().minY <= (double)f)
@@ -111,8 +111,8 @@ public class BlockBarrel extends Block
         	
 
         	
-            int i = ((Integer)state.getValue(LEVEL)).intValue();
-            int f = ((Integer)state.getValue(FLUID)).intValue();
+            int i = state.getValue(LEVEL).intValue();
+            int f = state.getValue(FLUID).intValue();
             Item item = heldItem.getItem();
         	if (item == Item.getItemFromBlock(Blocks.WOODEN_PRESSURE_PLATE))
             {
@@ -472,7 +472,8 @@ public class BlockBarrel extends Block
             {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
 
-                if (((Integer)iblockstate.getValue(LEVEL)).intValue() < 3 && ((Integer)iblockstate.getValue(FLUID)).intValue() ==0 )
+                if (iblockstate.getValue(LEVEL).intValue() < 3 && iblockstate.getValue(FLUID)
+					.intValue() ==0 )
                 {
                     worldIn.setBlockState(pos, iblockstate.cycleProperty(LEVEL), 2);
                 }
@@ -501,7 +502,7 @@ public class BlockBarrel extends Block
 
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
     {
-        return ((Integer)blockState.getValue(LEVEL)).intValue();
+        return blockState.getValue(LEVEL).intValue();
     }
 
     /**
@@ -536,12 +537,12 @@ public class BlockBarrel extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((Integer)state.getValue(LEVEL)).intValue()+4*((Integer)state.getValue(FLUID)).intValue();
+        return state.getValue(LEVEL).intValue()+4* state.getValue(FLUID).intValue();
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {LEVEL,FLUID});
+        return new BlockStateContainer(this, LEVEL,FLUID);
     }
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos)

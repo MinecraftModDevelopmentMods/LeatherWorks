@@ -81,9 +81,9 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 	};
 	
 	public TileEntityDryingRack(){
-		this.tickCounter = 0;
-		this.currentTime = 0;
-		this.endTime = 0;
+		tickCounter = 0;
+		currentTime = 0;
+		endTime = 0;
 	}
 	
 
@@ -103,7 +103,7 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 				currentTime = world.getTotalWorldTime();
 				//endTime = currentTime +
 				//System.out.println(this.endTime);
-				if(stack != null && this.endTime>0) {
+				if(stack != null && endTime>0) {
 					
 					//System.out.println(currentTime+":"+endTime);
 					//System.out.println(stack);
@@ -119,7 +119,7 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 							cap.insertItem(0, new ItemStack(Items.ROTTEN_FLESH), false);
 							//System.out.println(cap.getStackInSlot(0));
 
-							this.endTime = 0;
+							endTime = 0;
 						}else{
 							//System.out.println(currentTime+":"+endTime);
 						if(endTime > 0 && currentTime >= endTime){
@@ -129,7 +129,7 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 							
 							//}
 							cap.insertItem(0, new ItemStack(Items.LEATHER), false);
-							this.endTime = 0;
+							endTime = 0;
 						}
 						}
 						
@@ -148,7 +148,7 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 	public void setEndTime(long time){
 		//if(inventory.getStackInSlot(0) != null){
 			
-			this.endTime = time;
+			endTime = time;
 		//}
 		
 	}
@@ -156,7 +156,7 @@ public ItemStackHandler inventory = new ItemStackHandler(1) {
 	public long getEndTime(){
 		//if(inventory.getStackInSlot(0) != null){
 			
-			return this.endTime;
+			return endTime;
 		//}
 		
 	}

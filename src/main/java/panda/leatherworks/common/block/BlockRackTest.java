@@ -144,13 +144,13 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
 	@Override
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 	
 	
@@ -185,7 +185,7 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
     {
         int i = 0;
 
-        switch ((EnumFacing)state.getValue(FACING))
+        switch (state.getValue(FACING))
         {
             case EAST:
                 i = i | 1;
@@ -211,7 +211,7 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 	  @Nonnull
 	  @Override
 	  protected BlockStateContainer createBlockState() {
-	    return new BlockStateContainer(this, new IProperty[]{FACING});
+	    return new BlockStateContainer(this, FACING);
 	  }
 	  
 	  @Override
@@ -228,12 +228,8 @@ public class BlockRackTest extends BlockTileEntity<TileEntityDryingRack> {
 	  private boolean canPlaceOn(World worldIn, BlockPos pos)
 	    {
 	        IBlockState state = worldIn.getBlockState(pos);
-	        if (state.isSideSolid(worldIn, pos, EnumFacing.UP))
-	        {
-	            return true;
-	        }
-	        return false;
-	    }
+			return state.isSideSolid(worldIn, pos, EnumFacing.UP);
+		}
 	  
 	  
 	  

@@ -83,10 +83,10 @@ public class LeatherWorks {
 	@EventHandler
 	public void init(FMLInitializationEvent event) throws ExistingSubstitutionException {
 		
-		RecipeSorter.INSTANCE.register("leatherworks:scrapingrecipe", RecipeScraping.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.INSTANCE.register("leatherworks:shearsrecipe", RecipeShears.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.INSTANCE.register("leatherworks:repairleatherarmorrecipe", RecipeRepairLeatherArmor.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.INSTANCE.register("leatherworks:repairrecipe", RecipeRepair.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("leatherworks:scrapingrecipe", RecipeScraping.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("leatherworks:shearsrecipe", RecipeShears.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("leatherworks:repairleatherarmorrecipe", RecipeRepairLeatherArmor.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("leatherworks:repairrecipe", RecipeRepair.class,RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		PROXY.registerColorHandlers();
 

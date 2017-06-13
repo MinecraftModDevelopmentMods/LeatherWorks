@@ -25,7 +25,7 @@ public class RecipeRepairLeatherArmor implements IRecipe
      */
     public boolean matches(InventoryCrafting inv, World worldIn)
     {
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
+        List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i)
         {
@@ -37,7 +37,7 @@ public class RecipeRepairLeatherArmor implements IRecipe
 
                 if (list.size() == 2)
                 {
-                    ItemStack itemstack1 = (ItemStack)list.get(0);
+                    ItemStack itemstack1 = list.get(0);
 
                     	//System.out.println(itemstack1 +":"+itemstack);
                     	if(itemstack1 != null){
@@ -64,7 +64,7 @@ public class RecipeRepairLeatherArmor implements IRecipe
     @Nullable
     public ItemStack getCraftingResult(InventoryCrafting inv)
     {
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
+        List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i)
         {
@@ -76,7 +76,7 @@ public class RecipeRepairLeatherArmor implements IRecipe
 
                 if (list.size() > 1)
                 {
-                    ItemStack itemstack1 = (ItemStack)list.get(0);
+                    ItemStack itemstack1 = list.get(0);
 
                     if(itemstack1 != null){
                     	Item a = itemstack.getItem();
@@ -97,8 +97,8 @@ public class RecipeRepairLeatherArmor implements IRecipe
         if (list.size() == 2)
         {
         	
-            ItemStack itemstack2 = (ItemStack)list.get(0);
-            ItemStack itemstack3 = (ItemStack)list.get(1);
+            ItemStack itemstack2 = list.get(0);
+            ItemStack itemstack3 = list.get(1);
 
             
             

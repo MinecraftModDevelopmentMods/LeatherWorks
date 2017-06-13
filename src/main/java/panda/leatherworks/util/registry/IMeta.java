@@ -9,9 +9,9 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 public interface IMeta {
 
 	@Nonnull
-	public int getMaxMeta();
+	int getMaxMeta();
 
 	@Nonnull
-	public List<ModelResourceLocation> getMetaModelLocations(List<ModelResourceLocation> map);
+	List<ModelResourceLocation> getMetaModelLocations(List<ModelResourceLocation> map);
 
 }
