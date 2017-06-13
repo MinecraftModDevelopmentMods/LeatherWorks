@@ -123,30 +123,13 @@ public class LeatherWorks {
 	
 	@SideOnly(Side.CLIENT)
 	public static void registerColorHandlers(FMLInitializationEvent e) {
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				return tintIndex > 0 ? -1
-						: ((ItemBrokenArmor) (stack.getItem())).getColor(stack);
-			}
-		}, ItemList.BROKEN_LEATHER_CHESTPLATE);
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				return tintIndex > 0 ? -1
-						: ((ItemBrokenArmor) (stack.getItem())).getColor(stack);
-			}
-		}, ItemList.BROKEN_LEATHER_HELMET);
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				return tintIndex > 0 ? -1
-						: ((ItemBrokenArmor) (stack.getItem())).getColor(stack);
-			}
-		}, ItemList.BROKEN_LEATHER_LEGGINGS);
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				return tintIndex > 0 ? -1
-						: ((ItemBrokenArmor) (stack.getItem())).getColor(stack);
-			}
-		}, ItemList.BROKEN_LEATHER_BOOTS);
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(
+			(stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemBrokenArmor) stack.getItem()).getColor(stack),
+			ItemList.BROKEN_LEATHER_CHESTPLATE,
+			ItemList.BROKEN_LEATHER_HELMET,
+			ItemList.BROKEN_LEATHER_LEGGINGS,
+			ItemList.BROKEN_LEATHER_BOOTS
+		);
 	}
 	
 	
