@@ -35,6 +35,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
+import panda.leatherworks.common.CommonProxy;
 import panda.leatherworks.gui.GuiHandler;
 import panda.leatherworks.items.armor.ItemBrokenArmor;
 import panda.leatherworks.util.events.BucketHandler;
@@ -59,6 +60,12 @@ public class LeatherWorks {
 	public static SimpleNetworkWrapper wrapper;
 	@Mod.Instance(MODID)
 	public static LeatherWorks INSTANCE;
+
+	@SidedProxy(
+			clientSide = "panda.leatherworks.client.ClientProxy",
+			serverSide = "panda.leatherworks.server.ServerProxy"
+	)
+	public static CommonProxy PROXY;
 
 	public static Logger log = LogManager.getLogger(NAME);
 //Add tanner to village?
