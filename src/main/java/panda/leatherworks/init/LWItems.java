@@ -1,4 +1,4 @@
-package panda.leatherworks.util.registry;
+package panda.leatherworks.init;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import panda.leatherworks.common.item.armor.ItemBrokenArmor;
 import panda.leatherworks.common.item.armor.ItemLeatherworksArmor;
 
 
-public final class ItemList {
+public final class LWItems {
 
 	/*
 	 * Declare items here and then subsequently add them to getList(); They will

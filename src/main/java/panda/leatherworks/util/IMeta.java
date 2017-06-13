@@ -1,4 +1,4 @@
-package panda.leatherworks.util.registry;
+package panda.leatherworks.util;
 
 import java.util.List;
 

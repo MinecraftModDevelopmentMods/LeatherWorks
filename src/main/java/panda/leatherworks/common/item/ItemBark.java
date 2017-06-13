@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import panda.leatherworks.util.registry.IMeta;
+import panda.leatherworks.util.IMeta;
 
 public class ItemBark extends ItemBase implements IMeta{
 

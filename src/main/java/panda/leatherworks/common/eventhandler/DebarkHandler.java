@@ -1,9 +1,9 @@
 package panda.leatherworks.common.eventhandler;
 
 import panda.leatherworks.common.block.BlockDebarkedLog;
-import panda.leatherworks.util.registry.BlockList;
-import panda.leatherworks.util.registry.ItemList;
-import panda.leatherworks.util.registry.MasterRegistrar;
+import panda.leatherworks.init.LWBlocks;
+import panda.leatherworks.init.LWItems;
+import panda.leatherworks.init.MasterRegistrar;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -87,13 +87,13 @@ public class DebarkHandler {
 			switch(meta%4){
 			
 			case 0:
-				return BlockList.DEBARKED_LOG_OAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				return LWBlocks.DEBARKED_LOG_OAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 1:
-				return BlockList.DEBARKED_LOG_SPRUCE.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				return LWBlocks.DEBARKED_LOG_SPRUCE.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 2:
-				return BlockList.DEBARKED_LOG_BIRCH.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				return LWBlocks.DEBARKED_LOG_BIRCH.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 3:
-				return BlockList.DEBARKED_LOG_JUNGLE.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				return LWBlocks.DEBARKED_LOG_JUNGLE.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			
 			}
 		}else 
@@ -101,9 +101,9 @@ public class DebarkHandler {
 			meta = block.getMetaFromState(state);
 			switch(meta%4){
 			case 0:
-				return BlockList.DEBARKED_LOG_ACACIA.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				return LWBlocks.DEBARKED_LOG_ACACIA.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 1:
-				return BlockList.DEBARKED_LOG_DARKOAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				return LWBlocks.DEBARKED_LOG_DARKOAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			}
 		}
 		return null;
@@ -116,7 +116,7 @@ public class DebarkHandler {
 		if( block== Blocks.LOG){
 			meta = block.getMetaFromState(state);
 
-				return new ItemStack(ItemList.BARK,1,meta%4);
+				return new ItemStack(LWItems.BARK,1,meta%4);
 
 		}else 
 		if( block== Blocks.LOG2){
@@ -124,9 +124,9 @@ public class DebarkHandler {
 			//System.out.println(meta%4);
 			switch(meta%4){
 			case 0:
-				return new ItemStack(ItemList.BARK,1,meta%4);
+				return new ItemStack(LWItems.BARK,1,meta%4);
 			case 1:
-				return new ItemStack(ItemList.BARK,1,meta%4);
+				return new ItemStack(LWItems.BARK,1,meta%4);
 			}
 		}
 		return null;

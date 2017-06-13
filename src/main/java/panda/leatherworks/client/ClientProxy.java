@@ -8,7 +8,7 @@ import panda.leatherworks.client.network.messagehandler.MessageUpdateRackHandler
 import panda.leatherworks.common.CommonProxy;
 import panda.leatherworks.common.item.armor.ItemBrokenArmor;
 import panda.leatherworks.common.network.message.MessageUpdateRack;
-import panda.leatherworks.util.registry.ItemList;
+import panda.leatherworks.init.LWItems;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -22,10 +22,10 @@ public class ClientProxy extends CommonProxy {
 	public void registerColorHandlers() {
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(
 			(stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemBrokenArmor) stack.getItem()).getColor(stack),
-			ItemList.BROKEN_LEATHER_CHESTPLATE,
-			ItemList.BROKEN_LEATHER_HELMET,
-			ItemList.BROKEN_LEATHER_LEGGINGS,
-			ItemList.BROKEN_LEATHER_BOOTS
+			LWItems.BROKEN_LEATHER_CHESTPLATE,
+			LWItems.BROKEN_LEATHER_HELMET,
+			LWItems.BROKEN_LEATHER_LEGGINGS,
+			LWItems.BROKEN_LEATHER_BOOTS
 		);
 	}
 }

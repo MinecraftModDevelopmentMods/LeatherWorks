@@ -7,7 +7,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import panda.leatherworks.common.item.armor.ItemBrokenArmor;
-import panda.leatherworks.util.registry.ItemList;
+import panda.leatherworks.init.LWItems;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -44,7 +44,7 @@ public class RecipeRepairLeatherArmor implements IRecipe
                     	Item a = itemstack.getItem();
                     	Item b = itemstack1.getItem();
                     	
-                        if (((b instanceof ItemBrokenArmor && a == ItemList.REPAIR_KIT) ||(a instanceof ItemBrokenArmor && b == ItemList.REPAIR_KIT)) && (itemstack1.stackSize == 1 && itemstack.stackSize == 1))
+                        if (((b instanceof ItemBrokenArmor && a == LWItems.REPAIR_KIT) ||(a instanceof ItemBrokenArmor && b == LWItems.REPAIR_KIT)) && (itemstack1.stackSize == 1 && itemstack.stackSize == 1))
                         {
                         	//System.out.println("recipe matches");
                         	return true;
@@ -82,7 +82,7 @@ public class RecipeRepairLeatherArmor implements IRecipe
                     	Item a = itemstack.getItem();
                     	Item b = itemstack1.getItem();
                     	
-                        if (((b instanceof ItemBrokenArmor && a == ItemList.REPAIR_KIT) ||(a instanceof ItemBrokenArmor && b == ItemList.REPAIR_KIT)) && (itemstack1.stackSize == 1 && itemstack.stackSize == 1))
+                        if (((b instanceof ItemBrokenArmor && a == LWItems.REPAIR_KIT) ||(a instanceof ItemBrokenArmor && b == LWItems.REPAIR_KIT)) && (itemstack1.stackSize == 1 && itemstack.stackSize == 1))
                         {
                         	//System.out.println("recipe matches 2");
                         	continue;
@@ -102,7 +102,7 @@ public class RecipeRepairLeatherArmor implements IRecipe
 
             
             
-            if (itemstack2.getItem() == itemstack3.getItem()|| ((itemstack3.getItem() instanceof ItemBrokenArmor) && itemstack2.getItem() == ItemList.REPAIR_KIT) || (itemstack2.getItem() instanceof ItemBrokenArmor && itemstack3.getItem() == ItemList.REPAIR_KIT) && itemstack2.stackSize == 1 && itemstack3.stackSize == 1 )
+            if (itemstack2.getItem() == itemstack3.getItem()|| ((itemstack3.getItem() instanceof ItemBrokenArmor) && itemstack2.getItem() == LWItems.REPAIR_KIT) || (itemstack2.getItem() instanceof ItemBrokenArmor && itemstack3.getItem() == LWItems.REPAIR_KIT) && itemstack2.stackSize == 1 && itemstack3.stackSize == 1 )
             {
             	
                 int toRepair = 20;
@@ -188,18 +188,18 @@ public class RecipeRepairLeatherArmor implements IRecipe
     }
 
     private Item determineOutput(Item a) {
-		if(a==ItemList.BROKEN_LEATHER_HELMET){
+		if(a== LWItems.BROKEN_LEATHER_HELMET){
 			return Items.LEATHER_HELMET;
 		}else
-		if(a==ItemList.BROKEN_LEATHER_CHESTPLATE){
+		if(a== LWItems.BROKEN_LEATHER_CHESTPLATE){
 			return Items.LEATHER_CHESTPLATE;
 				
 		}else
-		if(a==ItemList.BROKEN_LEATHER_LEGGINGS){
+		if(a== LWItems.BROKEN_LEATHER_LEGGINGS){
 			return Items.LEATHER_LEGGINGS;
 					
 		}else
-		if(a==ItemList.BROKEN_LEATHER_BOOTS){
+		if(a== LWItems.BROKEN_LEATHER_BOOTS){
 			return Items.LEATHER_BOOTS;
 						
 		}

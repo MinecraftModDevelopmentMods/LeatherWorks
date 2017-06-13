@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import panda.leatherworks.util.registry.ItemList;
+import panda.leatherworks.init.LWItems;
 
 public class LivingDropsHandler {
 
@@ -53,7 +53,7 @@ public class LivingDropsHandler {
 
 			if (e.getDrops().get(i).getEntityItem().getItem() == Items.LEATHER)
 			{				//if((!(event.getHarvester().getHeldItemMainhand().getItem() instanceof ItemSaughterKnife) && ConfigurationHandler.retrieveSaplingsMode == 1) || ConfigurationHandler.retrieveSaplingsMode ==0){
-				e.getDrops().get(i).setEntityItemStack(new ItemStack(ItemList.RAWHIDE,1,m));
+				e.getDrops().get(i).setEntityItemStack(new ItemStack(LWItems.RAWHIDE,1,m));
 			}
 		}
 	}

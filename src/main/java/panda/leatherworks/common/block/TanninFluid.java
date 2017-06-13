@@ -3,7 +3,7 @@ package panda.leatherworks.common.block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import panda.leatherworks.util.registry.BlockList;
+import panda.leatherworks.init.LWBlocks;
 
 public class TanninFluid extends Fluid {
 
@@ -12,7 +12,7 @@ public class TanninFluid extends Fluid {
 				new ResourceLocation("leatherworks:blocks/tannin_flowing"));
 		setViscosity(1200);
 		setDensity(1200);
-		setBlock(BlockList.TANNIN);
+		setBlock(LWBlocks.TANNIN);
 		FluidRegistry.addBucketForFluid(this);
 	}
 

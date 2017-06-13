@@ -10,8 +10,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import panda.leatherworks.common.block.BlockTanninFluid;
-import panda.leatherworks.util.registry.BlockList;
-import panda.leatherworks.util.registry.ItemList;
+import panda.leatherworks.init.LWBlocks;
+import panda.leatherworks.init.LWItems;
 
 public class BucketHandler {
 
@@ -35,16 +35,16 @@ public class BucketHandler {
 
 		IBlockState iblockstate = event.getWorld().getBlockState(blockpos);
 		Fluid filled_fluid = null;
-		if (iblockstate.getBlock() == BlockList.TANNIN
+		if (iblockstate.getBlock() == LWBlocks.TANNIN
 				&& iblockstate.getValue(BlockTanninFluid.LEVEL).intValue() == 0) {
-			filled_fluid = BlockList.TANNIN_FLUID;
+			filled_fluid = LWBlocks.TANNIN_FLUID;
 		} else {
 			return;
 		}
 
 		// remove the fluid and return the appropriate filled bucket
 		event.setResult(Result.ALLOW);
-		ItemStack bucket = new ItemStack(ItemList.TANNIN_BUCKET);
+		ItemStack bucket = new ItemStack(LWItems.TANNIN_BUCKET);
 		event.setFilledBucket(bucket);
 		event.getWorld().setBlockToAir(blockpos);
 		// TODO:

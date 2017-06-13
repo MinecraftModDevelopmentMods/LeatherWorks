@@ -1,4 +1,4 @@
-package panda.leatherworks.util.registry;
+package panda.leatherworks.init;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,6 +24,7 @@ import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockTileEntity;
 import panda.leatherworks.common.tileentity.TileEntityItemRack;
 import panda.leatherworks.client.renderer.tileentity.TileEntityItemRackRenderer;
+import panda.leatherworks.util.IMeta;
 
 public final class MasterRegistrar {
 
@@ -82,10 +83,10 @@ public final class MasterRegistrar {
 	}
 
 	public static void callRegistry(FMLPreInitializationEvent e) {
-		register(e, BlockList.getList());
-		register(e, ItemList.getList());
+		register(e, LWBlocks.getList());
+		register(e, LWItems.getList());
 		TOOL_SCRAPE = registerSound("tool_scrape");
-		RecipeRegistry.register();
+		LWRecipes.register();
 		
 		if (e.getSide() == Side.CLIENT){
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemRack.class, new TileEntityItemRackRenderer());

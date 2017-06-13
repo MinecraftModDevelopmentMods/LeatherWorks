@@ -18,7 +18,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import panda.leatherworks.util.registry.IMeta;
+import panda.leatherworks.util.IMeta;
 
 public class ItemCraftingLeather extends ItemBase implements IMeta{
 

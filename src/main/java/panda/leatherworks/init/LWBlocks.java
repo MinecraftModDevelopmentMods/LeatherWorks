@@ -1,4 +1,4 @@
-package panda.leatherworks.util.registry;
+package panda.leatherworks.init;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import panda.leatherworks.common.block.BlockRackTest;
 import panda.leatherworks.common.block.BlockTanninFluid;
 import panda.leatherworks.common.block.TanninFluid;
 
-public final class BlockList {
+public final class LWBlocks {
 
 	/*
 	 * Declare blocks here and then subsequently add them to getList(); They

@@ -8,12 +8,11 @@ import javax.annotation.Nullable;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.item.ItemCraftingLeather;
 import panda.leatherworks.common.item.ItemPack;
-import panda.leatherworks.util.registry.BlockList;
-import panda.leatherworks.util.registry.ItemList;
+import panda.leatherworks.init.LWBlocks;
+import panda.leatherworks.init.LWItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -124,7 +123,7 @@ public class BlockBarrel extends Block
 
                     }
 
-                    worldIn.setBlockState(pos,BlockList.BARREL_SEALED.getDefaultState(), 2);
+                    worldIn.setBlockState(pos, LWBlocks.BARREL_SEALED.getDefaultState(), 2);
                 }
 
                 return true;
@@ -144,7 +143,7 @@ public class BlockBarrel extends Block
 
                 return true;
             }else
-            	if (item == ItemList.TANNIN_BUCKET)
+            	if (item == LWItems.TANNIN_BUCKET)
                 {
                     if (i == 0 && !worldIn.isRemote )
                     {
@@ -159,7 +158,7 @@ public class BlockBarrel extends Block
                     return true;
                 }
             
-            if (item == ItemList.TANNIN_BOTTLE && i < 3 && !worldIn.isRemote && (f == 1 || i==0 ))
+            if (item == LWItems.TANNIN_BOTTLE && i < 3 && !worldIn.isRemote && (f == 1 || i==0 ))
             {
                 if (!playerIn.capabilities.isCreativeMode)
                 {
@@ -226,7 +225,7 @@ public class BlockBarrel extends Block
 
                 return true;
             }else
-            	if (item == ItemList.TANNIN_BUCKET)
+            	if (item == LWItems.TANNIN_BUCKET)
                 {
                     if (i <3 && !worldIn.isRemote && f ==1)
                     {
@@ -239,7 +238,7 @@ public class BlockBarrel extends Block
 
                     return true;
                 }else
-            if (item == ItemList.TANNIN_BALL)
+            if (item == LWItems.TANNIN_BALL)
             {
                 if (i >0 && !worldIn.isRemote && f ==0)
                 {
@@ -281,11 +280,12 @@ public class BlockBarrel extends Block
 
                             if (heldItem.stackSize == 0)
                             {
-                                playerIn.setHeldItem(hand, new ItemStack(ItemList.TANNIN_BUCKET));
+                                playerIn.setHeldItem(hand, new ItemStack(LWItems.TANNIN_BUCKET));
                             }
-                            else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(ItemList.TANNIN_BUCKET)))
+                            else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(
+                                LWItems.TANNIN_BUCKET)))
                             {
-                                playerIn.dropItem(new ItemStack(ItemList.TANNIN_BUCKET), false);
+                                playerIn.dropItem(new ItemStack(LWItems.TANNIN_BUCKET), false);
                             }
                         }
 
@@ -322,7 +322,7 @@ public class BlockBarrel extends Block
                     {
                         if (!playerIn.capabilities.isCreativeMode)
                         {
-                            ItemStack itemstack1 = new ItemStack(ItemList.TANNIN_BOTTLE);
+                            ItemStack itemstack1 = new ItemStack(LWItems.TANNIN_BOTTLE);
 
                             if (--heldItem.stackSize == 0)
                             {
@@ -383,7 +383,7 @@ public class BlockBarrel extends Block
                         {
                             --heldItem.stackSize;
                         }
-                		playerIn.inventory.addItemStackToInventory(new ItemStack(ItemList.CRAFTING_LEATHER,1,1));
+                		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.CRAFTING_LEATHER,1,1));
                         return true;
                 	}else
                 		if(meta == 1 && f ==1){
@@ -392,7 +392,7 @@ public class BlockBarrel extends Block
                             {
                                 --heldItem.stackSize;
                             }
-                    		playerIn.inventory.addItemStackToInventory(new ItemStack(ItemList.CRAFTING_LEATHER,1,2));
+                    		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.CRAFTING_LEATHER,1,2));
                             return true;
                     	}
                 }
@@ -487,12 +487,12 @@ public class BlockBarrel extends Block
     @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(BlockList.BARREL);
+        return Item.getItemFromBlock(LWBlocks.BARREL);
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(BlockList.BARREL);
+        return new ItemStack(LWBlocks.BARREL);
     }
 
     public boolean hasComparatorInputOverride(IBlockState state)

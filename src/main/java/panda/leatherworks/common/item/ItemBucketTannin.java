@@ -20,12 +20,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.util.registry.BlockList;
+import panda.leatherworks.init.LWBlocks;
 
 public class ItemBucketTannin extends ItemBucket {
 
 	public ItemBucketTannin() {
-		super(BlockList.TANNIN);
+		super(LWBlocks.TANNIN);
 		this.setCreativeTab(LeatherWorks.LeatherTab);
 		setRegistryName("tannin_bucket");
 	}
@@ -84,7 +84,7 @@ public class ItemBucketTannin extends ItemBucket {
 
 			SoundEvent soundevent = SoundEvents.ITEM_BUCKET_EMPTY; // SoundEvents.ITEM_BUCKET_EMPTY;
 			pos.playSound(worldIn, posIn, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
-			pos.setBlockState(posIn, BlockList.TANNIN.getDefaultState(), 11);
+			pos.setBlockState(posIn, LWBlocks.TANNIN.getDefaultState(), 11);
 
 			return true;
 		}

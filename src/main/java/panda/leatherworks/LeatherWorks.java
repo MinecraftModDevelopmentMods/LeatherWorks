@@ -36,8 +36,8 @@ import panda.leatherworks.common.crafting.RecipeRepair;
 import panda.leatherworks.common.crafting.RecipeRepairLeatherArmor;
 import panda.leatherworks.common.crafting.RecipeScraping;
 import panda.leatherworks.common.crafting.RecipeShears;
-import panda.leatherworks.util.registry.ItemList;
-import panda.leatherworks.util.registry.MasterRegistrar;
+import panda.leatherworks.init.LWItems;
+import panda.leatherworks.init.MasterRegistrar;
 
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 
@@ -69,10 +69,10 @@ public class LeatherWorks {
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
 		MinecraftForge.EVENT_BUS.register(new DebarkHandler());
 		
-		GameRegistry.addSubstitutionAlias("minecraft:leather_chestplate", Type.ITEM, ItemList.LEATHER_CHESTPLATE);
-		GameRegistry.addSubstitutionAlias("minecraft:leather_boots",      Type.ITEM, ItemList.LEATHER_BOOTS);
-		GameRegistry.addSubstitutionAlias("minecraft:leather_helmet", 	  Type.ITEM, ItemList.LEATHER_HELMET);
-		GameRegistry.addSubstitutionAlias("minecraft:leather_leggings",   Type.ITEM, ItemList.LEATHER_LEGGINGS);
+		GameRegistry.addSubstitutionAlias("minecraft:leather_chestplate", Type.ITEM, LWItems.LEATHER_CHESTPLATE);
+		GameRegistry.addSubstitutionAlias("minecraft:leather_boots",      Type.ITEM, LWItems.LEATHER_BOOTS);
+		GameRegistry.addSubstitutionAlias("minecraft:leather_helmet", 	  Type.ITEM, LWItems.LEATHER_HELMET);
+		GameRegistry.addSubstitutionAlias("minecraft:leather_leggings",   Type.ITEM, LWItems.LEATHER_LEGGINGS);
 		//GameRegistry.findItem("gotwood", name);
 		
 		
@@ -90,11 +90,13 @@ public class LeatherWorks {
 
 		PROXY.registerColorHandlers();
 
-		CraftingManager.getInstance().addRecipe(new RecipeScraping(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(ItemList.RAWHIDE,1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.FLINT)))));
-		CraftingManager.getInstance().addRecipe(new RecipeScraping(new ItemStack(ItemList.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.RABBIT_HIDE), new ItemStack(Items.FLINT)))));
+		CraftingManager.getInstance().addRecipe(new RecipeScraping(new ItemStack(LWItems.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(
+			LWItems.RAWHIDE,1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.FLINT)))));
+		CraftingManager.getInstance().addRecipe(new RecipeScraping(new ItemStack(LWItems.CRAFTING_LEATHER,1,0),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.RABBIT_HIDE), new ItemStack(Items.FLINT)))));
 		
-		CraftingManager.getInstance().addRecipe(new RecipeShears(new ItemStack(ItemList.LEATHER_STRIP,4),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.LEATHER), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
-		CraftingManager.getInstance().addRecipe(new RecipeShears(new ItemStack(ItemList.LEATHER_STRIP,8),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(ItemList.LEATHER_SHEET), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
+		CraftingManager.getInstance().addRecipe(new RecipeShears(new ItemStack(LWItems.LEATHER_STRIP,4),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(Items.LEATHER), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
+		CraftingManager.getInstance().addRecipe(new RecipeShears(new ItemStack(LWItems.LEATHER_STRIP,8),new ArrayList<ItemStack>(Arrays.asList(new ItemStack(
+			LWItems.LEATHER_SHEET), new ItemStack(Items.SHEARS,1,OreDictionary.WILDCARD_VALUE)))));
 		CraftingManager.getInstance().addRecipe( new RecipeRepairLeatherArmor());
 		CraftingManager.getInstance().addRecipe( new RecipeRepair());
 		
@@ -105,7 +107,7 @@ public class LeatherWorks {
 	public static final CreativeTabs LeatherTab = new CreativeTabs(LeatherWorks.MODID) {
 		@Override
 		public Item getTabIconItem() {
-			return ItemList.RAWHIDE;
+			return LWItems.RAWHIDE;
 		}
 
 	};

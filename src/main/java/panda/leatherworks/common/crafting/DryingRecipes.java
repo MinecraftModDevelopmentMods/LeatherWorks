@@ -3,7 +3,7 @@ package panda.leatherworks.common.crafting;
 import java.util.HashMap;
 import java.util.Map;
 
-import panda.leatherworks.util.registry.ItemList;
+import panda.leatherworks.init.LWItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,7 +15,7 @@ public class DryingRecipes {
 
 	public static void initDryingRecipes() {
 
-		addDryingRecipe(new ItemStack(ItemList.CRAFTING_LEATHER,1,2), Items.LEATHER,60,Items.ROTTEN_FLESH,0.05f);
+		addDryingRecipe(new ItemStack(LWItems.CRAFTING_LEATHER,1,2), Items.LEATHER,60,Items.ROTTEN_FLESH,0.05f);
 	}
 
 	public static void addDryingRecipe(ItemStack input, ItemStack output,int ticks,ItemStack failed,float failureChance) {

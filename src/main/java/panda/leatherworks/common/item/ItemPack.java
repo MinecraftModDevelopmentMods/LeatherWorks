@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockBarrel;
 import panda.leatherworks.common.GuiHandler;
-import panda.leatherworks.util.registry.IMeta;
+import panda.leatherworks.util.IMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
