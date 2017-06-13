@@ -11,4 +11,6 @@ public abstract class CommonProxy {
 	}
 
 	public abstract void registerColorHandlers();
+
+	public abstract void registerModels();
 }

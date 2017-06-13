@@ -50,59 +50,16 @@ public final class MasterRegistrar {
 			}
 
 		}
-		if (e.getSide() == Side.CLIENT)
-			registerModels(list);
 	}
 
-	public static void registerModels(List<?> list) {
-		Iterator<?> iterator = list.iterator();
-
-		while (iterator.hasNext()) {
-			Object k = iterator.next();
-			Item item = null;
-			if (k instanceof Block) {
-				item = Item.getItemFromBlock((Block) k);
-			} else if (k instanceof Item) {
-				item = (Item) k;
-			}
-			if (item instanceof IMeta) {
-				List<ModelResourceLocation> map = new ArrayList<ModelResourceLocation>();
-				for (int i = 0; i <= ((IMeta) item).getMaxMeta(); i++) {
-					map = ((IMeta) item).getMetaModelLocations(map);
-					ModelLoader.setCustomModelResourceLocation(item, i, map.get(i));
-				}
-			} else if (item != null) {
-				ModelLoader.setCustomModelResourceLocation(item, 0,
-						new ModelResourceLocation(item.getRegistryName(), "inventory"));
-			}
-			if (k instanceof BlockFluidBase) {
-				handleFluidState((Block) k, ((Block) k).getRegistryName().getResourcePath());
-			}
-
-		}
-	}
 
 	public static void callRegistry(FMLPreInitializationEvent e) {
 		register(e, LWBlocks.getList());
 		register(e, LWItems.getList());
 		TOOL_SCRAPE = registerSound("tool_scrape");
 		LWRecipes.register();
-		
-		if (e.getSide() == Side.CLIENT){
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemRack.class, new TileEntityItemRackRenderer());
-		}
 	}
 
-	@SideOnly(Side.CLIENT)
-	public static void handleFluidState(Block block, final String name) {
-		ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				return new ModelResourceLocation(LeatherWorks.MODID + ":fluids", name);
-			}
-		});
-	}
-	
 	private static SoundEvent registerSound(String name)
 	{
 	ResourceLocation location = new ResourceLocation("leatherworks", name);

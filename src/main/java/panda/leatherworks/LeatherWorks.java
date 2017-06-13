@@ -65,6 +65,9 @@ public class LeatherWorks {
 
 		DUMMYLEATHER = EnumHelper.addArmorMaterial("leather", "leatherworks:leather", 5, new int[]{0,0,0,0}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 		MasterRegistrar.callRegistry(event);
+
+		PROXY.registerModels();
+
 		MinecraftForge.EVENT_BUS.register(new LivingDropsHandler());
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
 		MinecraftForge.EVENT_BUS.register(new DebarkHandler());
