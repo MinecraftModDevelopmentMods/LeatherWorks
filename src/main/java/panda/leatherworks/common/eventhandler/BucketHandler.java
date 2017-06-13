@@ -1,4 +1,4 @@
-package panda.leatherworks.util.events;
+package panda.leatherworks.common.eventhandler;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;

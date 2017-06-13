@@ -1,4 +1,4 @@
-package panda.leatherworks.util.events;
+package panda.leatherworks.common.eventhandler;
 
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.util.registry.BlockList;
