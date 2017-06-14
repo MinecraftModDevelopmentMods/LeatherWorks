@@ -1,61 +1,38 @@
 package panda.leatherworks.common.crafting;
 
+import java.util.Random;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
-public class DryingRecipe{
+public class DryingRecipe implements IDryingRecipe {
+	private final ItemStack input, successOutput, failureOutput;
+	private int durationTicks;
+	private float failureChance;
 	
-	ItemStack input,output,failed;
-	int ticks;
-	float failureChance;
-	
-	public DryingRecipe(ItemStack in, ItemStack out,int tick,ItemStack fail,float chance){
+	public DryingRecipe(ItemStack in, ItemStack out, int tick, ItemStack fail, float chance) {
 		this.input = in;
-		this.output = out;
-		this.failed = fail;
-		this.ticks = tick;
+		this.successOutput = out;
+		this.failureOutput = fail;
+		this.durationTicks = tick;
 		this.failureChance = chance;
-		
-	}
-	
-	public ItemStack getInput() {
-		return input;
 	}
 
-	public void setInput(ItemStack input) {
-		this.input = input;
+	@Override
+	public boolean matches(ItemStack input) {
+		return OreDictionary.itemMatches(this.input, input, false);
 	}
 
-	public ItemStack getOutput() {
-		return output;
+	@Override
+	public int getDurationTicks(ItemStack input) {
+		return durationTicks;
 	}
 
-	public void setOutput(ItemStack output) {
-		this.output = output;
+	@Override
+	public ItemStack getOutput(ItemStack input, Random random) {
+		if (random.nextFloat() > failureChance) {
+			return successOutput.copy();
+		} else {
+			return failureOutput.copy();
+		}
 	}
-
-	public ItemStack getFailed() {
-		return failed;
-	}
-
-	public void setFailed(ItemStack failed) {
-		this.failed = failed;
-	}
-
-	public int getTicks() {
-		return ticks;
-	}
-
-	public void setTicks(int ticks) {
-		this.ticks = ticks;
-	}
-
-	public float getFailureChance() {
-		return failureChance;
-	}
-
-	public void setFailureChance(float failureChance) {
-		this.failureChance = failureChance;
-	}
-
-	
 }

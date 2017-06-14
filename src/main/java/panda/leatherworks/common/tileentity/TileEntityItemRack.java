@@ -2,8 +2,8 @@ package panda.leatherworks.common.tileentity;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.common.network.message.MessageRequestUpdateRack;
 import panda.leatherworks.common.network.message.MessageUpdateRack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -21,25 +21,28 @@ public class TileEntityItemRack extends TileEntity {
 	public ItemStackHandler inventory = new ItemStackHandler(1) {
 		@Override
 		protected void onContentsChanged(int slot) {
-			World world = Minecraft.getMinecraft().theWorld;
-
-			LeatherWorks.wrapper.sendToAllAround(new MessageUpdateRack(TileEntityItemRack.this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
-			
+			if (!getWorld().isRemote) {
+				LeatherWorks.wrapper.sendToAllAround(new MessageUpdateRack(TileEntityItemRack.this), new NetworkRegistry.TargetPoint(getWorld().provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
+			}
+			markDirty();
 		}
+
 		@Override
-		protected int getStackLimit(int slot, ItemStack stack)
-	    {
+		protected int getStackLimit(int slot, ItemStack stack) {
 	        return 1;
 	    }
 	};
-	
-	
-	
+
 	@Override
-	public void onLoad() {
-		LeatherWorks.wrapper.sendToServer(new MessageRequestUpdateRack(this));
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(this.pos, 9, this.getUpdateTag());
 	}
-	
+
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		return this.writeToNBT(new NBTTagCompound());
+	}
+
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
@@ -60,9 +63,6 @@ public class TileEntityItemRack extends TileEntity {
 	@Nullable
 	@Override
 	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)inventory : super.getCapability(capability, facing);
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory) : super.getCapability(capability, facing);
 	}
-	
-	
-
 }

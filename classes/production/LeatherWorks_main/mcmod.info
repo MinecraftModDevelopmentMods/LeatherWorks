@@ -1,0 +1,16 @@
+[
+{
+  "modid": "leatherworks",
+  "name": "Leather Works",
+  "description": "Redefining Leather Crafting",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ECleverpanda714"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

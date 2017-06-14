@@ -1,178 +1,46 @@
 package panda.leatherworks.common.tileentity;
 
-import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.common.network.message.MessageUpdateRack;
-import panda.leatherworks.common.crafting.DryingRecipe;
 import panda.leatherworks.common.crafting.DryingRecipes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
+import panda.leatherworks.common.crafting.IDryingRecipe;
 
-public class TileEntityDryingRack extends TileEntityItemRack implements ITickable{
-private static int tickCounter = 0;
-private static long currentTime = 0;
-private static long endTime = 0;
+public class TileEntityDryingRack extends TileEntityItemRack implements ITickable {
+	private int dryingTicks = 0;
 
-//DryingRecipes.containsRecipe(heldItem.getItem())
+	public TileEntityDryingRack() {
 
-public ItemStackHandler inventory = new ItemStackHandler(1) {
-		@Override
-		protected void onContentsChanged(int slot) {
-			World world = Minecraft.getMinecraft().theWorld;
-
-			LeatherWorks.wrapper.sendToAllAround(new MessageUpdateRack(TileEntityDryingRack.this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
-			
-		}
-		@Override
-		protected int getStackLimit(int slot, ItemStack stack)
-	    {
-	        return 1;
-	    }
-		
-		@Override
-	    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate)
-	    {
-	        if (stack == null || stack.stackSize == 0)
-	            return null;
-	        //if(DryingRecipes.containsRecipe(stack.getItem())){
-	        validateSlotIndex(slot);
-
-	        ItemStack existing = this.stacks[slot];
-
-	        int limit = getStackLimit(slot, stack);
-
-	        if (existing != null)
-	        {
-	            if (!ItemHandlerHelper.canItemStacksStack(stack, existing))
-	                return stack;
-
-	            limit -= existing.stackSize;
-	        }
-
-	        if (limit <= 0)
-	            return stack;
-
-	        boolean reachedLimit = stack.stackSize > limit;
-
-	        if (!simulate)
-	        {
-	            if (existing == null)
-	            {
-	                this.stacks[slot] = reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, limit) : stack;
-	            }
-	            else
-	            {
-	                existing.stackSize += reachedLimit ? limit : stack.stackSize;
-	            }
-	            onContentsChanged(slot);
-	        }
-
-	        return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.stackSize - limit) : null;
-	    //}return null;
-	    }
-	};
-	
-	public TileEntityDryingRack(){
-		tickCounter = 0;
-		currentTime = 0;
-		endTime = 0;
 	}
-	
 
 	@Override
 	public void update() {
-		World world = this.getWorld();
-		
-		if(!world.isRemote)
-		{
-			++tickCounter;
-			
-			if(tickCounter == 20){
-				
-				IItemHandler cap = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-				ItemStack stack = cap.getStackInSlot(0);
-				tickCounter = 0;
-				currentTime = world.getTotalWorldTime();
-				//endTime = currentTime +
-				//System.out.println(this.endTime);
-				if(stack != null && endTime>0) {
-					
-					//System.out.println(currentTime+":"+endTime);
-					//System.out.println(stack);
-					DryingRecipe recipe = DryingRecipes.getDryingResults(stack);
-					
-					if(recipe != null){
-						if(world.rand.nextFloat()< recipe.getFailureChance()){
-							//System.out.println("ROT:"+stack);
-							//if(cap.extractItem(0, 1, true) != null){
-							cap.extractItem(0, 1, false);
-							//System.out.println(cap.getStackInSlot(0));
-							//	}
-							cap.insertItem(0, new ItemStack(Items.ROTTEN_FLESH), false);
-							//System.out.println(cap.getStackInSlot(0));
-
-							endTime = 0;
-						}else{
-							//System.out.println(currentTime+":"+endTime);
-						if(endTime > 0 && currentTime >= endTime){
-							//System.out.println("LEATHER:"+stack);
-							//if(cap.extractItem(0, 1, true) != null){
-							cap.extractItem(0, 1, false);
-							
-							//}
-							cap.insertItem(0, new ItemStack(Items.LEATHER), false);
-							endTime = 0;
-						}
-						}
-						
-					}else{
-						System.out.println("Recipe was null!");
-					}
-
+		if (!getWorld().isRemote) {
+			ItemStack input = inventory.getStackInSlot(0);
+			IDryingRecipe recipe = DryingRecipes.getDryingRecipe(input);
+			if (recipe != null) {
+				if (++dryingTicks >= recipe.getDurationTicks(input)){
+					ItemStack output = recipe.getOutput(input, getWorld().rand);
+					this.inventory.setStackInSlot(0, output);
+					dryingTicks = 0;
 				}
+				markDirty();
+			} else if (dryingTicks != 0) {
+				dryingTicks = 0;
+				markDirty();
 			}
 		}
 	} 
-	//when we collect, all endTimes are set to zero
-		
-	
-	
-	public void setEndTime(long time){
-		//if(inventory.getStackInSlot(0) != null){
-			
-			endTime = time;
-		//}
-		
-	}
-	
-	public long getEndTime(){
-		//if(inventory.getStackInSlot(0) != null){
-			
-			return endTime;
-		//}
-		
-	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		compound.setTag("inventory", inventory.serializeNBT());
-		compound.setLong("end_time", endTime);
+		compound.setInteger("dryingTicks", dryingTicks);
 		return super.writeToNBT(compound);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
-		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
-		endTime = compound.getLong("end_time");
+		dryingTicks = compound.getInteger("dryingTicks");
 		super.readFromNBT(compound);
 	}
-
 }

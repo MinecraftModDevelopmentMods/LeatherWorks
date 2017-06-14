@@ -4,7 +4,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-import panda.leatherworks.common.block.BlockRackTest;
+import panda.leatherworks.common.block.BlockDryingRack;
 import panda.leatherworks.common.tileentity.TileEntityItemRack;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -32,7 +32,7 @@ public class TileEntityItemRackRenderer extends TileEntitySpecialRenderer<TileEn
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x + 0.5, y + 0.5 , z + 0.5);
 			IBlockState blockstate = te.getWorld().getBlockState(te.getPos());
-			if(blockstate.getBlock() instanceof BlockRackTest){
+			if(blockstate.getBlock() instanceof BlockDryingRack){
 				int meta = blockstate.getBlock().getMetaFromState(blockstate);
 				//System.out.println(meta);
 				switch(meta){

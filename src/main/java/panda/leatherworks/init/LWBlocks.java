@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.Fluid;
 import panda.leatherworks.common.block.BlockBarrel;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.common.block.BlockEmpty;
-import panda.leatherworks.common.block.BlockRackTest;
+import panda.leatherworks.common.block.BlockDryingRack;
 import panda.leatherworks.common.block.BlockTanninFluid;
 import panda.leatherworks.common.block.TanninFluid;
 
@@ -29,7 +29,7 @@ public final class LWBlocks {
 	public static final Block DEBARKED_LOG_DARKOAK = new BlockDebarkedLog("darkoak");
 	public static final Block DEBARKED_LOG_JUNGLE = new BlockDebarkedLog("jungle");
 	public static final Block BARREL = new BlockBarrel();
-	public static final Block RACK = new BlockRackTest();
+	public static final Block RACK = new BlockDryingRack();
 	public static final Block BARREL_SEALED = new BlockEmpty();
 	
 	public static List<Block> getList() {

@@ -166,7 +166,7 @@ and installation of the library.
 
   Activities other than copying, distribution and modification are not
 covered by this License; they are outside its scope.  The act of
-running a program using the Library is not restricted, and output from
+running a program using the Library is not restricted, and successOutput from
 such a program is covered only if its contents constitute a work based
 on the Library (independent of the use of the Library in a tool for
 writing it).  Whether that is true depends on what the Library does

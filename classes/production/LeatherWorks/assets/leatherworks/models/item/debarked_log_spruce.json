@@ -1,0 +1,7 @@
+{
+    "parent": "leatherworks:block/log_stripped",
+    "textures": {
+        "side": "leatherworks:blocks/stripped_log_spruce_side",
+      "end": "blocks/log_spruce_top"
+    }
+}
