@@ -85,11 +85,10 @@ public class RecipeRepairLeatherArmor implements IRecipe
                         if (((b instanceof ItemBrokenArmor && a == LWItems.REPAIR_KIT) ||(a instanceof ItemBrokenArmor && b == LWItems.REPAIR_KIT)) && (itemstack1.stackSize == 1 && itemstack.stackSize == 1))
                         {
                         	//System.out.println("recipe matches 2");
-                        	continue;
                         }else{
                         	return null;
                         }
-                    	}
+					}
                 }
             }
         }
@@ -187,7 +186,8 @@ public class RecipeRepairLeatherArmor implements IRecipe
         return null;
     }
 
-    private Item determineOutput(Item a) {
+	@Nullable
+	private Item determineOutput(Item a) {
 		if(a== LWItems.BROKEN_LEATHER_HELMET){
 			return Items.LEATHER_HELMET;
 		}else

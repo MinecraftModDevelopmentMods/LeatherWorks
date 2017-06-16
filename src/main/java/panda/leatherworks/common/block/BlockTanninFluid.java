@@ -12,7 +12,6 @@ public class BlockTanninFluid extends BlockFluidClassic {
 		this.renderLayer = BlockRenderLayer.TRANSLUCENT;
 		this.temperature = 380;
 		this.setDensity(300);
-		this.setCreativeTab(null);
 		this.setRegistryName("tannin");
 	}
 }

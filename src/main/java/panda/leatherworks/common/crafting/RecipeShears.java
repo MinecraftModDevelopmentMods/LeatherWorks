@@ -101,8 +101,8 @@ public class RecipeShears implements IRecipe{
         return this.recipeItems.size();
     }
 
-@Override
-public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+	@Override
+	public ItemStack[] getRemainingItems(InventoryCrafting inv) {
 		
 		ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 
@@ -112,6 +112,7 @@ public ItemStack[] getRemainingItems(InventoryCrafting inv) {
             if(itemstack != null){
             	if(itemstack.getItem() == Items.SHEARS){
                 	ItemStack shearscopy = itemstack.copy();
+					//TODO Fix this, it will crash
                 	if(shearscopy.attemptDamageItem(1, Minecraft.getMinecraft().theWorld.rand)){
                 		ForgeEventFactory.onPlayerDestroyItem(ForgeHooks.getCraftingPlayer(), itemstack, null);
                 		aitemstack[i] = null;

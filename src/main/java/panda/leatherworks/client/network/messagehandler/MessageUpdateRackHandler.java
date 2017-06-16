@@ -1,5 +1,6 @@
 package panda.leatherworks.client.network.messagehandler;
 
+import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -12,6 +13,7 @@ import panda.leatherworks.common.tileentity.TileEntityItemRack;
 @SideOnly(Side.CLIENT)
 public class MessageUpdateRackHandler implements IMessageHandler<MessageUpdateRack, IMessage> {
 	@Override
+	@Nullable
 	public IMessage onMessage(MessageUpdateRack message, MessageContext ctx) {
 		Minecraft.getMinecraft().addScheduledTask(() -> {
 			TileEntityItemRack te = (TileEntityItemRack)Minecraft.getMinecraft().theWorld.getTileEntity(message.pos);

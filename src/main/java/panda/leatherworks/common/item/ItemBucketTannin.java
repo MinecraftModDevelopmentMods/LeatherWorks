@@ -37,14 +37,14 @@ public class ItemBucketTannin extends ItemBucket {
 		RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
 
 		if (raytraceresult == null) {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+			return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
 		} else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
-			return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+			return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
 		} else {
 			BlockPos blockpos = raytraceresult.getBlockPos();
 
 			if (!worldIn.isBlockModifiable(playerIn, blockpos)) {
-				return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+				return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
 			}
 
 			else {
@@ -53,14 +53,14 @@ public class ItemBucketTannin extends ItemBucket {
 						: blockpos.offset(raytraceresult.sideHit);
 
 				if (!playerIn.canPlayerEdit(blockpos1, raytraceresult.sideHit, itemStackIn)) {
-					return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+					return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
 				} else if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos1)) {
 					playerIn.addStat(StatList.getObjectUseStats(this));
 					return !playerIn.capabilities.isCreativeMode
-							? new ActionResult<ItemStack>(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET))
-							: new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+							? new ActionResult<>(EnumActionResult.SUCCESS, new ItemStack(Items.BUCKET))
+							: new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
 				} else {
-					return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+					return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
 				}
 			}
 		}

@@ -50,7 +50,7 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 				// Simulate first
 				ItemStack extract = itemHandler.extractItem(0, 1, true);
 				if (extract == null) {
-					if (DryingRecipes.hasRecipe(heldItem)) {
+					if (heldItem != null && DryingRecipes.hasRecipe(heldItem)) {
 						player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
 					}
 				} else if (player.inventory.addItemStackToInventory(extract)) {

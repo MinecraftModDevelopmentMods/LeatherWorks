@@ -73,17 +73,17 @@ public class LivingDropsHandler {
 	}
 	
 	private int modifyDrops(int fortune,Random random){
-	if (fortune > 0 )
-    {
-        int i = random.nextInt(fortune + 2) - 1;
+		if (fortune > 0 )
+		{
+			int i = random.nextInt(fortune + 2) - 1;
 
-        if (i < 0)
-        {
-            i = 0;
-        }
+			if (i < 0)
+			{
+				i = 0;
+			}
 
-        return i + 1;
-    }
-	return 1;
+			return i + 1;
+		}
+		return 1;
 	}
 }

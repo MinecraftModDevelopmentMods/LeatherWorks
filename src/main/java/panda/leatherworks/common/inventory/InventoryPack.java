@@ -1,5 +1,6 @@
 package panda.leatherworks.common.inventory;
 
+import javax.annotation.Nullable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
@@ -13,14 +14,17 @@ public class InventoryPack extends InventoryBasic{
 	 private EntityPlayer player;
 	 private ItemStack[] inventoryContents;
 	
-	public InventoryPack(String title, ItemStack Stack,EntityPlayer pl) {
+	public InventoryPack(String title, ItemStack stack, EntityPlayer player) {
 		super(title,false, 16);
-		this.player = pl;
-		this.backpackStack=Stack;
+		this.player = player;
+		this.backpackStack = stack;
 		
 		this.inventoryContents = new ItemStack[16];
-		readFromNBT(Stack.getTagCompound());
-
+		if (!player.worldObj.isRemote) { //server side only
+			if (stack.hasTagCompound()) {
+				readFromNBT(stack.getTagCompound());
+			}
+		}
 	}
 	
 	public void onGuiSaved(EntityPlayer entityPlayer){
@@ -55,7 +59,7 @@ public class InventoryPack extends InventoryBasic{
 	    }
 
 	    @Override
-	    public void setInventorySlotContents(int slotIndex, ItemStack itemStack) {
+	    public void setInventorySlotContents(int slotIndex, @Nullable ItemStack itemStack) {
 	    	inventoryContents[slotIndex] = itemStack;
 	        if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
 	            itemStack.stackSize = getInventoryStackLimit();
@@ -82,15 +86,16 @@ public class InventoryPack extends InventoryBasic{
 	
 	
 	public void save(){
+		if (!player.worldObj.isRemote) {
+			NBTTagCompound nbtTagCompound = backpackStack.getTagCompound();
 
-        NBTTagCompound nbtTagCompound = backpackStack.getTagCompound();
+			if (nbtTagCompound == null) {
+				nbtTagCompound = new NBTTagCompound();
+			}
 
-        if (nbtTagCompound == null) {
-            nbtTagCompound = new NBTTagCompound();
-        }
-
-        writeToNBT(nbtTagCompound);
-        backpackStack.setTagCompound(nbtTagCompound);
+			writeToNBT(nbtTagCompound);
+			backpackStack.setTagCompound(nbtTagCompound);
+		}
     }
 
     /**
@@ -98,22 +103,17 @@ public class InventoryPack extends InventoryBasic{
      * @param nbtTagCompound - the tag compound
      */
     public void writeToNBT(NBTTagCompound nbtTagCompound){
-        if (!player.worldObj.isRemote) { //server side only
-        	if(backpackStack.hasTagCompound()){
-            nbtTagCompound = backpackStack.getTagCompound();
-
-            // Write the ItemStacks in the inventory to NBT
-            NBTTagList tagList = new NBTTagList();
-            for (int i = 0; i < inventoryContents.length; i++) {
-                if (inventoryContents[i] != null) {
-                    NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.setByte("Slot", (byte) i);
-                    inventoryContents[i].writeToNBT(tagCompound);
-                    tagList.appendTag(tagCompound);
-                }
-            }
-            nbtTagCompound.setTag("Items", tagList);
-        }}
+		// Write the ItemStacks in the inventory to NBT
+		NBTTagList tagList = new NBTTagList();
+		for (int i = 0; i < inventoryContents.length; i++) {
+			if (inventoryContents[i] != null) {
+				NBTTagCompound tagCompound = new NBTTagCompound();
+				tagCompound.setByte("Slot", (byte) i);
+				inventoryContents[i].writeToNBT(tagCompound);
+				tagList.appendTag(tagCompound);
+			}
+		}
+		nbtTagCompound.setTag("Items", tagList);
     }
 
     /**
@@ -122,28 +122,19 @@ public class InventoryPack extends InventoryBasic{
      */
     //ToDo: Really need to remove this nonsense in next refactor
     public void readFromNBT(NBTTagCompound nbtTagCompound){
-        if (!player.worldObj.isRemote) { //server side only
-            if (backpackStack != null) {
-                nbtTagCompound = backpackStack.getTagCompound();
+		//load in items
+		if (nbtTagCompound.hasKey("Items")) {
+			NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+			this.inventoryContents = new ItemStack[this.getSizeInventory()];
 
-                if (nbtTagCompound != null) {
-
-                    //load in items
-                    if (nbtTagCompound.hasKey("Items")) {
-                        NBTTagList tagList = nbtTagCompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-                        this.inventoryContents = new ItemStack[this.getSizeInventory()];
-
-                        for (int i = 0; i < tagList.tagCount(); i++) {
-                            NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
-                            int j = stackTag.getByte("Slot");
-                            if (i >= 0 && i <= inventoryContents.length) { //ToDo: Remove 2nd equals (so just less than) as per a 1.7.10 PR; test it
-                                this.inventoryContents[j] = ItemStack.loadItemStackFromNBT(stackTag);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+			for (int i = 0; i < tagList.tagCount(); i++) {
+				NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
+				int j = stackTag.getByte("Slot");
+				if (i >= 0 && i <= inventoryContents.length) { //ToDo: Remove 2nd equals (so just less than) as per a 1.7.10 PR; test it
+					this.inventoryContents[j] = ItemStack.loadItemStackFromNBT(stackTag);
+				}
+			}
+		}
     }
 	
 	

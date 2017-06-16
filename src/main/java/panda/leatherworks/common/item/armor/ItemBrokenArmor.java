@@ -114,7 +114,6 @@ public class ItemBrokenArmor extends ItemArmor{
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> list, boolean advanced)
     {
-
  	    if (stack.hasTagCompound())
  	    {
             NBTTagList nbttaglist = stack.getTagCompound().getTagList("altench", 10);

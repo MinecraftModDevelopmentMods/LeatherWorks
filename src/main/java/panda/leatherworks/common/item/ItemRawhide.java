@@ -32,7 +32,7 @@ public class ItemRawhide extends ItemBase implements IMeta{
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, List list) {
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		for(int i = 0; i<getMaxMeta();i++){
 			list.add(new ItemStack(itemIn, 1, i));
 		}

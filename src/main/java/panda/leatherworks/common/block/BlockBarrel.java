@@ -51,7 +51,7 @@ public class BlockBarrel extends Block
     public BlockBarrel()
     {
         super(Material.WOOD, MapColor.WOOD);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)).withProperty(FLUID, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0).withProperty(FLUID, 0));
         this.setCreativeTab(LeatherWorks.LeatherTab);
         this.setRegistryName("barrel");
         this.setTickRandomly(true);
@@ -89,7 +89,7 @@ public class BlockBarrel extends Block
      */
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        int i = state.getValue(LEVEL).intValue();
+        int i = state.getValue(LEVEL);
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
 
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getEntityBoundingBox().minY <= (double)f)
@@ -110,8 +110,8 @@ public class BlockBarrel extends Block
         	
 
         	
-            int i = state.getValue(LEVEL).intValue();
-            int f = state.getValue(FLUID).intValue();
+            int i = state.getValue(LEVEL);
+            int f = state.getValue(FLUID);
             Item item = heldItem.getItem();
         	if (item == Item.getItemFromBlock(Blocks.WOODEN_PRESSURE_PLATE))
             {
@@ -137,7 +137,7 @@ public class BlockBarrel extends Block
                         playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
                     }
 
-                    worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(3, 0, 3))).withProperty(FLUID, Integer.valueOf(0)) , 2);
+                    worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(3, 0, 3)).withProperty(FLUID, 0) , 2);
                     worldIn.updateComparatorOutputLevel(pos, this);
                 }
 
@@ -151,7 +151,7 @@ public class BlockBarrel extends Block
                         {
                             playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
                         }
-                        worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(3, 0, 3))).withProperty(FLUID, Integer.valueOf(1)) , 2);
+                        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(3, 0, 3)).withProperty(FLUID, 1) , 2);
                         worldIn.updateComparatorOutputLevel(pos, this);
                     }
 
@@ -246,7 +246,7 @@ public class BlockBarrel extends Block
                     {
                     	--heldItem.stackSize;
                     }
-                    worldIn.setBlockState(pos, state.withProperty(FLUID, Integer.valueOf(1)) , 2);
+                    worldIn.setBlockState(pos, state.withProperty(FLUID, 1) , 2);
                     worldIn.updateComparatorOutputLevel(pos, this);
                 }
 
@@ -453,7 +453,7 @@ public class BlockBarrel extends Block
 
 	public void setFluidLevel(World worldIn, BlockPos pos, IBlockState state, int level)
     {
-        worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(level, 0, 3))), 2);
+        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(level, 0, 3)), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
@@ -472,8 +472,7 @@ public class BlockBarrel extends Block
             {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
 
-                if (iblockstate.getValue(LEVEL).intValue() < 3 && iblockstate.getValue(FLUID)
-					.intValue() ==0 )
+                if (iblockstate.getValue(LEVEL) < 3 && iblockstate.getValue(FLUID) == 0)
                 {
                     worldIn.setBlockState(pos, iblockstate.cycleProperty(LEVEL), 2);
                 }
@@ -502,7 +501,7 @@ public class BlockBarrel extends Block
 
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
     {
-        return blockState.getValue(LEVEL).intValue();
+        return blockState.getValue(LEVEL);
     }
 
     /**
@@ -512,21 +511,21 @@ public class BlockBarrel extends Block
     {
         switch(meta){
         case 0:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(0)).withProperty(FLUID, Integer.valueOf(0));
+        	return this.getDefaultState().withProperty(LEVEL, 0).withProperty(FLUID, 0);
         case 1:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(1)).withProperty(FLUID, Integer.valueOf(0));
+        	return this.getDefaultState().withProperty(LEVEL, 1).withProperty(FLUID, 0);
         case 2:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(2)).withProperty(FLUID, Integer.valueOf(0));
+        	return this.getDefaultState().withProperty(LEVEL, 2).withProperty(FLUID, 0);
         case 3:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(3)).withProperty(FLUID, Integer.valueOf(0));
+        	return this.getDefaultState().withProperty(LEVEL, 3).withProperty(FLUID, 0);
         case 4:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(0)).withProperty(FLUID, Integer.valueOf(1));
+        	return this.getDefaultState().withProperty(LEVEL, 0).withProperty(FLUID, 1);
         case 5:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(1)).withProperty(FLUID, Integer.valueOf(1));
+        	return this.getDefaultState().withProperty(LEVEL, 1).withProperty(FLUID, 1);
         case 6:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(2)).withProperty(FLUID, Integer.valueOf(1));
+        	return this.getDefaultState().withProperty(LEVEL, 2).withProperty(FLUID, 1);
         case 7:
-        	return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(3)).withProperty(FLUID, Integer.valueOf(1));
+        	return this.getDefaultState().withProperty(LEVEL, 3).withProperty(FLUID, 1);
         }
     	
     	return this.getDefaultState();
@@ -537,7 +536,7 @@ public class BlockBarrel extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return state.getValue(LEVEL).intValue()+4* state.getValue(FLUID).intValue();
+        return state.getValue(LEVEL) + 4 * state.getValue(FLUID);
     }
 
     protected BlockStateContainer createBlockState()

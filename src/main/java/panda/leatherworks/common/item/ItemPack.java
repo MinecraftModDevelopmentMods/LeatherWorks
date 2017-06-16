@@ -36,6 +36,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
+//TODO Rework this. It is using a static variable for the inventory. It will not work.
 public class ItemPack extends ItemBase implements IMeta{
 	
 	private static final String TileUtil = null;

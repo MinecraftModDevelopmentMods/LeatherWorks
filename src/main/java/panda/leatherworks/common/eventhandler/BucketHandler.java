@@ -36,7 +36,7 @@ public class BucketHandler {
 		IBlockState iblockstate = event.getWorld().getBlockState(blockpos);
 		Fluid filled_fluid = null;
 		if (iblockstate.getBlock() == LWBlocks.TANNIN
-				&& iblockstate.getValue(BlockTanninFluid.LEVEL).intValue() == 0) {
+				&& iblockstate.getValue(BlockTanninFluid.LEVEL) == 0) {
 			filled_fluid = LWBlocks.TANNIN_FLUID;
 		} else {
 			return;

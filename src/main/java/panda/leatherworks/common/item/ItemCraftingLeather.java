@@ -69,7 +69,7 @@ public class ItemCraftingLeather extends ItemBase implements IMeta{
 
             if (raytraceresult == null)
             {
-                return new ActionResult(EnumActionResult.PASS, itemStackIn);
+                return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
             }
             else
             {
@@ -79,7 +79,7 @@ public class ItemCraftingLeather extends ItemBase implements IMeta{
 
                     if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemStackIn))
                     {
-                        return new ActionResult(EnumActionResult.PASS, itemStackIn);
+                        return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
                     }
 
                     if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
@@ -88,14 +88,14 @@ public class ItemCraftingLeather extends ItemBase implements IMeta{
                         //worldIn.spawnParticle(particleType, ignoreRange, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
                        //TODO particles
                         itemStackIn.setItemDamage(1);
-                        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+                        return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
                     }
                 }
 
-                return new ActionResult(EnumActionResult.PASS, itemStackIn);
+                return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
             }
 		}
-		return new ActionResult(EnumActionResult.PASS, itemStackIn);
+		return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
     }
 
 }
