@@ -1,7 +1,0 @@
-{
-    "parent": "leatherworks:block/log_stripped",
-    "textures": {
-        "side": "leatherworks:blocks/stripped_log_jungle_side",
-      "end": "blocks/log_jungle_top"
-    }
-}
