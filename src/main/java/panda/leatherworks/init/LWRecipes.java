@@ -21,8 +21,8 @@ import panda.leatherworks.common.crafting.DryingRecipes;
 public class LWRecipes {
 
 	public static void register() {
-		DryingRecipes.initDryingRecipes();
-		
+		DryingRecipes.addDryingRecipe(new ItemStack(LWItems.CRAFTING_LEATHER, 1, 2), Items.LEATHER, 60, Items.ROTTEN_FLESH, 0.05f);
+
 		GameRegistry.addShapelessRecipe(new ItemStack(LWItems.TANNIN_BALL, 2), new ItemStack(
 			LWItems.BARK,1,5));
 		GameRegistry.addShapelessRecipe(new ItemStack(LWItems.TANNIN_BALL, 2), new ItemStack(

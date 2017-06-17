@@ -13,10 +13,6 @@ public class DryingRecipes {
 
 	private static List<IDryingRecipe> recipes = new ArrayList<>();
 
-	public static void initDryingRecipes() {
-		addDryingRecipe(new ItemStack(LWItems.CRAFTING_LEATHER,1,2), Items.LEATHER, 60, Items.ROTTEN_FLESH, 0.05f);
-	}
-
 	public static void addDryingRecipe(ItemStack input, ItemStack output, int ticks, ItemStack failed, float failureChance) {
 		DryingRecipe recipe = new DryingRecipe(input, output, ticks, failed, failureChance);
 		recipes.add(recipe);
