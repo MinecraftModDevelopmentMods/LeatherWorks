@@ -1,7 +1,5 @@
 package panda.leatherworks.client;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -10,7 +8,6 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,7 +21,6 @@ import panda.leatherworks.common.network.message.MessageUpdateRack;
 import panda.leatherworks.common.tileentity.TileEntityItemRack;
 import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
-import panda.leatherworks.util.IMeta;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -47,6 +43,22 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerModels() {
+		registerItemModelMetaVariants(LWItems.RAWHIDE, "rawhide", 6);
+		registerItemModelMetaVariants(LWItems.BARK, "bark", 6);
+		registerItemModel(LWItems.TANNIN_BOTTLE, "tannin_bottle");
+		registerItemModel(LWItems.TANNIN_BALL, "tannin_ball");
+		registerItemModel(LWItems.REPAIR_KIT, "repair_kit");
+		registerItemModel(LWItems.TANNIN_BUCKET, "tannin_bucket");
+		registerItemModelMetaVariants(LWItems.CRAFTING_LEATHER, "crafting_leather", 3);
+		registerItemModelMetaVariants(LWItems.PACK, "pack", 15);
+		registerItemModel(LWItems.ENDER_PACK, "ender_pack");
+		registerItemModel(LWItems.LEATHER_STRIP, "leather_strip");
+		registerItemModel(LWItems.LEATHER_SHEET, "leather_sheet");
+		registerItemModel(LWItems.BROKEN_LEATHER_BOOTS, "broken_leather_boots");
+		registerItemModel(LWItems.BROKEN_LEATHER_CHESTPLATE, "broken_leather_chestplate");
+		registerItemModel(LWItems.BROKEN_LEATHER_LEGGINGS, "broken_leather_leggings");
+		registerItemModel(LWItems.BROKEN_LEATHER_BOOTS, "broken_leather_boots");
+
 		registerBlockModel(LWBlocks.DEBARKED_LOG_OAK, "debarked_log_oak");
 		registerBlockModel(LWBlocks.DEBARKED_LOG_ACACIA, "debarked_log_acacia");
 		registerBlockModel(LWBlocks.DEBARKED_LOG_BIRCH, "debarked_log_birch");
@@ -64,8 +76,6 @@ public class ClientProxy extends CommonProxy {
 			}
 		});
 
-		registerModels(LWItems.getList());
-
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemRack.class, new TileEntityItemRackRenderer());
 	}
 
@@ -77,35 +87,9 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(new ResourceLocation(LeatherWorks.MODID, name), "inventory"));
 	}
 
-	private void registerModels(List<?> list) {
-		for (Object k : list) {
-			Item item = null;
-			if (k instanceof Item) {
-				item = (Item) k;
-			}
-			if (item instanceof IMeta) {
-				List<ModelResourceLocation> map = new ArrayList<ModelResourceLocation>();
-				for (int i = 0; i <= ((IMeta) item).getMaxMeta(); i++) {
-					map = ((IMeta) item).getMetaModelLocations(map);
-					ModelLoader.setCustomModelResourceLocation(item, i, map.get(i));
-				}
-			} else if (item != null) {
-				ModelLoader.setCustomModelResourceLocation(item, 0,
-					new ModelResourceLocation(item.getRegistryName(), "inventory"));
-			}
-			if (k instanceof BlockFluidBase) {
-				handleFluidState((Block) k, ((Block) k).getRegistryName().getResourcePath());
-			}
-
+	private static void registerItemModelMetaVariants(Item item, String name, int metas) {
+		for (int meta = 0; meta < metas; meta++) {
+			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(new ResourceLocation(LeatherWorks.MODID, name), "meta=" + meta));
 		}
-	}
-
-	private void handleFluidState(Block block, final String name) {
-		ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				return new ModelResourceLocation(LeatherWorks.MODID + ":fluids", name);
-			}
-		});
 	}
 }

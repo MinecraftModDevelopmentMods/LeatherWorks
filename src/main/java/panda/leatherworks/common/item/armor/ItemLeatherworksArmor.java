@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
 
-public class ItemLeatherworksArmor extends ItemArmor implements ISpecialArmor{
+public class ItemLeatherworksArmor extends ItemArmor implements ISpecialArmor {
 
 	private Item brokenarmor;
 

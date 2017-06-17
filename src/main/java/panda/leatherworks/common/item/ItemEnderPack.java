@@ -1,5 +1,6 @@
 package panda.leatherworks.common.item;
 
+import net.minecraft.item.Item;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.GuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,10 +13,9 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class ItemEnderPack extends ItemBase{
+public class ItemEnderPack extends Item {
 
 	public ItemEnderPack() {
-		super("ender_pack");
 		this.setMaxStackSize(1);
 	}
 

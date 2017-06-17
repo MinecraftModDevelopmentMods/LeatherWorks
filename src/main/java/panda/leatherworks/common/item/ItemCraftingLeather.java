@@ -3,7 +3,6 @@ package panda.leatherworks.common.item;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -18,32 +17,16 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import panda.leatherworks.util.IMeta;
 
-public class ItemCraftingLeather extends ItemBase implements IMeta{
+public class ItemCraftingLeather extends Item {
 
 	public ItemCraftingLeather() {
-		super("craftingleather");
 		this.setHasSubtypes(true);
-
 	}
 
-	@Override
-	public int getMaxMeta() {
-		return 3;
-	}
-
-	@Override
-	public List<ModelResourceLocation> getMetaModelLocations(List<ModelResourceLocation> map) {
-		for(int i = 0; i<getMaxMeta();i++){
-			map.add(new ModelResourceLocation(getRegistryName(), "meta="+i));
-		}
-		return map;
-	}
-	
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, List list) {
-		for(int i = 0; i<getMaxMeta();i++){
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+		for(int i = 0; i < 3; i++){
 			list.add(new ItemStack(itemIn, 1, i));
 		}
 	}

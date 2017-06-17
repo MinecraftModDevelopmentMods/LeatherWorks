@@ -7,10 +7,8 @@ import javax.annotation.Nullable;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockBarrel;
 import panda.leatherworks.common.GuiHandler;
-import panda.leatherworks.util.IMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -37,17 +35,15 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 //TODO Rework this. It is using a static variable for the inventory. It will not work.
-public class ItemPack extends ItemBase implements IMeta{
+public class ItemPack extends Item {
 	
 	private static final String TileUtil = null;
 	static ItemStack[] Packinventory;
 
 	public ItemPack() {
-		super("pack");
 		this.setHasSubtypes(true);
 		this.setMaxStackSize(1);
 		setNoRepair();
-
 	}
 	
 	@Override
@@ -56,31 +52,16 @@ public class ItemPack extends ItemBase implements IMeta{
 	}
 
 	@Override
-	public int getMaxMeta() {
-		return 15;
-	}
-	
-	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
 	{
 		list.add("WARNING: Filling more than one pack in an inventory is not always item safe.");
 		list.add("Do so at your own risk");
 		
 	}
-	
-	
 
-	@Override
-	public List<ModelResourceLocation> getMetaModelLocations(List<ModelResourceLocation> map) {
-		for(int i = 0; i<getMaxMeta();i++){
-			map.add(new ModelResourceLocation(getRegistryName(), "meta="+i));
-		}
-		return map;
-	}
-	
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item itemIn, CreativeTabs tab, List list) {
-		for(int i = 0; i<getMaxMeta();i++){
+		for(int i = 0; i < 15; i++){
 			list.add(new ItemStack(itemIn, 1, i));
 		}
 	}

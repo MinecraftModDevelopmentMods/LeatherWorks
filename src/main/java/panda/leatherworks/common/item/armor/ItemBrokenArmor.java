@@ -14,11 +14,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.leatherworks.init.LWItems;
 
-public class ItemBrokenArmor extends ItemArmor{
+public class ItemBrokenArmor extends ItemArmor {
 
 	public ItemBrokenArmor(EntityEquipmentSlot equipmentSlotIn) {
 		super(LWItems.DUMMYLEATHER, 0, equipmentSlotIn);
-		this.setCreativeTab(LeatherWorks.LeatherTab);
 
 	}
 	@Override

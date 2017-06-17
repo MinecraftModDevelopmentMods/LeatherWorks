@@ -2,38 +2,21 @@ package panda.leatherworks.common.item;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import panda.leatherworks.util.IMeta;
 
-public class ItemBark extends ItemBase implements IMeta{
+public class ItemBark extends Item {
 
 	public ItemBark() {
-		super("bark");
 		this.setHasSubtypes(true);
-
 	}
 
-	@Override
-	public int getMaxMeta() {
-		return 6;
-	}
-
-	@Override
-	public List<ModelResourceLocation> getMetaModelLocations(List<ModelResourceLocation> map) {
-		for(int i = 0; i<getMaxMeta();i++){
-			map.add(new ModelResourceLocation(getRegistryName(), "meta="+i));
-		}
-		return map;
-	}
-	
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-		for(int i = 0; i<getMaxMeta();i++){
+		for(int i = 0; i < 6; i++){
 			list.add(new ItemStack(itemIn, 1, i));
 		}
 	}

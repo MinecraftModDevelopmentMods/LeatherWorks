@@ -26,8 +26,6 @@ public class ItemBucketTannin extends ItemBucket {
 
 	public ItemBucketTannin() {
 		super(LWBlocks.TANNIN);
-		this.setCreativeTab(LeatherWorks.LeatherTab);
-		setRegistryName("tannin_bucket");
 	}
 
 	@Override
