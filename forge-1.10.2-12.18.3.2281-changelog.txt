@@ -8,7 +8,7 @@ Build 1.11.2-13.20.0.2280:
 	LexManos:
 		Fix NumberFormatException being thrown for empty ItemStack
 		deserialization Thanks @gabizou, 1.11.2 version of #3830
-	LexManos: Cleanup AccessTransformer debug output
+	LexManos: Cleanup AccessTransformer debug successOutput
 
 Build 1.11.2-13.20.0.2279:
 	kyo.se.llout: Fix Fluid models rendering with gaps (#3747) Closes #2993
@@ -1185,7 +1185,7 @@ Build 1.10.2-12.18.1.2039:
 
 Build 1.10.2-12.18.1.2038:
 	cpw:
-		Fix anvil output slots being wrong by adding new ones. Closes #3121
+		Fix anvil successOutput slots being wrong by adding new ones. Closes #3121
 		without breaking existing mod workarounds for the badly ordered slots.
 
 Build 1.10.2-12.18.1.2037:
@@ -1240,7 +1240,7 @@ Build 1.10.2-12.18.1.2027:
 		but probably has a random MCJIRA ticket somewhere too.
 
 Build 1.10.2-12.18.1.2026:
-	vincent.lee: Add ability for custom detector rail output
+	vincent.lee: Add ability for custom detector rail successOutput
 	vincent.lee: Move to a hook in EntityMinecart
 	vincent.lee: Remove event stuff
 
@@ -1467,7 +1467,7 @@ Build 1.9.4-12.17.0.1978-1.10.0:
 		this commit enacts that change. Although it is using the 1.9.4 codebase,
 		it is intended that this branch become public with the 1.10 changes, as
 		such the license will take effect at that time. The three commits from
-		persons who have failed to accept the new license, as documented in
+		persons who have failureOutput to accept the new license, as documented in
 		#2789, have had their commits reverted. This should complete the license
 		transition. Commits after the commit date of this commit should be
 		considered licensed by LGPLv2.1, as indicated in LICENSE-new.txt. All
@@ -1587,7 +1587,7 @@ Build 1.9.4-12.17.0.1950:
 		PlayerChunkMap shortly after the chunk had been queued.
 		
 		- PlayerChunkMapEntry now only loads chunks synchronously *after* the
-		 chunk failed to load asynchronously.
+		 chunk failureOutput to load asynchronously.
 		- Fixed some minor bugs that caused "Attempted to dequeue chunk"
 		messages
 		- Simplified ChunkProviderServer patch. loadChunk no longer generates
@@ -1598,7 +1598,7 @@ Build 1.9.4-12.17.0.1950:
 
 Build 1.9.4-12.17.0.1949:
 	mezz:
-		Make it easier to use FluidTanks that have input/output restrictions
+		Make it easier to use FluidTanks that have input/successOutput restrictions
 		(#2945)
 		These internal function should NOT be used by anything except the owner
 		of the tank.
@@ -2077,7 +2077,7 @@ Build 1.9-12.16.0.1886:
 	fry: Fixed Block.doesSideBlockRendering, closes #2564.
 	fry: Fixed outline shader rendering, closes #2560.
 	fry: Fixed sprite not being passed to the quad builder for custom models.
-	cordonfreeman: Fix for patch targetting the wrong field to change for failed pathfinding penalty
+	cordonfreeman: Fix for patch targetting the wrong field to change for failureOutput pathfinding penalty
 	iTitus:
 		Fix the EntityPlayer patch
 		
@@ -2864,7 +2864,7 @@ Build 1.9-12.16.0.1778-1.9:
 	CovertJaguar: Fix #2601 Minecart infinite acceleration
 
 Build 1.8.9-11.15.1.1777:
-	cordonfreeman: Fix for patch targetting the wrong field to change for failed pathfinding penalty
+	cordonfreeman: Fix for patch targetting the wrong field to change for failureOutput pathfinding penalty
 
 Build 1.9-12.16.0.1776-1.9:
 	diesieben07: Fix broken patch in EntityPlayer.updateRidden
@@ -2881,7 +2881,7 @@ Build 1.9-12.16.0.1775-1.9:
 	vincent.lee: Fix #2555
 
 Build 1.9-12.16.0.1774-1.9:
-	cordonfreeman: Fix for patch targetting the wrong field to change for failed pathfinding penalty
+	cordonfreeman: Fix for patch targetting the wrong field to change for failureOutput pathfinding penalty
 
 Build 1.9-12.16.0.1773-1.9:
 	cpw: Fix bucket test
@@ -4152,7 +4152,7 @@ Build 1.8-11.14.3.1503:
 	LexManos: Update gradle wrapper and fix changelog task.
 
 Build 1.8-11.14.3.1502:
-	cpw: ObjectHolder works great, but it should be a lot less spammy about failed lookups. They're usually mod options.
+	cpw: ObjectHolder works great, but it should be a lot less spammy about failureOutput lookups. They're usually mod options.
 	cpw: Actually rebuild the fluidNames each rebuild, don't just try and force changes in. Should fix #1973
 	cpw:
 		Wake up the FluidRegistry before any mods start loading. Should stop mods claiming to own water or lava (depending on who accessed
@@ -4218,10 +4218,10 @@ Build 1.8-11.14.3.1483:
 	bernhard.bonigl: Fix StateMap always mapping properties to the "minecraft" domain instead of the mods, causing it to not find BlockState definitions.
 
 Build 1.8-11.14.3.1482:
-	LexManos: Add debug for max texture size and output when Texture Atlas can not stitch all textures.
+	LexManos: Add debug for max texture size and successOutput when Texture Atlas can not stitch all textures.
 
 Build 1.7.10-10.13.4.1481-1.7.10:
-	cpw: ObjectHolder works great, but it should be a lot less spammy about failed lookups. They're usually mod options.
+	cpw: ObjectHolder works great, but it should be a lot less spammy about failureOutput lookups. They're usually mod options.
 
 Build 1.8-11.14.3.1480:
 	LexManos: More descripotive error if Patcher is passed invalid data for vanilla classes.
@@ -4358,7 +4358,7 @@ Build 1.7.10-10.13.4.1451-1.7.10:
 
 Build 1.8-11.14.3.1450:
 	LexManos: Bump version for new RB.
-	LexManos: Cleanup some spammy output.
+	LexManos: Cleanup some spammy successOutput.
 	LexManos: Quiet ClassPatchManager debug spam by default. Reenable using -Dfml.debugClassPatchManager=true.
 	LexManos: Quiet FMLControlledNamespacedRegistry debug spam by default. Reenable using -Dfml.debugRegistryEntries=true.
 	LexManos: Quiet CrashReport class pre-loading debug, no flag to re-enable.
@@ -4372,7 +4372,7 @@ Build 1.7.10-10.13.4.1448-1.7.10:
 	LexManos: Cleanup mod state dump to be easier to read by displaying the states in abreviation and placing them before the mod info.
 
 Build 1.7.10-10.13.4.1447-1.7.10:
-	LexManos: Cleanup some spammy output.
+	LexManos: Cleanup some spammy successOutput.
 	LexManos: Quiet ClassPatchManager debug spam by default. Reenable using -Dfml.debugClassPatchManager=true.
 	LexManos: Quiet FMLControlledNamespacedRegistry debug spam by default. Reenable using -Dfml.debugRegistryEntries=true.
 	LexManos: Quiet CrashReport class pre-loading debug, no flag to re-enable.
@@ -4520,7 +4520,7 @@ Build 1.8-11.14.2.1421:
 		
 		Signed-off-by: King Lemming <kinglemming@gmail.com>
 	cpw:
-		You shouldn't be creating FluidStacks from unregistered Fluids. Warn clearly on failed registrations, and make a useful log message for failed fluidstack
+		You shouldn't be creating FluidStacks from unregistered Fluids. Warn clearly on failureOutput registrations, and make a useful log message for failureOutput fluidstack
 		creations. Should help a lot with tracking down broken mods that are doing this wrongly.
 	LexManos: MinecraftForge/FML@31cf2a9cab6d1977d31436220d9612eaa13d4e0f Remove J7 only constructor in EnhancedRuntimeException, J6 compiling compatibility restored.
 	LexManos: Restore binary compatibility issues in FluidRegistry caused by recent changes.
@@ -4556,7 +4556,7 @@ Build 1.8-11.14.2.1421:
 		MinecraftForge/FML@ce791cb1f2cf983ef77b1e5c4028ddefab394062 Rework EventSubscriptionTransformer to bake @Cancelable and @HasResult values, should increase EventBus performance even more by removing logic from Event constructors.
 		MinecraftForge/FML@852710962a9b6d7c8e2ca188c715eebb2da44c2a Clean up some dead code
 	cpw: MinecraftForge/FML@be5ec06e3144d55a03d125f3ce364eade3771f4f Cleaning up the missing resource stack spam, and condensing the information into a usefully understandable format.
-	cpw: MinecraftForge/FML@0da1263ff9ede99267c03728a1c823b8056d5e44 Enhance error output for bad textures a bit more and try and capture more types of error..
+	cpw: MinecraftForge/FML@0da1263ff9ede99267c03728a1c823b8056d5e44 Enhance error successOutput for bad textures a bit more and try and capture more types of error..
 	cpw:
 		Fluids are now tracked internally by mod. This allows for the server and the world to specify a "default"
 		in the case of a possible alternative fluid implementation. If you always called registerFluid, things
@@ -4691,7 +4691,7 @@ Build 1.8-11.14.1.1414:
 
 Build 1.8-11.14.1.1413:
 	LexManos: Loosen up ServerChatEvent to support IChatComponent Closes #1893
-	LexManos: Cleanup a lot of spammy output. Everything hidden behind environment flags now. Scale anvil image down 50%
+	LexManos: Cleanup a lot of spammy successOutput. Everything hidden behind environment flags now. Scale anvil image down 50%
 	LexManos: Attempt to disable the new splash screen if there are errors detected finishing up. Print a slightly more helpful error message.
 
 Build 1.8-11.14.1.1412:
@@ -4931,7 +4931,7 @@ Build 1.7.10-10.13.3.1367-1.7.10:
 		tracking.
 
 Build 1.7.10-10.13.3.1366-1.7.10:
-	cpw: MinecraftForge/FML@0da1263ff9ede99267c03728a1c823b8056d5e44 Enhance error output for bad textures a bit more and try and capture more types of error..
+	cpw: MinecraftForge/FML@0da1263ff9ede99267c03728a1c823b8056d5e44 Enhance error successOutput for bad textures a bit more and try and capture more types of error..
 
 Build 1.7.10-10.13.3.1365-1.7.10:
 	cpw: MinecraftForge/FML@be5ec06e3144d55a03d125f3ce364eade3771f4f Cleaning up the missing resource stack spam, and condensing the information into a usefully understandable format.
@@ -5010,7 +5010,7 @@ Build 1.7.10-10.13.3.1355-1.7.10:
 		
 		Signed-off-by: King Lemming <kinglemming@gmail.com>
 	cpw:
-		You shouldn't be creating FluidStacks from unregistered Fluids. Warn clearly on failed registrations, and make a useful log message for failed fluidstack
+		You shouldn't be creating FluidStacks from unregistered Fluids. Warn clearly on failureOutput registrations, and make a useful log message for failureOutput fluidstack
 		creations. Should help a lot with tracking down broken mods that are doing this wrongly.
 
 Build 1.8-11.14.1.1354:
@@ -5053,7 +5053,7 @@ Build 1.8-11.14.1.1350:
 		MinecraftForge/FML@6f6cec96be73b4c94999cf60dc00741f3f3c2cc2 Substitutions need to be activated when they're registered, otherwise they won't appear in world, ever.
 		MinecraftForge/FML@13ac015f0c36b8e2091ae332c556be315429f4c8 Change iterator behaviour for the registry - include substitutions in the standard iterator, so that vanilla MC methods visit them (so they can get textures etc). The fml special one only visits the absolute set, used mostly for sanity checking and serialization.
 	LexManos:
-		MinecraftForge/FML@24cb4a42c4e4bddde95c0e49d1f8b8bcc20c626d Enhance output of common FML errors in crash reports and server GUI.
+		MinecraftForge/FML@24cb4a42c4e4bddde95c0e49d1f8b8bcc20c626d Enhance successOutput of common FML errors in crash reports and server GUI.
 		Force load anonymous minecraft classes used in crash reports. This prevents some crashes being hiddedn behind class definiton exceptions.
 	cpw: Experimental "fix" for the weird rendering in the Acheivements screen. Thanks skyboy for spotting this.
 	cpw:
@@ -5070,7 +5070,7 @@ Build 1.8-11.14.1.1350:
 		MinecraftForge/FML@4ca6f6e19f3c3147fcf48c58669f55478a9a1345 What a dumb oversight. One needs to copy the active substitution set to the active gamedata. Doesn't work well otherwise.
 		MinecraftForge/FML@6f6cec96be73b4c94999cf60dc00741f3f3c2cc2 Substitutions need to be activated when they're registered, otherwise they won't appear in world, ever.
 		MinecraftForge/FML@13ac015f0c36b8e2091ae332c556be315429f4c8 Change iterator behaviour for the registry - include substitutions in the standard iterator, so that vanilla MC methods visit them (so they can get textures etc). The fml special one only visits the absolute set, used mostly for sanity checking and serialization.
-		MinecraftForge/FML@24cb4a42c4e4bddde95c0e49d1f8b8bcc20c626d Enhance output of common FML errors in crash reports and server GUI.
+		MinecraftForge/FML@24cb4a42c4e4bddde95c0e49d1f8b8bcc20c626d Enhance successOutput of common FML errors in crash reports and server GUI.
 		MinecraftForge/FML@12ccf9cf49b76140841cdc5a459422ae4781de1a Rather than try to fall back to the backup level.dat in case of weirdness in the ID map, just fail hard. There is probably a serious modder derp in this case and there's nothing FML can do to recover the situation except avoid making it worse.
 		MinecraftForge/FML@e8cd368da30661ed2898fff232e2db787edcbdcc It's an IllegalState not an IllegalArgument *sigh*
 		MinecraftForge/FML@2be9c743424c92f8799a6af1d59d60edd65e6bf0 And fix itemblocks being removed, leaving behind a residual block. This is a legitimate action - use the missing mapping event to let the mod tell us about it
@@ -5106,13 +5106,13 @@ Build 1.8-11.14.1.1344:
 		MinecraftForge/FML@9cc313eab9939724786f833f511a87c9957dbc72 Merge pull request #617 from diesieben07/innerclass-disc
 		MinecraftForge/FML@01aaa7dc97480b381ca0d192ec65016d7baeb747 Fix mods defined via --mods or --modListFile launch args not being searched for coremods. #560
 		MinecraftForge/FML@8cecc47b85db68e8e69f45641b1d843509dbe71d Merge pull request #620 from killjoy1221/extra-coremod-fix
-		MinecraftForge/FML@38d9a5f444815810dec3607f5b3b7ff1ac513d4c Enhance output of common FML errors in crash reports and server
+		MinecraftForge/FML@38d9a5f444815810dec3607f5b3b7ff1ac513d4c Enhance successOutput of common FML errors in crash reports and server
 		
 		Force load anonymous minecraft classes used in crash reports. This prevents some crashes being hiddedn behind class definiton exceptions.GUI.
 
 Build 1.7.10-10.13.2.1343-1.7.10:
 	LexManos:
-		MinecraftForge/FML@24cb4a42c4e4bddde95c0e49d1f8b8bcc20c626d Enhance output of common FML errors in crash reports and server GUI.
+		MinecraftForge/FML@24cb4a42c4e4bddde95c0e49d1f8b8bcc20c626d Enhance successOutput of common FML errors in crash reports and server GUI.
 		Force load anonymous minecraft classes used in crash reports. This prevents some crashes being hiddedn behind class definiton exceptions.
 
 Build 1.7.10-10.13.2.1342-1.7.10:
@@ -5935,7 +5935,7 @@ Build 1.7.10-10.13.0.1198:
 	DemoXin:
 		* Added AT for ContainerRepair.stackSizeToBeUsedInRepair (Now public)
 		* Added ability to AnvilUpdateEvent to alter stackSizeToBeUsedInRepair (vanilla behavior is now reproducable)
-		* Added AnvilRepairEvent, fired when the player removes an ItemStack from the output slot of ContainerRepair, and allows the chance to damage the anvil to be altered.
+		* Added AnvilRepairEvent, fired when the player removes an ItemStack from the successOutput slot of ContainerRepair, and allows the chance to damage the anvil to be altered.
 
 Build 1.7.10-10.13.0.1197:
 	skyboy026: Add FishingHooks
@@ -6650,7 +6650,7 @@ Build 1.7.2-10.12.0.1050:
 	LexManos: New hook to truely seperate the display of the 'durability' bar from the current / max durability. Allowing modders to control that display easier.
 	LexManos: ItemStack sensitive version of Item.getAttributeModifiers, Closes #816
 	LexManos: Add ANIMALS tpe to PopulateChunkEvent.Populate Custom providers should call this function if they spawn animals curing population. Closes #790
-	LexManos: Add AnvilUpdateEvent which is fired when a user places a item in both input slots of a Anvil and allows modders to control the output. Closes #838
+	LexManos: Add AnvilUpdateEvent which is fired when a user places a item in both input slots of a Anvil and allows modders to control the successOutput. Closes #838
 
 Build 1.7.2-10.12.0.1049:
 	LexManos: Add position to BreakSpeed event. Closes #621
@@ -7612,7 +7612,7 @@ Build 1.6.2-9.10.1.856:
 	Christian: Change trigger calculation so entities get some time to age before refiring the event.
 
 Build 1.6.2-9.10.1.855:
-	LexManos: Create helper apply_patches script and add paramter to change patch output folder.
+	LexManos: Create helper apply_patches script and add paramter to change patch successOutput folder.
 
 Build 1.6.2-9.10.1.854:
 	Christian:
@@ -8149,7 +8149,7 @@ Build 1.6.1-8.9.0.769-newliquid:
 		MinecraftForge/FML@902772ed0cb6c22c4cd7ad9b0ec7a02961b5e016 Revert common folder fix, Common folder does nothing, feel free to delete it after first load.
 	LexManos: Update src distro installer script. Source distro works now!
 	LexManos: Update ToolMaterial enum helper.
-	LexManos: Release will now build a installer jar and use the standard 'target' output folder.
+	LexManos: Release will now build a installer jar and use the standard 'target' successOutput folder.
 	LexManos:
 		Updated FML:
 		MinecraftForge/FML@29d6c875d0675ffa14428c511bd6ebe9232a486c Add FML Installer logo crated by @ZaverSLO https://twitter.com/ZaverSLO/status/349947190300508162
@@ -8283,7 +8283,7 @@ Build 1.6.1-8.9.0.756:
 
 Build 1.6.1-8.9.0.755:
 	LexManos: Update ToolMaterial enum helper.
-	LexManos: Release will now build a installer jar and use the standard 'target' output folder.
+	LexManos: Release will now build a installer jar and use the standard 'target' successOutput folder.
 	LexManos:
 		Updated FML:
 		MinecraftForge/FML@29d6c875d0675ffa14428c511bd6ebe9232a486c Add FML Installer logo crated by @ZaverSLO https://twitter.com/ZaverSLO/status/349947190300508162
@@ -8460,7 +8460,7 @@ Build 1.5.2-7.8.0.715:
 Build 1.5.2-7.8.0.713:
 	Christian:
 		Updated FML:
-		MinecraftForge/FML@843a13c1ab1e3901160082fa63c557243fb64675 Try and clean up cycle detection output a bit
+		MinecraftForge/FML@843a13c1ab1e3901160082fa63c557243fb64675 Try and clean up cycle detection successOutput a bit
 		MinecraftForge/FML@82e9de8641c6a559eec711ea6d1e940d99cbc98f More tweaks to the mod sorting code
 		MinecraftForge/FML@ac97370f94d10beee5f021795cddda827c4411d4 Add in a pretty sorting error screen
 		MinecraftForge/FML@f1d68ed4c82cd28e50ec6a0befc55ff0165bfe08 Throw the sorting exception
@@ -8617,7 +8617,7 @@ Build 1.5.2-7.7.1.680-1.5.2:
 		MinecraftForge/FML@00f00b17bf0da262e6fe3e327ca2deedf7146305 Fix scalac detection to actually use the located command instead of defaulting to 'scalac'
 
 Build 1.5.1-7.7.2.679:
-	LexManos: Changelog generator will now bundle failed builds with the next successful build. Should make it look better and prevent the version numbers from being confusing.
+	LexManos: Changelog generator will now bundle failureOutput builds with the next successful build. Should make it look better and prevent the version numbers from being confusing.
 
 Build 1.5.1-7.7.2.678:
 	LexManos: Bump version to 7.7.2 so I can make a release.
@@ -8715,7 +8715,7 @@ Build 1.5.1-7.7.1.657:
 Build 1.5.1-7.7.1.656:
 	Christian:
 		Updated FML:
-		MinecraftForge/FML@394f424185a044afcd6b31f400e731478171dd18 Fix to output versions in crash logs
+		MinecraftForge/FML@394f424185a044afcd6b31f400e731478171dd18 Fix to successOutput versions in crash logs
 		MinecraftForge/FML@8f35adca7a41c280a4b63d4787f042f615966cac Use more expressive language when a version specifier is a simple unbounded above condition
 
 Build 1.5.1-7.7.1.655:
@@ -9929,7 +9929,7 @@ Build 1.4.6-6.5.0.467:
 	LexManos:
 		Update FML:
 		Fixed issue with users who don't have the JDK installed in there path
-		MCP will now output bfusicated files with windows reserved names to _name.class and FML will prioritize those names.
+		MCP will now successOutput bfusicated files with windows reserved names to _name.class and FML will prioritize those names.
 		Fixed placement of onConnectionClosed callback
 	LexManos: Updated NetClientHandler for onConnectionClosed placement fix.
 	LexManos: Fixed cpw's derp in the PlayerInteractEvent logic.
@@ -10422,7 +10422,7 @@ Build 6.0.1.353:
 		Update FML: b19e882
 		b19e882 Remove some debug, closes #123
 		9d7d32a Fix up tick management outside of mod loading phases for ModLoader mods.
-		d512539 Negatively cache failed class lookups, should help with @SideOnly performance issues.
+		d512539 Negatively cache failureOutput class lookups, should help with @SideOnly performance issues.
 
 Build 6.0.1.351:
 	Christian:
@@ -11635,7 +11635,7 @@ Build 3.1.2.91:
 	LexManos: Added metadata sensitive Chunk constructor for Bioxx
 
 Build 3.1.2.90:
-	LexManos: Added MinecraftApplet.clas to the force output list because users cant understand the concept of only replacing files they are told to. And bumped version to 3.1.2
+	LexManos: Added MinecraftApplet.clas to the force successOutput list because users cant understand the concept of only replacing files they are told to. And bumped version to 3.1.2
 
 Build 3.0.1.89:
 	LexManos: made the ID in PacketEntitySpawn unsigned.
@@ -11725,7 +11725,7 @@ Build 3.0.0.70:
 	LexManos: Updated patch for mapings
 	LexManos: Implemented ISaveEventHandler as ChickenBones's requested.
 	LexManos: Add server spawn protection config option as per someh4x0r's request.
-	LexManos: Couple of output fixups and added script to be executed by Jenkins during the build. First test build.
+	LexManos: Couple of successOutput fixups and added script to be executed by Jenkins during the build. First test build.
 	LexManos: Changed IGuiHandler's signature to be compatible with both sides. Took out ModLoaderMp reference in README.
 
 Build 2.0.0.68:
@@ -11871,7 +11871,7 @@ Build 1.3.4.37:
 	LexManos: Updated to SDK MLMP v2
 
 Build 1.3.4.36:
-	LexManos: Fixed missing double array in MLMP's packet server side. Also, fixed the creative code again, brain failed.
+	LexManos: Fixed missing double array in MLMP's packet server side. Also, fixed the creative code again, brain failureOutput.
 
 Build 1.3.4.35:
 	LexManos: Got my comparitor turned around
