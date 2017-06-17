@@ -3,7 +3,7 @@ package panda.leatherworks.common.eventhandler;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
-import panda.leatherworks.init.MasterRegistrar;
+import panda.leatherworks.init.LWSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -34,7 +34,7 @@ public class DebarkHandler {
 			return;
 		}
 		//if(world.getTotalWorldTime() % 2 ==0){
-			world.playSound(player, player.posX, player.posY, player.posZ, MasterRegistrar.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
+			world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
 		//}
 
 		if(!world.isRemote){

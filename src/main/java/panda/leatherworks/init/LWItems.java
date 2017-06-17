@@ -59,7 +59,7 @@ public final class LWItems {
 	}
 
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Item> event) {
+	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 
 		registry.register(RAWHIDE);

@@ -8,13 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -38,7 +35,7 @@ import panda.leatherworks.common.crafting.RecipeScraping;
 import panda.leatherworks.common.crafting.RecipeShears;
 import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.init.LWItems;
-import panda.leatherworks.init.MasterRegistrar;
+import panda.leatherworks.init.LWRecipes;
 
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
@@ -62,7 +59,7 @@ public class LeatherWorks {
 		wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(LeatherWorks.MODID);
 		PROXY.registerMessageHandlers(wrapper);
 
-		MasterRegistrar.callRegistry(event);
+		LWRecipes.register();
 
 		PROXY.registerModels();
 
