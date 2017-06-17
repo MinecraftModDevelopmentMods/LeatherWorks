@@ -19,9 +19,8 @@ import javax.annotation.Nullable;
 @Deprecated
 public abstract class BlockTileEntity<TE extends TileEntity> extends Block {
 
-	public BlockTileEntity(Material material, String name) {
+	public BlockTileEntity(Material material) {
 		super(material);
-		this.setRegistryName(name);
 	}
 	
 	public abstract Class<TE> getTileEntityClass();

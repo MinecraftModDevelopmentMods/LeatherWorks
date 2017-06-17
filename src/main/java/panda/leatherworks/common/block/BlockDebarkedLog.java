@@ -1,9 +1,6 @@
 package panda.leatherworks.common.block;
 
-import panda.leatherworks.LeatherWorks;
-
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -24,9 +21,6 @@ public class BlockDebarkedLog extends BlockLog
     	this.blockHardness = 3;
 		this.blockResistance = 2;
 		this.setHarvestLevel("axe", 1);
-		this.setCreativeTab(LeatherWorks.LeatherTab);
-		this.setRegistryName("debarked_log_"+wood);
-		
     }
 
     @Override

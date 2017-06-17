@@ -36,6 +36,7 @@ import panda.leatherworks.common.crafting.RecipeRepair;
 import panda.leatherworks.common.crafting.RecipeRepairLeatherArmor;
 import panda.leatherworks.common.crafting.RecipeScraping;
 import panda.leatherworks.common.crafting.RecipeShears;
+import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.init.LWItems;
 import panda.leatherworks.init.MasterRegistrar;
 
@@ -44,7 +45,6 @@ public class LeatherWorks {
 	public static final String MODID = "leatherworks";
 	public static final String VERSION = "1.46.0";
 	public static final String NAME = "Leather Works";
-	public static ArmorMaterial DUMMYLEATHER;
 	public static SimpleNetworkWrapper wrapper;
 	@Mod.Instance(MODID)
 	public static LeatherWorks INSTANCE;
@@ -62,7 +62,6 @@ public class LeatherWorks {
 		wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(LeatherWorks.MODID);
 		PROXY.registerMessageHandlers(wrapper);
 
-		DUMMYLEATHER = EnumHelper.addArmorMaterial("leather", "leatherworks:leather", 5, new int[]{0,0,0,0}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 		MasterRegistrar.callRegistry(event);
 
 		PROXY.registerModels();
@@ -79,7 +78,8 @@ public class LeatherWorks {
 		
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
-		
+
+		GameRegistry.registerTileEntity(TileEntityDryingRack.class, "leatherworks:drying_rack");
 	}
 
 	@EventHandler

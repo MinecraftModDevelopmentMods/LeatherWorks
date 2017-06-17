@@ -55,19 +55,19 @@ public class LWRecipes {
 		GameRegistry.addShapedRecipe(new ItemStack(LWItems.ENDER_PACK), "EEE", "EPE", "EYE", 'P',
 			new ItemStack(LWItems.PACK), 'E', new ItemStack(Items.ENDER_PEARL), 'Y',
 			new ItemStack(Items.ENDER_EYE));
-		GameRegistry.addShapedRecipe(new ItemStack(LWBlocks.RACK), "SSS", 'S',
+		GameRegistry.addShapedRecipe(new ItemStack(LWBlocks.DRYING_RACK), "SSS", 'S',
 			new ItemStack(Blocks.WOODEN_SLAB,1,OreDictionary.WILDCARD_VALUE));
 		
 		for(ItemStack stack :OreDictionary.getOres("plankWood")){
 			GameRegistry.addShapedRecipe(new ItemStack(LWBlocks.BARREL), "P P", "P P", "PPP", 'P',
 				stack);
-			GameRegistry.addShapedRecipe(new ItemStack(LWBlocks.BARREL_SEALED), "PLP", "P P", "PPP",
+			GameRegistry.addShapedRecipe(new ItemStack(LWBlocks.SEALED_BARREL), "PLP", "P P", "PPP",
 				'P', stack,'L', Blocks.WOODEN_PRESSURE_PLATE);
 		}
 		
-		GameRegistry.addShapedRecipe(new ItemStack(LWBlocks.BARREL_SEALED), "L", "P", 'P',
+		GameRegistry.addShapedRecipe(new ItemStack(LWBlocks.SEALED_BARREL), "L", "P", 'P',
 			LWBlocks.BARREL,'L', Blocks.WOODEN_PRESSURE_PLATE);
-		GameRegistry.addShapelessRecipe(new ItemStack(LWBlocks.BARREL),new ItemStack(LWBlocks.BARREL_SEALED));
+		GameRegistry.addShapelessRecipe(new ItemStack(LWBlocks.BARREL),new ItemStack(LWBlocks.SEALED_BARREL));
 				
 		GameRegistry.addShapelessRecipe(new ItemStack(LWItems.PACK,1,1),new ItemStack(LWItems.PACK), new ItemStack(Items.DYE,1,1));
 		GameRegistry.addShapelessRecipe(new ItemStack(LWItems.PACK,1,2),new ItemStack(LWItems.PACK), new ItemStack(Items.DYE,1,14));

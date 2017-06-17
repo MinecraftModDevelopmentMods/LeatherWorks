@@ -17,8 +17,6 @@ public class BlockEmpty extends BlockRotatedPillar{
     	this.blockHardness = 3;
 		this.blockResistance = 2;
 		this.setHarvestLevel("axe", 1);
-		this.setCreativeTab(LeatherWorks.LeatherTab);
-		this.setRegistryName("sealed_barrel");
 	}
 	
 	@Override

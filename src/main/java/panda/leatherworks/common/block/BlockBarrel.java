@@ -52,8 +52,6 @@ public class BlockBarrel extends Block
     {
         super(Material.WOOD, MapColor.WOOD);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0).withProperty(FLUID, 0));
-        this.setCreativeTab(LeatherWorks.LeatherTab);
-        this.setRegistryName("barrel");
         this.setTickRandomly(true);
     }
 
@@ -123,7 +121,7 @@ public class BlockBarrel extends Block
 
                     }
 
-                    worldIn.setBlockState(pos, LWBlocks.BARREL_SEALED.getDefaultState(), 2);
+                    worldIn.setBlockState(pos, LWBlocks.SEALED_BARREL.getDefaultState(), 2);
                 }
 
                 return true;
@@ -349,7 +347,7 @@ public class BlockBarrel extends Block
                 {
                     ItemArmor itemarmor = (ItemArmor)item;
                     
-                    if ((itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER || itemarmor.getArmorMaterial() == LeatherWorks.DUMMYLEATHER) && itemarmor.hasColor(heldItem) && !worldIn.isRemote)
+                    if ((itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER || itemarmor.getArmorMaterial() == LWItems.DUMMYLEATHER) && itemarmor.hasColor(heldItem) && !worldIn.isRemote)
                     {
                         itemarmor.removeColor(heldItem);
                         this.setFluidLevel(worldIn, pos, state, i - 1);

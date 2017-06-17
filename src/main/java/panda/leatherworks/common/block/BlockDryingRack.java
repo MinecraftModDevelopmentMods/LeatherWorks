@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMap;
 
-import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.common.crafting.DryingRecipes;
 
@@ -35,9 +34,8 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 	public static final PropertyEnum<EnumFacing> FACING = PropertyDirection.create("facing", facing -> facing != EnumFacing.DOWN);
 	
 	public BlockDryingRack() {
-		super(Material.WOOD, "drying_rack");
+		super(Material.WOOD);
 		this.setSoundType(SoundType.WOOD);
-		this.setCreativeTab(LeatherWorks.LeatherTab);
 		this.setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.UP));
 	}
 	
