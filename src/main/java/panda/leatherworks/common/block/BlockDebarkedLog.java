@@ -5,8 +5,10 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 public class BlockDebarkedLog extends BlockLog
 {
@@ -35,7 +37,29 @@ public class BlockDebarkedLog extends BlockLog
         return new BlockStateContainer(this, LOG_AXIS);
     }
     
-    public boolean isOpaqueCube(IBlockState state)
+    @Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		
+    	switch (state.getValue(LOG_AXIS))
+        {
+            case X:
+            	return new AxisAlignedBB(0,0.0625,0.0625,1,0.9375,0.9375);
+            case Z:
+            	return new AxisAlignedBB(0.0625,0.0625,0,0.9375,0.9375,1);
+            case Y:
+            	return new AxisAlignedBB(0.0625,0,0.0625,0.9375,1,0.9375);
+            case NONE:
+            	return FULL_BLOCK_AABB;
+        }
+    	return FULL_BLOCK_AABB;
+	}
+
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+		return getBoundingBox(blockState,worldIn,pos);
+	}
+
+	public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }

@@ -29,13 +29,12 @@ public class DebarkHandler {
 		IBlockState state = world.getBlockState(event.getPos());
 
 
-		if ( !player.isSneaking() || !(state.getBlock() instanceof BlockLog)|| state.getBlock() instanceof BlockDebarkedLog) {
-			
+		if ( !(state.getBlock() instanceof BlockLog)|| state.getBlock() instanceof BlockDebarkedLog) {
 			return;
 		}
-		//if(world.getTotalWorldTime() % 2 ==0){
-			world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
-		//}
+		
+		world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
+
 
 		if(!world.isRemote){
 		ItemStack heldStack = player.getHeldItemMainhand();

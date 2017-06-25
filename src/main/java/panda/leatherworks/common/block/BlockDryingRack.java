@@ -231,7 +231,7 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 		builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0, 0.75, 0.75, 1, 1, 1));
 		builder.put(EnumFacing.EAST, new AxisAlignedBB(0.75, 0.75, 0, 1, 1, 1));
 		builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.75, 0, 0.25, 1, 1));
-		builder.put(EnumFacing.UP, new AxisAlignedBB(0, 0.75, 0, 1, 1, 0.25));//TODO fix
+		builder.put(EnumFacing.UP, new AxisAlignedBB(0, 0.75, 0.75, 1, 1, 1));
 		BOUNDS = builder.build();
 	}
 

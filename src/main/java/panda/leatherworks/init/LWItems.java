@@ -63,16 +63,16 @@ public final class LWItems {
 		IForgeRegistry<Item> registry = event.getRegistry();
 
 		registry.register(RAWHIDE);
-		registry.register(BARK);
-		registry.register(TANNIN_BOTTLE);
-		registry.register(TANNIN_BALL);
-		registry.register(REPAIR_KIT);
-		registry.register(TANNIN_BUCKET);
 		registry.register(CRAFTING_LEATHER);
-		registry.register(PACK);
-		registry.register(ENDER_PACK);
+		registry.register(BARK);
+		registry.register(TANNIN_BALL);
+		registry.register(TANNIN_BOTTLE);
+		registry.register(TANNIN_BUCKET);
 		registry.register(LEATHER_STRIP);
 		registry.register(LEATHER_SHEET);
+		registry.register(REPAIR_KIT);
+		registry.register(PACK);
+		registry.register(ENDER_PACK);
 		registry.register(BROKEN_LEATHER_HELMET);
 		registry.register(BROKEN_LEATHER_CHESTPLATE);
 		registry.register(BROKEN_LEATHER_LEGGINGS);
@@ -84,9 +84,10 @@ public final class LWItems {
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_SPRUCE);
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_DARKOAK);
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_JUNGLE);
+		registerItemBlock(registry, LWBlocks.SEALED_BARREL);
 		registerItemBlock(registry, LWBlocks.BARREL);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK);
-		registerItemBlock(registry, LWBlocks.SEALED_BARREL);
+		
 	}
 
 	private static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {
