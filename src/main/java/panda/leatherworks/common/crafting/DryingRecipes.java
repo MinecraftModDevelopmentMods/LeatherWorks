@@ -2,15 +2,16 @@ package panda.leatherworks.common.crafting;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import panda.leatherworks.init.LWItems;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 
 public class DryingRecipes {
 
+	private DryingRecipes() {
+	    throw new IllegalStateException("Utility class");
+	  }
+	
 	private static List<IDryingRecipe> recipes = new ArrayList<>();
 
 	public static void addDryingRecipe(ItemStack input, ItemStack output, int ticks, ItemStack failed, float failureChance) {

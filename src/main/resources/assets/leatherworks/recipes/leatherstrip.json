@@ -1,0 +1,14 @@
+{
+  "type":"leatherworks:shapeless_shears",
+
+  "ingredients": [
+        { "item": "minecraft:leather"},
+        { "item": "minecraft:shears",
+		"data": 32767
+    	}
+    ],
+  "result": {
+    "item": "leatherworks:leather_strip",
+    "count": 4
+  }
+}

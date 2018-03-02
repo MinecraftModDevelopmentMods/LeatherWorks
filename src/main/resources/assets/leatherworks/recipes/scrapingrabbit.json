@@ -1,0 +1,18 @@
+{
+    "conditions": [{
+        "type": "minecraft:item_exists",
+        "item": "leatherworks:leather_strip"
+    }],
+  "type":"leatherworks:shapeless_scraping",
+
+  "ingredients": [
+        { "item": "minecraft:flint"},
+	{ "item": "minecraft:rabbit_hide"}
+    ],
+  "result": {
+
+    "item": "leatherworks:crafting_leather_scraped",
+    "count": 1
+  }
+
+}

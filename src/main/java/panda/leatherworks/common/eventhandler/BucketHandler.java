@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import panda.leatherworks.common.block.BlockTanninFluid;
 import panda.leatherworks.init.LWBlocks;
-import panda.leatherworks.init.LWFluids;
 import panda.leatherworks.init.LWItems;
 
 public class BucketHandler {
@@ -38,7 +37,7 @@ public class BucketHandler {
 		Fluid filled_fluid = null;
 		if (iblockstate.getBlock() == LWBlocks.TANNIN
 				&& iblockstate.getValue(BlockTanninFluid.LEVEL) == 0) {
-			filled_fluid = LWFluids.TANNIN;
+			filled_fluid = LWBlocks.TANNIN_FLUID;
 		} else {
 			return;
 		}

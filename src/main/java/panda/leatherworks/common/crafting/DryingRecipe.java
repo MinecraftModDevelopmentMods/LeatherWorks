@@ -5,7 +5,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class DryingRecipe implements IDryingRecipe {
-	private final ItemStack input, successOutput, failureOutput;
+	private final ItemStack input;
+	private final ItemStack successOutput;
+	private final ItemStack failureOutput;
 	private int durationTicks;
 	private float failureChance;
 	

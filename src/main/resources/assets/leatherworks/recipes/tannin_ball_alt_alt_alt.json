@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "leatherworks:tannin_ball",
+    "count": 2
+  },
+  "ingredients": [
+    {
+      "item": "leatherworks:bark_oak"
+    },
+    {
+      "item": "leatherworks:bark_oak"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

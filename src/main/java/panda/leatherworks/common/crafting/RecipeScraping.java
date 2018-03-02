@@ -1,125 +1,156 @@
 package panda.leatherworks.common.crafting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.JsonUtils;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.common.crafting.IRecipeFactory;
+import net.minecraftforge.common.crafting.JsonContext;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import panda.leatherworks.LeatherWorks;
 
-public class RecipeScraping implements IRecipe{
+public class RecipeScraping implements IRecipeFactory{
 
+	@Override
+	public IRecipe parse(JsonContext context, JsonObject json) {
+		ShapelessOreRecipe recipe = ShapelessOreRecipe.factory(context, json);
 
-	private final ItemStack recipeOutput;
-    public final List<ItemStack> recipeItems;
-
-    public RecipeScraping(ItemStack output, List<ItemStack> inputList)
-    {
-        this.recipeOutput = output;
-        this.recipeItems = inputList;
+        return new ShapelessScrapingRecipe(new ResourceLocation(LeatherWorks.MODID, "shapeless_scraping_recipe"), recipe.getRecipeOutput(), recipe.getIngredients());
     }
 
-    @Nullable
-    public ItemStack getRecipeOutput()
-    {
-        return this.recipeOutput;
-    }
+    public static class ShapelessScrapingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+    	/** Is the ItemStack that you get when craft the recipe. */
+        private final ItemStack recipeOutput;
+        /** Is a List of ItemStack that composes the recipe. */
+        public final NonNullList<Ingredient> recipeItems;
+        private final String group;
 
-    
-
-    /**
-     * Used to check if a recipe matches current crafting inventory
-     */
-    public boolean matches(InventoryCrafting inv, World worldIn)
-    {
-        List<ItemStack> list = Lists.newArrayList(this.recipeItems);
-
-        for (int i = 0; i < inv.getHeight(); ++i)
+        public ShapelessScrapingRecipe(ResourceLocation resourceLocation, ItemStack output, NonNullList<Ingredient> list)
         {
-            for (int j = 0; j < inv.getWidth(); ++j)
+            this.group = LeatherWorks.MODID;
+            this.recipeOutput = output;
+            this.recipeItems = list;
+        }
+        
+        @Override
+        public String getGroup()
+        {
+            return this.group;
+        }
+
+        public ItemStack getRecipeOutput()
+        {
+            return this.recipeOutput;
+        }
+        
+        @Override
+        public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
+        {
+            return NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        }
+        
+        @Override
+        public NonNullList<Ingredient> getIngredients()
+        {
+            return this.recipeItems;
+        }
+
+        @Override
+        public boolean matches(InventoryCrafting inv, World worldIn)
+        {
+            List<Ingredient> list = Lists.newArrayList(this.recipeItems);
+
+            for (int i = 0; i < inv.getHeight(); ++i)
             {
-                ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
-
-                if (itemstack != null)
+                for (int j = 0; j < inv.getWidth(); ++j)
                 {
-                    boolean flag = false;
+                    ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
 
-                    for (ItemStack itemstack1 : list)
+                    if (!itemstack.isEmpty())
                     {
-                        if (itemstack.getItem() == itemstack1.getItem() && (itemstack1.getMetadata() == 32767 || itemstack.getMetadata() == itemstack1.getMetadata()))
+                        boolean flag = false;
+
+                        for (Ingredient ingredient : list)
                         {
-                            flag = true;
-                            list.remove(itemstack1);
-                            break;
+                            if (ingredient.apply(itemstack))
+                            {
+                                flag = true;
+                                list.remove(ingredient);
+                                break;
+                            }
                         }
-                    }
 
-                    if (!flag)
-                    {
-                        return false;
+                        if (!flag)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
+
+            return list.isEmpty();
         }
 
-        return list.isEmpty();
-    }
-
-    /**
-     * Returns an Item that is the result of this recipe
-     */
-    @Nullable
-    public ItemStack getCraftingResult(InventoryCrafting inv)
-    {
-        return this.recipeOutput.copy();
-    }
-
-    /**
-     * Returns the size of the recipe area
-     */
-    public int getRecipeSize()
-    {
-        return this.recipeItems.size();
-    }
-
-
-	public ItemStack[] getRemainingItems(InventoryCrafting inv) {
-		
-		ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
-
-        for (int i = 0; i < aitemstack.length; ++i)
+        public ItemStack getCraftingResult(InventoryCrafting inv)
         {
-            ItemStack itemstack = inv.getStackInSlot(i);
-            if(itemstack != null){
-            	if(itemstack.getItem() == Items.FLINT){
-                	ItemStack shearscopy = itemstack.copy();
-                		aitemstack[i] = shearscopy;
-                	}
-            }
-            
+            return this.recipeOutput.copy();
         }
 
-        return aitemstack;
-	}
-	
-	
+        public static ShapelessRecipes deserialize(JsonObject json)
+        {
+            String s = JsonUtils.getString(json, "group", "");
+            NonNullList<Ingredient> nonnulllist = deserializeIngredients(JsonUtils.getJsonArray(json, "ingredients"));
+
+            if (nonnulllist.isEmpty())
+            {
+                throw new JsonParseException("No ingredients for shapeless recipe");
+            }
+            else if (nonnulllist.size() > 9)
+            {
+                throw new JsonParseException("Too many ingredients for shapeless recipe");
+            }
+            else
+            {
+                ItemStack itemstack = ShapedRecipes.deserializeItem(JsonUtils.getJsonObject(json, "result"), true);
+                return new ShapelessRecipes(s, itemstack, nonnulllist);
+            }
+        }
+
+        private static NonNullList<Ingredient> deserializeIngredients(JsonArray array)
+        {
+            NonNullList<Ingredient> nonnulllist = NonNullList.<Ingredient>create();
+
+            for (int i = 0; i < array.size(); ++i)
+            {
+                Ingredient ingredient = ShapedRecipes.deserializeIngredient(array.get(i));
+
+                if (ingredient != Ingredient.EMPTY)
+                {
+                    nonnulllist.add(ingredient);
+                }
+            }
+
+            return nonnulllist;
+        }
+
+        public boolean canFit(int width, int height)
+        {
+            return width * height >= this.recipeItems.size();
+        }
+    } 
 }

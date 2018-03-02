@@ -49,10 +49,9 @@ public class ContainerPack extends Container {
 		}
 	}
 
-	/**
-	 * Take a stack from the specified inventory slot.
-	 */
+
 	@Nullable
+	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 		ItemStack itemstack = null;
 		Slot slot = this.inventorySlots.get(index);
@@ -64,14 +63,14 @@ public class ContainerPack extends Container {
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
 	}
-	
-	@Override
-    public void onContainerClosed(EntityPlayer player) {
-        super.onContainerClosed(player);
 
-        if (!player.worldObj.isRemote) //server side
-        	( (InventoryPack) this.inventory).onGuiSaved(player);
-    }
+	@Override
+	public void onContainerClosed(EntityPlayer player) {
+		super.onContainerClosed(player);
+
+		if (!player.world.isRemote) //server side
+			( (InventoryPack) this.inventory).onGuiSaved(player);
+	}
 
 }
 

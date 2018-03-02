@@ -20,10 +20,9 @@ import net.minecraftforge.client.ForgeHooksClient;
 @SideOnly(Side.CLIENT)
 public class TileEntityItemRackRenderer extends TileEntitySpecialRenderer<TileEntityItemRack> {
 	@Override
-	public void renderTileEntityAt(TileEntityItemRack te, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void render(TileEntityItemRack te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		ItemStack stack = te.inventory.getStackInSlot(0);
-		//System.out.println(stack);
-		if (stack != null) {
+		if (!stack.isEmpty()) {
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f);
 			GlStateManager.enableBlend();
@@ -34,20 +33,23 @@ public class TileEntityItemRackRenderer extends TileEntitySpecialRenderer<TileEn
 			IBlockState blockstate = te.getWorld().getBlockState(te.getPos());
 			if(blockstate.getBlock() instanceof BlockDryingRack){
 				int meta = blockstate.getBlock().getMetaFromState(blockstate);
-				//System.out.println(meta);
 				switch(meta){
 				case 0:
 				case 5:
-					GlStateManager.translate(-.375, +.25 , 0);
+					GlStateManager.translate(-0.375, 0.25 , 0.0);
+					break;
 				case 1:
-					GlStateManager.rotate(180, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+					break;
 				case 2:
-					GlStateManager.rotate(-90, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+					break;
 				case 3:
-					GlStateManager.translate(0, 0 , .75);
+					GlStateManager.translate(0.0, 0.0, 0.75);
+					break;
 				case 4:
-					GlStateManager.translate(0, -.1875 , -.375);
-				
+					GlStateManager.translate(0.0, -0.1875 , -0.375);	
+					break;
 				default:
 				}
 			}

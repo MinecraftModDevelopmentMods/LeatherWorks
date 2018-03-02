@@ -15,11 +15,9 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.init.LWBlocks;
 
 public class ItemBucketTannin extends ItemBucket {
@@ -29,11 +27,10 @@ public class ItemBucketTannin extends ItemBucket {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
-			EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn){
 
 		RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
-
+		ItemStack itemStackIn = playerIn.getHeldItem(handIn);
 		if (raytraceresult == null) {
 			return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
 		} else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
@@ -80,8 +77,7 @@ public class ItemBucketTannin extends ItemBucket {
 				pos.destroyBlock(posIn, true);
 			}
 
-			SoundEvent soundevent = SoundEvents.ITEM_BUCKET_EMPTY; // SoundEvents.ITEM_BUCKET_EMPTY;
-			pos.playSound(worldIn, posIn, soundevent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			pos.playSound(worldIn, posIn, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			pos.setBlockState(posIn, LWBlocks.TANNIN.getDefaultState(), 11);
 
 			return true;

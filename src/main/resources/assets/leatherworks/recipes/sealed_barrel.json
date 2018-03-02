@@ -1,0 +1,35 @@
+{
+    "conditions": [{
+        "type": "minecraft:item_exists",
+        "item": "leatherworks:sealed_barrel"
+    }],
+  "type": "forge:ore_shaped",
+  "pattern": [
+
+    "PLP",
+
+    "P P",
+
+    "PPP"
+
+  ],
+
+  "key": {
+
+    "P": {
+
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+	"L": {
+
+      "block": "minecraft:wooden_pressure_plate"
+    }
+  },
+
+  "result": {
+
+    "item": "leatherworks:sealed_barrel"
+  }
+
+}

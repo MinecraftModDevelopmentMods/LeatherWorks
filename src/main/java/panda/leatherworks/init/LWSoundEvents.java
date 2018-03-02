@@ -5,11 +5,12 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 import panda.leatherworks.LeatherWorks;
 
 @EventBusSubscriber
 public final class LWSoundEvents {
+	private LWSoundEvents(){LeatherWorks.logger.info("Registering Sounds");}
 
 	public static final SoundEvent TOOL_SCRAPE = simply("tool_scrape");
 

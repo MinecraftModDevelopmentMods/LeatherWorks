@@ -9,12 +9,12 @@ import panda.leatherworks.common.block.BlockBarrel;
 import panda.leatherworks.common.GuiHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.EnumDyeColor;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,8 +27,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -41,7 +39,6 @@ public class ItemPack extends Item {
 	static ItemStack[] Packinventory;
 
 	public ItemPack() {
-		this.setHasSubtypes(true);
 		this.setMaxStackSize(1);
 		setNoRepair();
 	}
@@ -52,57 +49,11 @@ public class ItemPack extends Item {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> list, ITooltipFlag advanced)
 	{
 		list.add("WARNING: Filling more than one pack in an inventory is not always item safe.");
 		list.add("Do so at your own risk");
 		
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, List list) {
-		for(int i = 0; i < 15; i++){
-			list.add(new ItemStack(itemIn, 1, i));
-		}
-	}
-
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		int metadata = stack.getMetadata();
-		EnumDyeColor color = null;
-		switch(metadata){
-		case 0:
-			return super.getUnlocalizedName() + ".undyed";
-		case 1:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.RED.getName().toLowerCase();
-		case 2:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.ORANGE.getName().toLowerCase();
-		case 3:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.YELLOW.getName().toLowerCase();
-		case 4:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.LIME.getName().toLowerCase();
-		case 5:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.GREEN.getName().toLowerCase();
-		case 6:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.CYAN.getName().toLowerCase();
-		case 7:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.LIGHT_BLUE.getName().toLowerCase();
-		case 8:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.BLUE.getName().toLowerCase();
-		case 9:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.MAGENTA.getName().toLowerCase();
-		case 10:	
-			return super.getUnlocalizedName() + "."+EnumDyeColor.PURPLE.getName().toLowerCase();
-		case 11:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.PINK.getName().toLowerCase();
-		case 12:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.SILVER.getName().toLowerCase();
-		case 13:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.GRAY.getName().toLowerCase();
-		case 14:
-			return super.getUnlocalizedName() + "."+EnumDyeColor.BLACK.getName().toLowerCase();
-		}
-		return null;
 	}
 
 	@Override
@@ -139,11 +90,11 @@ public class ItemPack extends Item {
                             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                             int slot = stackTag.getByte("Slot");
                             if (i >= 0 && i <= Packinventory.length)
-                            	Packinventory[slot] = ItemStack.loadItemStackFromNBT(stackTag);
+                            	Packinventory[slot] = new ItemStack(stackTag);
                         }
                         for (ItemStack tempStack : Packinventory) {
                             if (tempStack != null) {
-                                full += tempStack.stackSize;
+                                full += tempStack.getCount();
                                 total += tempStack.getMaxStackSize();
                             } else {
                                 total += 64;
@@ -157,18 +108,19 @@ public class ItemPack extends Item {
     }
     
     @Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		// We only do this when shift is clicked
 		if (player.isSneaking()) {
 			
 			//return evaluateTileHit(stack, player, world, pos, side) ? EnumActionResult.PASS : EnumActionResult.FAIL;
 		}
 
-		return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+		return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
 	}
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
+    	ItemStack itemStack = player.getHeldItem(handIn);
     	if(itemStack.getItem() != this){
     		return new ActionResult(EnumActionResult.FAIL, itemStack);
     	}
@@ -183,7 +135,7 @@ public class ItemPack extends Item {
          }else{
         	 Block hit = world.getBlockState(player.rayTrace(3,1f).getBlockPos()).getBlock();
         	 if(!(hit instanceof BlockCauldron || hit instanceof BlockBarrel) &&!player.isSneaking() ){
-        		 player.openGui(LeatherWorks.INSTANCE, GuiHandler.Pack_GUI, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+        		 player.openGui(LeatherWorks.INSTANCE, GuiHandler.PACK_GUI, world, (int) player.posX, (int) player.posY, (int) player.posZ);
         	 }
         	 
          }
@@ -306,7 +258,7 @@ public class ItemPack extends Item {
                             NBTTagCompound stackTag = tagList.getCompoundTagAt(i);
                             int j = stackTag.getByte("Slot");
                             if (i >= 0 && i <= backpackInventory.length) { //ToDo: Remove 2nd equals (so just less than) as per a 1.7.10 PR; test it
-                                backpackInventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
+                                backpackInventory[j] = new ItemStack(stackTag);
                             }
                         }
                         return backpackInventory;
@@ -314,7 +266,7 @@ public class ItemPack extends Item {
                 }
             }
         }
-		return null;
+		return new ItemStack[0];
     }
     
 }

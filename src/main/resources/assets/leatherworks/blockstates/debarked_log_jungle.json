@@ -4,7 +4,7 @@
     "textures": {
       "particle": "#side",
       "side": "leatherworks:blocks/stripped_log_jungle_side",
-      "end": "blocks/log_jungle_top"
+      "end": "leatherworks:blocks/stripped_jungle_log_top"
     }
   },
   "variants": {

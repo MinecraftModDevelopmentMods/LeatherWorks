@@ -40,16 +40,18 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
 			TileEntityDryingRack tile = getTileEntity(world, pos);
-			IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+			IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 			if (itemHandler != null) {
 				// Simulate first
 				ItemStack extract = itemHandler.extractItem(0, 1, true);
-				if (extract == null) {
-					if (heldItem != null && DryingRecipes.hasRecipe(heldItem)) {
-						player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
+				if (extract.isEmpty()) {
+					if(!player.getHeldItem(hand).isEmpty()){
+						if (DryingRecipes.hasRecipe(player.getHeldItem(hand))) {
+							player.setHeldItem(hand, itemHandler.insertItem(0, player.getHeldItem(hand), false));
+						}
 					}
 				} else if (player.inventory.addItemStackToInventory(extract)) {
 					itemHandler.extractItem(0, 1, false);
@@ -60,14 +62,17 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 	}
 	
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
+		EnumFacing facing = placer.getHorizontalFacing();
 		if (this.canPlaceAt(worldIn, pos, facing))
 		{
 			if(facing == EnumFacing.UP){
-				return this.getDefaultState().withProperty(FACING, facing);
+				worldIn.setBlockState(pos, this.getDefaultState().withProperty(FACING, facing));
+				return;
 			}
-			return this.getDefaultState().withProperty(FACING, facing.getOpposite());
+			worldIn.setBlockState(pos, this.getDefaultState().withProperty(FACING, facing.getOpposite()));
+			return;
 		}
 		else
 		{
@@ -75,11 +80,13 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 			{
 				if (worldIn.isSideSolid(pos.offset(enumfacing.getOpposite()), enumfacing, true))
 				{
-					return this.getDefaultState().withProperty(FACING, enumfacing);
+					worldIn.setBlockState(pos, this.getDefaultState().withProperty(FACING, enumfacing.getOpposite()));
+					return;
 				}
 			}
 
-			return this.getDefaultState();
+			worldIn.setBlockState(pos, this.getDefaultState());
+			return;
 		}
 	}
 
@@ -89,15 +96,15 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 		TileEntityDryingRack tile = getTileEntity(world, pos);
 		IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if (stack != null) {
+		if (!stack.isEmpty()) {
 			EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-			world.spawnEntityInWorld(item);
+			world.spawnEntity(item);
 		}
 		super.breakBlock(world, pos, state);
 	}
 	
 	@Override
-	public boolean isSideSolid(@Nonnull IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
+	public boolean isSideSolid(@Nonnull IBlockState basestate, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
 		return side == EnumFacing.UP;
 	}
 	
@@ -150,7 +157,8 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 
 		return iblockstate;
 	}
-
+	
+	@Override
 	public int getMetaFromState(IBlockState state)
 	{
 		int i = 0;
@@ -202,7 +210,7 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 	}
 
 
-
+	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
 		for (EnumFacing enumfacing : FACING.getAllowedValues())
@@ -236,7 +244,7 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		return BOUNDS.get(state.getValue(FACING));
 	}
 

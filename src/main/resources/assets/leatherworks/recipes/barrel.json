@@ -1,0 +1,31 @@
+{
+    "conditions": [{
+        "type": "minecraft:item_exists",
+        "item": "leatherworks:barrel"
+    }],
+  "type": "forge:ore_shaped",
+  "pattern": [
+
+    "P P",
+
+    "P P",
+
+    "PPP"
+
+  ],
+
+  "key": {
+
+    "P": {
+
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    }
+  },
+
+  "result": {
+
+    "item": "leatherworks:barrel"
+  }
+
+}

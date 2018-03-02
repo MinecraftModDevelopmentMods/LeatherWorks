@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "leatherworks:repair_kit"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

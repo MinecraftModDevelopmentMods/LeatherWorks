@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import panda.leatherworks.common.network.message.MessageUpdateRack;
+import panda.leatherworks.common.network.MessageUpdateRack;
 import panda.leatherworks.common.tileentity.TileEntityItemRack;
 
 @SideOnly(Side.CLIENT)
@@ -16,7 +16,7 @@ public class MessageUpdateRackHandler implements IMessageHandler<MessageUpdateRa
 	@Nullable
 	public IMessage onMessage(MessageUpdateRack message, MessageContext ctx) {
 		Minecraft.getMinecraft().addScheduledTask(() -> {
-			TileEntityItemRack te = (TileEntityItemRack)Minecraft.getMinecraft().theWorld.getTileEntity(message.pos);
+			TileEntityItemRack te = (TileEntityItemRack)Minecraft.getMinecraft().world.getTileEntity(message.pos);
 			if(te != null){
 				te.inventory.setStackInSlot(0, message.stack);
 			}

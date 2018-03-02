@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "leatherworks:tannin_bucket"
+  },
+  "ingredients": [
+    {
+      "item": "leatherworks:tannin_ball"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

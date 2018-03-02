@@ -28,63 +28,52 @@ public class DebarkHandler {
 
 		IBlockState state = world.getBlockState(event.getPos());
 
-
 		if ( !(state.getBlock() instanceof BlockLog)|| state.getBlock() instanceof BlockDebarkedLog) {
 			return;
 		}
-		
+
 		world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
 
-
 		if(!world.isRemote){
-		ItemStack heldStack = player.getHeldItemMainhand();
-	
-		if (heldStack != null)
-		{
-			if(heldStack.getItem() == Items.FLINT){
-				if (world.rand.nextInt(20) == 0)
-				{
-					IBlockState newState = findCorrectState(state);
-					if(newState != null){
+			ItemStack heldStack = player.getHeldItemMainhand();
+
+			if (!heldStack.isEmpty() && heldStack.getItem() == Items.FLINT && world.rand.nextInt(20) == 0)
+			{
+				IBlockState newState = findCorrectState(state);
+				if(newState != null){
 					world.setBlockState(event.getPos(), newState, 3);
-					 ItemStack stackOut = findCorrectStack(state);
-					 if (stackOut != null) {
-						 EntityItem entityitem = new EntityItem(world, player.posX, player.posY, player.posZ, stackOut);
-						 world.spawnEntityInWorld(entityitem);
- 
-						 if (!(player instanceof FakePlayer)) {
-						 entityitem.onCollideWithPlayer(player);
-						 }
-					}
+					ItemStack stackOut = findCorrectStack(state);
+					if (!stackOut.isEmpty()) {
+						EntityItem entityitem = new EntityItem(world, player.posX, player.posY, player.posZ, stackOut);
+						world.spawnEntity(entityitem);
+
+						if (!(player instanceof FakePlayer)) {
+							entityitem.onCollideWithPlayer(player);
+						}
 					}
 				}
 			}
-		}
 		}else{
 			ItemStack heldStack = player.getHeldItemMainhand();
-			
-			if (heldStack != null)
+
+			if (!heldStack.isEmpty() && heldStack.getItem() == Items.FLINT)
 			{
-				if(heldStack.getItem() == Items.FLINT){
-						player.swingArm(EnumHand.MAIN_HAND);	
-				}
+				player.swingArm(EnumHand.MAIN_HAND);	
 			}
-			
 		}
 	}
 
 	private IBlockState findCorrectState(IBlockState state) {
 		Block block = state.getBlock();
 		int meta;
-		
+
 		EnumAxis axis = state.getValue(BlockLog.LOG_AXIS);
 
-		
+
 		if( block== Blocks.LOG){
 			meta = block.getMetaFromState(state);
-			
-			switch(meta%4){
-			
+
+			switch(meta % 4){
 			case 0:
 				return LWBlocks.DEBARKED_LOG_OAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 1:
@@ -93,41 +82,47 @@ public class DebarkHandler {
 				return LWBlocks.DEBARKED_LOG_BIRCH.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 3:
 				return LWBlocks.DEBARKED_LOG_JUNGLE.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
-			
 			}
 		}else 
-		if( block== Blocks.LOG2){
-			meta = block.getMetaFromState(state);
-			switch(meta%4){
-			case 0:
-				return LWBlocks.DEBARKED_LOG_ACACIA.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
-			case 1:
-				return LWBlocks.DEBARKED_LOG_DARKOAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+			if( block== Blocks.LOG2){
+				meta = block.getMetaFromState(state);
+				switch(meta % 4){
+				case 0:
+					return LWBlocks.DEBARKED_LOG_ACACIA.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				case 1:
+					return LWBlocks.DEBARKED_LOG_DARKOAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+				}
 			}
-		}
 		return null;
 	}
-	
+
 
 	private ItemStack findCorrectStack(IBlockState state) {
 		Block block = state.getBlock();
 		int meta;
 		if( block== Blocks.LOG){
 			meta = block.getMetaFromState(state);
-
-				return new ItemStack(LWItems.BARK,1,meta%4);
-
-		}else 
-		if( block== Blocks.LOG2){
-			meta = block.getMetaFromState(state);
-			//System.out.println(meta%4);
 			switch(meta%4){
 			case 0:
-				return new ItemStack(LWItems.BARK,1,meta%4);
+				return new ItemStack(LWItems.BARK_OAK);
 			case 1:
-				return new ItemStack(LWItems.BARK,1,meta%4);
+				return new ItemStack(LWItems.BARK_SPRUCE);
+			case 2:
+				return new ItemStack(LWItems.BARK_BIRCH);
+			case 3:
+				return new ItemStack(LWItems.BARK_JUNGLE);
 			}
-		}
-		return null;
+
+		}else 
+			if( block== Blocks.LOG2){
+				meta = block.getMetaFromState(state);
+				switch(meta%4){
+				case 0:
+					return new ItemStack(LWItems.BARK_ACACIA);
+				case 1:
+					return new ItemStack(LWItems.BARK_DARKOAK);
+				}
+			}
+		return ItemStack.EMPTY;
 	}
 }

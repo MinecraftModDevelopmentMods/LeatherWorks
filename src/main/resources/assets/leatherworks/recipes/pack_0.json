@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "leatherworks:pack_brown"
+  },
+  "pattern": [
+    "SLS",
+    "LIL",
+    "SLS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "leatherworks:leather_strip"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "L": {
+      "item": "leatherworks:leather_sheet"
+    }
+  }
+}

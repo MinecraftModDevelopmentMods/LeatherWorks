@@ -5,12 +5,12 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.item.ItemCraftingLeather;
 import panda.leatherworks.common.item.ItemPack;
 import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -22,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBanner;
@@ -31,6 +32,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -55,7 +57,8 @@ public class BlockBarrel extends Block
         this.setTickRandomly(true);
     }
 
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
+    @Override
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean unknown)
     {
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_LEGS);
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_WEST);
@@ -63,28 +66,26 @@ public class BlockBarrel extends Block
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_EAST);
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_SOUTH);
     }
-
+    
+    @Override	
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return FULL_BLOCK_AABB;
     }
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
+    @Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
-
+    
+    @Override	
     public boolean isFullCube(IBlockState state)
     {
         return false;
     }
 
-    /**
-     * Called When an Entity Collided with the Block
-     */
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         int i = state.getValue(LEVEL);
@@ -96,18 +97,17 @@ public class BlockBarrel extends Block
             this.setFluidLevel(worldIn, pos, state, i - 1);
         }
     }
-
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        if (heldItem == null)
+    	ItemStack heldItem = playerIn.getHeldItem(hand);
+        if (heldItem.isEmpty())
         {
             return true;
         }
         else
         {
-        	
-
-        	
             int i = state.getValue(LEVEL);
             int f = state.getValue(FLUID);
             Item item = heldItem.getItem();
@@ -117,12 +117,12 @@ public class BlockBarrel extends Block
                 {
                     if (!playerIn.capabilities.isCreativeMode)
                     {
-                    	--heldItem.stackSize;
-
+                    	heldItem.shrink(1);
                     }
 
-                    worldIn.setBlockState(pos, LWBlocks.SEALED_BARREL.getDefaultState(), 2);
+                    worldIn.setBlockState(pos, LWBlocks.SEALED_BARREL.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 2);
                 }
+                worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1, true);
 
                 return true;
             }
@@ -135,7 +135,7 @@ public class BlockBarrel extends Block
                         playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
                     }
 
-                    worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(3, 0, 3)).withProperty(FLUID, 0) , 2);
+                    worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(3, 0, 3)).withProperty(FLUID, 0) , 2);
                     worldIn.updateComparatorOutputLevel(pos, this);
                 }
 
@@ -149,7 +149,7 @@ public class BlockBarrel extends Block
                         {
                             playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
                         }
-                        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(3, 0, 3)).withProperty(FLUID, 1) , 2);
+                        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(3, 0, 3)).withProperty(FLUID, 1) , 2);
                         worldIn.updateComparatorOutputLevel(pos, this);
                     }
 
@@ -162,7 +162,7 @@ public class BlockBarrel extends Block
                 {
                     ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
 
-                    if (--heldItem.stackSize == 0)
+                    if (heldItem.getCount() == 1)
                     {
                         playerIn.setHeldItem(hand, itemstack1);
                     }
@@ -189,7 +189,7 @@ public class BlockBarrel extends Block
                 {
                     ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
 
-                    if (--heldItem.stackSize == 0)
+                    if (heldItem.getCount() == 1)
                     {
                         playerIn.setHeldItem(hand, itemstack1);
                     }
@@ -242,7 +242,7 @@ public class BlockBarrel extends Block
                 {
                     if (!playerIn.capabilities.isCreativeMode)
                     {
-                    	--heldItem.stackSize;
+                    	heldItem.shrink(1);
                     }
                     worldIn.setBlockState(pos, state.withProperty(FLUID, 1) , 2);
                     worldIn.updateComparatorOutputLevel(pos, this);
@@ -256,9 +256,9 @@ public class BlockBarrel extends Block
                 {
                     if (!playerIn.capabilities.isCreativeMode)
                     {
-                        --heldItem.stackSize;
+                        heldItem.shrink(1);
 
-                        if (heldItem.stackSize == 0)
+                        if (heldItem.isEmpty())
                         {
                             playerIn.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
                         }
@@ -274,9 +274,9 @@ public class BlockBarrel extends Block
                     {
                         if (!playerIn.capabilities.isCreativeMode)
                         {
-                            --heldItem.stackSize;
+                            heldItem.shrink(1);
 
-                            if (heldItem.stackSize == 0)
+                            if (heldItem.isEmpty())
                             {
                                 playerIn.setHeldItem(hand, new ItemStack(LWItems.TANNIN_BUCKET));
                             }
@@ -300,7 +300,7 @@ public class BlockBarrel extends Block
                     {
                         ItemStack itemstack1 = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
 
-                        if (--heldItem.stackSize == 0)
+                        if (heldItem.getCount() == 1)
                         {
                             playerIn.setHeldItem(hand, itemstack1);
                         }
@@ -322,7 +322,7 @@ public class BlockBarrel extends Block
                         {
                             ItemStack itemstack1 = new ItemStack(LWItems.TANNIN_BOTTLE);
 
-                            if (--heldItem.stackSize == 0)
+                            if (heldItem.getCount() == 1)
                             {
                                 playerIn.setHeldItem(hand, itemstack1);
                             }
@@ -373,24 +373,22 @@ public class BlockBarrel extends Block
                 if (i > 0 && item instanceof ItemCraftingLeather )
                 {
                 	
-                	int meta = heldItem.getMetadata();
-                	
-                	if(meta == 0 && f ==0){
+                	if(heldItem.getItem() == LWItems.LEATHER_SCRAPED && f ==0){
                 		this.setFluidLevel(worldIn, pos, state, i - 1);
                 		if (!playerIn.capabilities.isCreativeMode)
                         {
-                            --heldItem.stackSize;
+                            heldItem.shrink(1);
                         }
-                		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.CRAFTING_LEATHER,1,1));
+                		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
                         return true;
                 	}else
-                		if(meta == 1 && f ==1){
+                		if(heldItem.getItem() == LWItems.LEATHER_WASHED && f ==1){
                     		this.setFluidLevel(worldIn, pos, state, i - 1);
                     		if (!playerIn.capabilities.isCreativeMode)
                             {
-                                --heldItem.stackSize;
+                                heldItem.shrink(1);
                             }
-                    		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.CRAFTING_LEATHER,1,2));
+                    		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.LEATHER_SOAKED));
                             return true;
                     	}
                 }
@@ -402,16 +400,16 @@ public class BlockBarrel extends Block
                     if (TileEntityBanner.getPatterns(heldItem) > 0 && !worldIn.isRemote)
                     {
                         ItemStack itemstack = heldItem.copy();
-                        itemstack.stackSize = 1;
+                        itemstack.setCount(1);
                         TileEntityBanner.removeBannerData(itemstack);
                         playerIn.addStat(StatList.BANNER_CLEANED);
 
                         if (!playerIn.capabilities.isCreativeMode)
                         {
-                            --heldItem.stackSize;
+                            heldItem.shrink(1);
                         }
 
-                        if (heldItem.stackSize == 0)
+                        if (heldItem.isEmpty())
                         {
                             playerIn.setHeldItem(hand, itemstack);
                         }
@@ -445,26 +443,21 @@ public class BlockBarrel extends Block
     {
         this.updateTick(worldIn, pos, state, random);
     }
-
-
-
-
+	
 	public void setFluidLevel(World worldIn, BlockPos pos, IBlockState state, int level)
     {
-        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(level, 0, 3)), 2);
+        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(level, 0, 3)), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
-    /**
-     * Called similar to random ticks, but only when it is raining.
-     */
+	@Override
     public void fillWithRain(World worldIn, BlockPos pos)
     {
 
        // if (worldIn.rand.nextInt(2) == 0)
         //{
 
-            float f = worldIn.getBiome(pos).getFloatTemperature(pos);
+            float f = worldIn.getBiome(pos).getTemperature(pos);
 
             if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F)
             {
@@ -478,33 +471,32 @@ public class BlockBarrel extends Block
         //}
     }
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
     @Nullable
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
         return Item.getItemFromBlock(LWBlocks.BARREL);
     }
-
+    
+    @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
         return new ItemStack(LWBlocks.BARREL);
     }
-
+    
+    @Override
     public boolean hasComparatorInputOverride(IBlockState state)
     {
         return true;
     }
-
+    
+    @Override
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
     {
         return blockState.getValue(LEVEL);
     }
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
+    @Override
     public IBlockState getStateFromMeta(int meta)
     {
         switch(meta){
@@ -529,19 +521,19 @@ public class BlockBarrel extends Block
     	return this.getDefaultState();
     }
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
+    @Override
     public int getMetaFromState(IBlockState state)
     {
         return state.getValue(LEVEL) + 4 * state.getValue(FLUID);
     }
-
+    
+    @Override
     protected BlockStateContainer createBlockState()
     {
         return new BlockStateContainer(this, LEVEL,FLUID);
     }
-
+    
+    @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
     {
         return true;

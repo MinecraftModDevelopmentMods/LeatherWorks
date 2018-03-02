@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "leatherworks:pack_black"
+  },
+  "ingredients": [
+    {
+      "item": "leatherworks:pack_brown"
+    },
+    {
+      "item": "minecraft:dye",
+      "data": 0
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

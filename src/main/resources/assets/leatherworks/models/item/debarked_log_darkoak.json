@@ -2,6 +2,6 @@
     "parent": "leatherworks:block/log_stripped",
     "textures": {
         "side": "leatherworks:blocks/stripped_log_big_oak_side",
-      "end": "blocks/log_big_oak_top"
+      "end": "leatherworks:blocks/stripped_dark_oak_log_top"
     }
 }

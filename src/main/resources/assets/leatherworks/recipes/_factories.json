@@ -1,0 +1,6 @@
+{
+  "recipes": {
+    "shapeless_shears": "panda.leatherworks.common.crafting.RecipeShears",
+    "shapeless_scraping": "panda.leatherworks.common.crafting.RecipeScraping"
+  }
+}

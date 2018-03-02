@@ -4,13 +4,11 @@ import javax.annotation.Nullable;
 
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.common.network.message.MessageUpdateRack;
-import net.minecraft.client.Minecraft;
+import panda.leatherworks.common.network.MessageUpdateRack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;

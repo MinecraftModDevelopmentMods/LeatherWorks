@@ -5,7 +5,6 @@ import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.GuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
@@ -20,14 +19,14 @@ public class ItemEnderPack extends Item {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		InventoryEnderChest inventoryenderchest = playerIn.getInventoryEnderChest();
-		if (worldIn.isRemote) { //client side
-			playerIn.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F, 1F);
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn){
+		ItemStack itemStackIn = player.getHeldItem(handIn);
+		if (world.isRemote) { //client side
+			player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F, 1F);
 		} else {
-			 playerIn.openGui(LeatherWorks.INSTANCE, GuiHandler.Ender_Pack_GUI, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
+			player.openGui(LeatherWorks.INSTANCE, GuiHandler.ENDER_PACK_GUI, world, (int) player.posX, (int) player.posY, (int) player.posZ);
 		}
-		playerIn.addStat(StatList.ENDERCHEST_OPENED);
+		player.addStat(StatList.ENDERCHEST_OPENED);
 		return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
 	}
 }

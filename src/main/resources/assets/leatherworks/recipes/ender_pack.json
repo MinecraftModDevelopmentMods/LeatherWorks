@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "leatherworks:ender_pack"
+  },
+  "pattern": [
+    "EEE",
+    "EPE",
+    "EYE"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "leatherworks:pack_brown"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "Y": {
+      "item": "minecraft:ender_eye"
+    }
+  }
+}
