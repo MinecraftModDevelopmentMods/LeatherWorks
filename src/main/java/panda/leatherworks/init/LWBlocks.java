@@ -12,6 +12,7 @@ import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.common.block.BlockDryingRack;
 import panda.leatherworks.common.block.BlockDummyWoodPillar;
 import panda.leatherworks.common.block.BlockTanninFluid;
+import panda.leatherworks.common.block.BlockTrunk;
 import panda.leatherworks.common.block.TanninFluid;
 
 @EventBusSubscriber
@@ -52,6 +53,7 @@ public final class LWBlocks {
 	public static final Block DRYING_RACK_JUNGLE = simply(new BlockDryingRack(),"drying_rack_jungle");
 	public static final Block DRYING_RACK_ACACIA = simply(new BlockDryingRack(),"drying_rack_acacia");
 	public static final Block DRYING_RACK_DARKOAK = simply(new BlockDryingRack(),"drying_rack_darkoak");
+	public static final Block LEATHER_TRUNK = simply(new BlockTrunk(),"leather_trunk");
 	
 
 	private static Block simply(Block block, String name) {
@@ -88,6 +90,7 @@ public final class LWBlocks {
 		registry.register(DRYING_RACK_JUNGLE);
 		registry.register(DRYING_RACK_ACACIA);
 		registry.register(DRYING_RACK_DARKOAK);
+		registry.register(LEATHER_TRUNK);
 		
 	}
 }

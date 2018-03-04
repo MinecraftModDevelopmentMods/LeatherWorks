@@ -13,3 +13,8 @@ added barrels for each wood
 started config file
 Packs are new and better than ever. Thanks Shadows_Of_Fire!
 fixed washing of dyed packs
+1.65.0
+added tooltip to pack gui
+fixed drying rack rotations/translations
+changed drying rack item scale
+starting trunks. (Do not use)

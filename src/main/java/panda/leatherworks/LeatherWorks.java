@@ -18,7 +18,9 @@ import panda.leatherworks.common.GuiHandler;
 import panda.leatherworks.common.eventhandler.BucketHandler;
 import panda.leatherworks.common.eventhandler.DebarkHandler;
 import panda.leatherworks.common.eventhandler.LivingDropsHandler;
+import panda.leatherworks.common.eventhandler.TooltipEventHandler;
 import panda.leatherworks.common.tileentity.TileEntityDryingRack;
+import panda.leatherworks.common.tileentity.TileEntityTrunk;
 import panda.leatherworks.init.LWItems;
 import panda.leatherworks.init.LWRecipes;
 import panda.leatherworks.proxy.CommonProxy;
@@ -26,7 +28,7 @@ import panda.leatherworks.proxy.CommonProxy;
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "1.63.0";
+	public static final String VERSION = "1.65.0";
 	public static final String NAME = "Leather Works";
 	public static SimpleNetworkWrapper wrapper;
 	
@@ -51,10 +53,12 @@ public class LeatherWorks {
 		MinecraftForge.EVENT_BUS.register(new LivingDropsHandler());
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
 		MinecraftForge.EVENT_BUS.register(new DebarkHandler());
+		MinecraftForge.EVENT_BUS.register(new TooltipEventHandler());
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 
 		GameRegistry.registerTileEntity(TileEntityDryingRack.class, "leatherworks:drying_rack");
+		GameRegistry.registerTileEntity(TileEntityTrunk.class, "leatherworks:leather_trunk");
 	}
 
 	@EventHandler

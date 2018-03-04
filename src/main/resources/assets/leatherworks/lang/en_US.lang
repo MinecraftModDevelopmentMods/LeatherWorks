@@ -72,3 +72,4 @@ item.minecraft.leather_helmet.name=Leather Cap
 item.minecraft.leather_chestplate.name=Leather Tunic
 item.minecraft.leather_leggings.name=Leather Pants
 item.minecraft.leather_boots.name=Leather Boots
+leatherworks.item_not_allowed.tooltip=This item is not allowed in this bag

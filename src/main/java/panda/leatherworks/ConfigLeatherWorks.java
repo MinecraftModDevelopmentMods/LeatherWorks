@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -39,7 +40,24 @@ public class ConfigLeatherWorks {
 			LWItems.PACK_RED.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
 			LWItems.PACK_SILVER.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
 			LWItems.PACK_YELLOW.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
-			LWItems.ENDER_PACK.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE
+			LWItems.ENDER_PACK.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.ANVIL.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.BLACK_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.BLUE_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.BROWN_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.CYAN_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.GRAY_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.GREEN_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.LIME_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.MAGENTA_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.ORANGE_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.PINK_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.PURPLE_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.RED_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.SILVER_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.YELLOW_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.LIGHT_BLUE_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
+			Blocks.WHITE_SHULKER_BOX.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE
 			}, "A list of item registry names that are not allowed in packs.  Format is modid:name:meta, and using a meta of 32767 blocks all metas.");
 
 		if (config.hasChanged()) config.save();

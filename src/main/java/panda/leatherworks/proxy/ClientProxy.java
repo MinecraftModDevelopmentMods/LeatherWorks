@@ -16,9 +16,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.client.network.messagehandler.MessageUpdateRackHandler;
 import panda.leatherworks.client.renderer.tileentity.TileEntityItemRackRenderer;
+import panda.leatherworks.client.renderer.tileentity.TileEntityTrunkRenderer;
 import panda.leatherworks.common.item.armor.ItemBrokenArmor;
 import panda.leatherworks.common.network.MessageUpdateRack;
 import panda.leatherworks.common.tileentity.TileEntityItemRack;
+import panda.leatherworks.common.tileentity.TileEntityTrunk;
 import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
 
@@ -112,6 +114,7 @@ public class ClientProxy extends CommonProxy {
 		registerBlockModel(LWBlocks.SEALED_BARREL_ACACIA);
 		registerBlockModel(LWBlocks.BARREL_DARKOAK);
 		registerBlockModel(LWBlocks.SEALED_BARREL_DARKOAK);
+		registerBlockModel(LWBlocks.LEATHER_TRUNK);
 		
 		ModelLoader.setCustomStateMapper(LWBlocks.TANNIN, new StateMapperBase() {
 			@Override
@@ -121,6 +124,7 @@ public class ClientProxy extends CommonProxy {
 		});
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemRack.class, new TileEntityItemRackRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrunk.class, new TileEntityTrunkRenderer());
 	}
 
 	private static void registerBlockModel(Block block) {

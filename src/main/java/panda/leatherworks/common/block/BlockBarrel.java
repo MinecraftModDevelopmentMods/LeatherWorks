@@ -379,20 +379,14 @@ public class BlockBarrel extends Block
                 	
                 	if(heldItem.getItem() == LWItems.LEATHER_SCRAPED && f ==0){
                 		this.setFluidLevel(worldIn, pos, state, i - 1);
-                		if (!playerIn.capabilities.isCreativeMode)
-                        {
-                            heldItem.shrink(1);
-                        }
-                		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
+
+                    	playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_WASHED,heldItem.getCount()));
+
                         return true;
                 	}else
                 		if(heldItem.getItem() == LWItems.LEATHER_WASHED && f ==1){
                     		this.setFluidLevel(worldIn, pos, state, i - 1);
-                    		if (!playerIn.capabilities.isCreativeMode)
-                            {
-                                heldItem.shrink(1);
-                            }
-                    		playerIn.inventory.addItemStackToInventory(new ItemStack(LWItems.LEATHER_SOAKED));
+                    		playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_SOAKED,heldItem.getCount()));
                             return true;
                     	}
                 }

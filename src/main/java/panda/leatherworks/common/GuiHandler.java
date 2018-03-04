@@ -12,6 +12,7 @@ import panda.leatherworks.client.gui.GuiPack;
 public class GuiHandler implements IGuiHandler {
 	public static final int PACK_GUI = 0;
 	public static final int ENDER_PACK_GUI = 1;
+	public static final int TRUNK_GUI = 2;
 
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {

@@ -2,111 +2,253 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
+		maven {name = 'gradle'url 'https://plugins.gradle.org/m2/'}
+		maven {name = 'sonatype' url = 'https://oss.sonatype.org/content/groups/public'}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-//Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
-
-def mod_file = getModFile()
-def mc_version = "1.12"
-def short_version = getVersion("VERSION", mod_file)
-version = mc_version + "-" + short_version
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "LeatherWorks"
-
-sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
+plugins {
+  id "com.matthewprenger.cursegradle" version "1.0.10"
+  id "org.sonarqube" version "2.6.2"
 }
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'maven-publish'
+apply plugin: 'org.sonarqube'
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
 
 minecraft {
     version = "1.12.2-14.23.1.2555"
     runDir = "run"
     mappings = "snapshot_20171201"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+	
+	replace '@FINGERPRINT@', project.findProperty('signSHA1')
+	
+	if (project.hasProperty('mc_username')) {
+    clientRunArgs += ['--username', "${project.mc_username}"]
+    if (project.hasProperty('mc_password')) {
+      clientRunArgs += ['--password=', "${project.mc_password}"]
+    }
+  }
+  if (project.hasProperty('mc_uuid')) {
+    clientRunArgs += ['--uuid', "${project.mc_uuid}"]
+  }
 }
 
-dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+  options.compilerArgs = ['-Xlint:deprecation']
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+javadoc {
+  failOnError = false
+}
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+def mod_file = getModFile()
+def short_version = getVersion('VERSION', mod_file)
+version = mc_version + '-' + short_version
+def display_version = short_version
+
+if (System.getenv().BUILD_NUMBER) {
+  version += '.' + System.getenv().BUILD_NUMBER
+  display_version = '.' + System.getenv().BUILD_NUMBER
+}
+
+sourceCompatibility = targetCompatibility = '1.8'
+
+eclipse.project {
+  buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
+  natures 'org.eclipse.buildship.core.gradleprojectnature'
+}
+
+class Secrets {
+  def data = null
+
+  def getProperty(String key) {
+    return data ? data[key] : ''
+  }
+}
+
+import groovy.json.JsonSlurper
+
+def secretFile
+if (System.getenv().SECRET_FILE) {
+  secretFile = file System.getenv().SECRET_FILE
+} else {
+  secretFile = file 'secret.json'
+}
+
+project.ext.secret = new Secrets()
+if (secretFile.exists()) {
+  secretFile.withReader {
+    project.ext.secret.data = new JsonSlurper().parse it
+  }
+}
+
+repositories {
+	maven {
+    name = 'CurseForge'
+    url = 'https://minecraft.curseforge.com/api/maven/'
+	}
+}	
+
+processResources {
+  inputs.property 'version', project.version
+  inputs.property 'mcversion', project.minecraft.version
+
+  from (sourceSets.main.resources.srcDirs) {
+    include 'mcmod.info'
+    expand 'version': short_version, 'mcversion': project.minecraft.version
+  }
+
+  from (sourceSets.main.resources.srcDirs) {
+    exclude 'mcmod.info'
+  }
+
+  rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+jar {
+  manifest {
+    if (project.hasProperty('coreplugin')) {
+      attributes 'FMLCorePluginContainsFMLMod': 'true'
+      attributes 'FMLCorePlugin': project.coreplugin
     }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+  }
+}
+
+task deobfJar(type: Jar) {
+  classifier = 'deobf'
+  from sourceSets.main.output
+}
+
+task signJar(type: SignJar, dependsOn: reobfJar) {
+  // Skips if the keyStore property is missing.
+  onlyIf {
+    project.hasProperty('keyStore')
+  }
+
+  // findProperty allows us to reference the property without it existing. 
+  // Using project.propName would cause the script to fail validation if 
+  // the property did not exist. 
+  keyStore = project.findProperty('keyStore')
+  alias = project.findProperty('keyStoreAlias')
+  storePass = project.findProperty('keyStorePass')
+  keyPass = project.findProperty('keyStoreKeyPass')
+  inputFile = jar.archivePath
+  outputFile = jar.archivePath
+}
+
+build.dependsOn signJar
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.getDestinationDir()
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      groupId project.group
+      artifactId project.archivesBaseName
+      version project.version
+      from components.java
+      artifact sourceJar {
+        classifier 'sources'
+      }
+      artifact deobfJar {
+        classifier 'deobf'
+      }
+      artifact javadocJar {
+        classifier 'javadoc'
+      }
     }
+  }
+  repositories {
+    maven {
+      credentials {
+        username secret.username
+        password secret.password
+      }
+      url secret.url
+    }
+  }
+}
+
+curseforge {
+  if (project.hasProperty('cf_project_id') && project.hasProperty('cf_release_type') &&
+      ((project.cf_release_type == "alpha") || (project.cf_release_type == "beta") || (project.cf_release_type == "release"))) {
+    apiKey = secret.curseforgeAPIKey
+    project {
+      id = project.cf_project_id
+      changelog = file('CHANGELOG.txt')
+      releaseType = project.cf_release_type
+      addGameVersion(project.mc_version)
+      mainArtifact(jar) {
+        relations {
+          requiredLibrary 'mmd-orespawn'
+          optionalLibrary 'additional-loot-tables'
+        }
+      }
+    }
+  }
+}
+
+sonarqube {
+  properties {
+    property 'sonar.host.url', secret.sonarHost
+    property 'sonar.organization', secret.sonarOrganization
+    property 'sonar.login', secret.sonarToken
+    property 'sonar.projectName', project.archivesBaseName
+    property 'sonar.projectKey', "$project.group:$project.archivesBaseName"
+  }
 }
 
 String getModFile() {
-    String path = ""
-    FileTree tree = fileTree(dir: "src/main/java")
-    tree.include "**/*.java"
-    tree.visit { element ->
-        if (element.file.isFile()) {
-            element.file.eachLine { String s ->
-                s = s.trim()
-                if (s.startsWith("@Mod(")) {
-                    path = "src/main/java/$element.relativePath"
-                }
-            }
+  String path = ''
+  FileTree tree = fileTree(dir: 'src/main/java')
+  tree.include '**/*.java'
+  tree.visit { element ->
+    if (element.file.isFile()) {
+      element.file.eachLine { String s ->
+        s = s.trim()
+        if (s.startsWith('@Mod(')) {
+          path = "src/main/java/$element.relativePath"
         }
+      }
     }
-    return path
+  }
+  return path
 }
 
 String getVersion(String type, String mod_file) {
-    String major = "0"
-    String revision = "0"
-    String patch = "0"
-    String prefix = "public static final String $type = \""
-    File file = file(mod_file)
-    file.eachLine { String s ->
-        s = s.trim()
-        if (s.startsWith(prefix)) {
-            s = s.substring(prefix.length(), s.length() - 2)
-            String[] pts = s.split("\\.")
+  String major = '0'
+  String revision = '0'
+  String patch = '0'
+  File file = file(mod_file)
+  def prefix = ~/^(?:public|protected|private) static final String $type = ".*$/
+  file.eachLine { String s ->
+    s = s.trim()
+    if (s ==~ prefix || prefix.matcher(s).matches()) {
+      String[] bits = s.split("=")
+      String interesting = bits[1].trim()
+      interesting = interesting.substring(1, interesting.length() - 2)
+      String[] pts = interesting.trim().split("\\.")
 
-            major = pts[0]
-            revision = pts[1]
-            patch = pts[2]
-        }
+      major = pts[0] ?: '0'
+      revision = pts[1] ?: '0'
+      patch = pts[2] ?: '0'
     }
-    return "$major.$revision.$patch"
+  }
+  return "$major.$revision.$patch"
 }

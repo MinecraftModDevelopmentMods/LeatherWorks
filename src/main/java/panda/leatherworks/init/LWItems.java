@@ -162,6 +162,7 @@ public final class LWItems {
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_JUNGLE);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_ACACIA);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_DARKOAK);
+		registerItemBlock(registry, LWBlocks.LEATHER_TRUNK);
 	}
 
 	private static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {

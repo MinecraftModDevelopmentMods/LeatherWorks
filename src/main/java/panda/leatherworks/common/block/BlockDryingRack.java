@@ -150,7 +150,6 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 			case 4:
 				iblockstate = iblockstate.withProperty(FACING, EnumFacing.NORTH);
 				break;
-			case 5:
 			default:
 				iblockstate = iblockstate.withProperty(FACING, EnumFacing.UP);
 		}

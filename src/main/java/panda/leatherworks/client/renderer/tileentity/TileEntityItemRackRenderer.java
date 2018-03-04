@@ -33,30 +33,33 @@ public class TileEntityItemRackRenderer extends TileEntitySpecialRenderer<TileEn
 			IBlockState blockstate = te.getWorld().getBlockState(te.getPos());
 			if(blockstate.getBlock() instanceof BlockDryingRack){
 				int meta = blockstate.getBlock().getMetaFromState(blockstate);
+				float oy = 0.15F;
+				float oz =  0.375F;
 				switch(meta){
-				case 0:
-				case 5:
-					GlStateManager.translate(-0.375, 0.25 , 0.0);
-					break;
 				case 1:
-					GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.translate(0.0, -oy , oz);
 					break;
 				case 2:
 					GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+					GlStateManager.translate(0.0, -oy , oz);
 					break;
 				case 3:
-					GlStateManager.translate(0.0, 0.0, 0.75);
+					GlStateManager.translate(0.0, -oy , oz);	
 					break;
 				case 4:
-					GlStateManager.translate(0.0, -0.1875 , -0.375);	
+					GlStateManager.translate(0.0, -oy , -oz);	
 					break;
 				default:
+					GlStateManager.translate(0.0, -oy , oz);	
+					break;
 				}
 			}
 			IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, te.getWorld(), null);
 			model = ForgeHooksClient.handleCameraTransforms(model, TransformType.FIXED, false);
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.scale(0.9F, 0.9F, 0.9F);
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
 
 			GlStateManager.popMatrix();
