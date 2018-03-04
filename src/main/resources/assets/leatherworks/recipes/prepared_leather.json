@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "leatherworks:crafting_leather_soaked"
+  },
+  "ingredients": [
+    {
+      "item": "leatherworks:crafting_leather_washed"
+    },
+	{
+      "item": "leatherworks:tannin_ball"
+    },
+	{
+      "item": "leatherworks:tannin_ball"
+    },
+	{
+      "item": "leatherworks:tannin_ball"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

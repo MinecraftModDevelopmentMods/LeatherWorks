@@ -25,6 +25,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -51,8 +52,8 @@ public class ItemPack extends Item {
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> list, ITooltipFlag advanced)
 	{
-		list.add("WARNING: Filling more than one pack in an inventory is not always item safe.");
-		list.add("Do so at your own risk");
+		list.add(TextFormatting.RED+"WARNING: Packs not working.");
+		list.add(TextFormatting.RED+"Your game will crash");
 		
 	}
 

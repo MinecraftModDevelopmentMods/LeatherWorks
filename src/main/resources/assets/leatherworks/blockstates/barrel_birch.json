@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+        "textures": {
+          "top": "leatherworks:blocks/barrel_top_birch",
+		  "side": "leatherworks:blocks/barrel_side_birch"
+        }
+	},
+    "variants": {
+		"level":{
+			"0": { "model": "leatherworks:barrel_empty"},
+			"1": { "model": "leatherworks:barrel_level1"},
+			"2": { "model": "leatherworks:barrel_level2"},
+			"3": { "model": "leatherworks:barrel_level3"}
+		},
+		"fluid":{
+			"0": { "textures":{"fluid": "blocks/water_still"}},
+			"1": { "textures":{"fluid": "leatherworks:blocks/tannin_still"}}
+		}
+    }
+}

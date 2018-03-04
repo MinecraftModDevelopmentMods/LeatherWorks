@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "leatherworks:barrel_acacia"
+  },
+  "pattern": [
+    "P P",
+    "P P",
+    "PPP"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:planks",
+	  "data":4
+    }
+  }
+}

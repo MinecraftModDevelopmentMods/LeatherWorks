@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "minecraft:leather"
+  },
+  "ingredients": [
+    {
+      "item": "leatherworks:crafting_leather_soaked"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

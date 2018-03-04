@@ -36,6 +36,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -43,16 +44,17 @@ public class BlockBarrel extends Block
 {
     public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 3);
     public static final PropertyInteger FLUID = PropertyInteger.create("fluid", 0, 1);
-
+    public static Block decorationBlock;
     protected static final AxisAlignedBB AABB_LEGS = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.125D);
     protected static final AxisAlignedBB AABB_WALL_SOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.875D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_EAST = new AxisAlignedBB(0.875D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
 
-    public BlockBarrel()
+    public BlockBarrel(Block Decoration)
     {
         super(Material.WOOD, MapColor.WOOD);
+        this.decorationBlock = Decoration;
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0).withProperty(FLUID, 0));
         this.setTickRandomly(true);
     }
@@ -120,7 +122,7 @@ public class BlockBarrel extends Block
                     	heldItem.shrink(1);
                     }
 
-                    worldIn.setBlockState(pos, LWBlocks.SEALED_BARREL.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 2);
+                    worldIn.setBlockState(pos, this.decorationBlock.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 2);
                 }
                 worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1, true);
 
@@ -356,17 +358,13 @@ public class BlockBarrel extends Block
                     }
                 }
                 
-                if (i > 0 && (item instanceof ItemPack ) && f ==0)
+                if (i > 0 && (item instanceof ItemPack ) && f == 0
+                	&& item != LWItems.PACK_BROWN && !worldIn.isRemote)
                 {
-                	
-
-                    if (item.getMetadata(heldItem) != 0 && !worldIn.isRemote)
-                    {
-                    	item.setDamage(heldItem, 0);
-                        this.setFluidLevel(worldIn, pos, state, i - 1);
-                        playerIn.addStat(StatList.ARMOR_CLEANED);
-                        return true;
-                    }
+                	item.setDamage(heldItem, 0);
+                    this.setFluidLevel(worldIn, pos, state, i - 1);
+                    playerIn.addStat(StatList.ARMOR_CLEANED);
+                    return true;
                 }
 
                 //TODO
@@ -471,17 +469,36 @@ public class BlockBarrel extends Block
         //}
     }
 
-    @Nullable
+    @Override
+	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+		if(state.getValue(LEVEL) == 3){
+			IBlockState newstate = state.getValue(FLUID) == 1? LWBlocks.TANNIN.getDefaultState():Blocks.WATER.getDefaultState();
+			worldIn.setBlockState(pos,newstate,1);
+		}
+		super.onBlockDestroyedByPlayer(worldIn, pos, state);
+	}
+
+	@Override
+	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
+		IBlockState state = worldIn.getBlockState(pos);
+		if(state.getValue(LEVEL) == 3){
+			IBlockState newstate = state.getValue(FLUID) == 1? LWBlocks.TANNIN.getDefaultState():Blocks.WATER.getDefaultState();
+			worldIn.setBlockState(pos,newstate,1);
+		}
+		super.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
+	}
+
+	@Nullable
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(LWBlocks.BARREL);
+        return Item.getItemFromBlock(this);
     }
     
     @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(LWBlocks.BARREL);
+        return new ItemStack(this);
     }
     
     @Override

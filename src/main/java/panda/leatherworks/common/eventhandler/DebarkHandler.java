@@ -32,13 +32,14 @@ public class DebarkHandler {
 			return;
 		}
 
-		world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
+		
 
 		if(!world.isRemote){
 			ItemStack heldStack = player.getHeldItemMainhand();
 
 			if (!heldStack.isEmpty() && heldStack.getItem() == Items.FLINT && world.rand.nextInt(20) == 0)
 			{
+				
 				IBlockState newState = findCorrectState(state);
 				if(newState != null){
 					world.setBlockState(event.getPos(), newState, 3);
@@ -58,6 +59,7 @@ public class DebarkHandler {
 
 			if (!heldStack.isEmpty() && heldStack.getItem() == Items.FLINT)
 			{
+				world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
 				player.swingArm(EnumHand.MAIN_HAND);	
 			}
 		}

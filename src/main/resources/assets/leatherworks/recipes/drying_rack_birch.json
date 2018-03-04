@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "leatherworks:drying_rack"
+    "item": "leatherworks:drying_rack_birch"
   },
   "pattern": [
     "SSS"
@@ -9,7 +9,7 @@
   "key": {
     "S": {
       "item": "minecraft:wooden_slab",
-	  "data":25565
+	  "data":2
     }
   }
 }

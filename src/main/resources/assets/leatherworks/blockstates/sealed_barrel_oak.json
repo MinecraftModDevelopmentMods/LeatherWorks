@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+          "end": "leatherworks:blocks/barrel_top_oak",
+	  "side": "leatherworks:blocks/barrel_side_oak"
+        }
+},
+    "variants":{
+"axis":{
+	"y":  { "model": "leatherworks:sealed_barrel"},
+        "z":   { "model": "leatherworks:sealed_barrel","x": 90 },
+        "x":   { "model": "leatherworks:sealed_barrel", "x": 90, "y": 90 },
+        "none": { "model": "leatherworks:sealed_barrel" }
+	}
+    }
+}

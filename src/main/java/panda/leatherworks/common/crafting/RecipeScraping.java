@@ -16,7 +16,6 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
@@ -30,7 +29,7 @@ public class RecipeScraping implements IRecipeFactory{
 	public IRecipe parse(JsonContext context, JsonObject json) {
 		ShapelessOreRecipe recipe = ShapelessOreRecipe.factory(context, json);
 
-        return new ShapelessScrapingRecipe(new ResourceLocation(LeatherWorks.MODID, "shapeless_scraping_recipe"), recipe.getRecipeOutput(), recipe.getIngredients());
+        return new ShapelessScrapingRecipe( recipe.getRecipeOutput(), recipe.getIngredients());
     }
 
     public static class ShapelessScrapingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
@@ -40,7 +39,7 @@ public class RecipeScraping implements IRecipeFactory{
         public final NonNullList<Ingredient> recipeItems;
         private final String group;
 
-        public ShapelessScrapingRecipe(ResourceLocation resourceLocation, ItemStack output, NonNullList<Ingredient> list)
+        public ShapelessScrapingRecipe(ItemStack output, NonNullList<Ingredient> list)
         {
             this.group = LeatherWorks.MODID;
             this.recipeOutput = output;
@@ -48,26 +47,9 @@ public class RecipeScraping implements IRecipeFactory{
         }
         
         @Override
-        public String getGroup()
-        {
-            return this.group;
-        }
-
-        public ItemStack getRecipeOutput()
-        {
-            return this.recipeOutput;
-        }
-        
-        @Override
         public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
         {
             return NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-        }
-        
-        @Override
-        public NonNullList<Ingredient> getIngredients()
-        {
-            return this.recipeItems;
         }
 
         @Override
@@ -94,7 +76,6 @@ public class RecipeScraping implements IRecipeFactory{
                                 break;
                             }
                         }
-
                         if (!flag)
                         {
                             return false;
@@ -104,11 +85,6 @@ public class RecipeScraping implements IRecipeFactory{
             }
 
             return list.isEmpty();
-        }
-
-        public ItemStack getCraftingResult(InventoryCrafting inv)
-        {
-            return this.recipeOutput.copy();
         }
 
         public static ShapelessRecipes deserialize(JsonObject json)
@@ -152,5 +128,13 @@ public class RecipeScraping implements IRecipeFactory{
         {
             return width * height >= this.recipeItems.size();
         }
+        
+        
+        @Override
+        public String getGroup(){return this.group;}
+        public ItemStack getRecipeOutput(){return this.recipeOutput;}
+        public ItemStack getCraftingResult(InventoryCrafting inv){return this.recipeOutput.copy();}
+        @Override
+        public NonNullList<Ingredient> getIngredients(){return this.recipeItems;}
     } 
 }

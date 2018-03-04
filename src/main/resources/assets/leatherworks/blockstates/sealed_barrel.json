@@ -1,9 +1,0 @@
-{
-    "variants":{
-	"axis=y":  { "model": "leatherworks:sealed_barrel"},
-        "axis=z":   { "model": "leatherworks:sealed_barrel","x": 90 },
-        "axis=x":   { "model": "leatherworks:sealed_barrel", "x": 90, "y": 90 },
-        "axis=none": { "model": "leatherworks:sealed_barrel" }
-	
-    }
-}

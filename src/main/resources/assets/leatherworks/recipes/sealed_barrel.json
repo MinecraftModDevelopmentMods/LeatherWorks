@@ -1,7 +1,7 @@
 {
     "conditions": [{
         "type": "minecraft:item_exists",
-        "item": "leatherworks:sealed_barrel"
+        "item": "leatherworks:sealed_barrel_oak"
     }],
   "type": "forge:ore_shaped",
   "pattern": [

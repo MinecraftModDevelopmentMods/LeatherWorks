@@ -1,9 +1,3 @@
-
-
 {
-    "parent": "block/cube_column",
-    "textures": {
-          "end": "leatherworks:blocks/barrel_top",
-		  "side": "leatherworks:blocks/barrel_side"
-        }
+    "parent": "block/cube_column"
 }

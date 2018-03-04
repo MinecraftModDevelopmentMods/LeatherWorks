@@ -94,10 +94,25 @@ public class ClientProxy extends CommonProxy {
 		registerBlockModel(LWBlocks.DEBARKED_LOG_SPRUCE);
 		registerBlockModel(LWBlocks.DEBARKED_LOG_DARKOAK);
 		registerBlockModel(LWBlocks.DEBARKED_LOG_JUNGLE);
-		registerBlockModel(LWBlocks.BARREL);
-		registerBlockModel(LWBlocks.DRYING_RACK);
-		registerBlockModel(LWBlocks.SEALED_BARREL);
-
+		registerBlockModel(LWBlocks.DRYING_RACK_OAK);
+		registerBlockModel(LWBlocks.DRYING_RACK_ACACIA);
+		registerBlockModel(LWBlocks.DRYING_RACK_BIRCH);
+		registerBlockModel(LWBlocks.DRYING_RACK_SPRUCE);
+		registerBlockModel(LWBlocks.DRYING_RACK_DARKOAK);
+		registerBlockModel(LWBlocks.DRYING_RACK_JUNGLE);
+		registerBlockModel(LWBlocks.BARREL_OAK);
+		registerBlockModel(LWBlocks.SEALED_BARREL_OAK);
+		registerBlockModel(LWBlocks.BARREL_SPRUCE);
+		registerBlockModel(LWBlocks.SEALED_BARREL_SPRUCE);
+		registerBlockModel(LWBlocks.BARREL_BIRCH);
+		registerBlockModel(LWBlocks.SEALED_BARREL_BIRCH);
+		registerBlockModel(LWBlocks.BARREL_JUNGLE);
+		registerBlockModel(LWBlocks.SEALED_BARREL_JUNGLE);
+		registerBlockModel(LWBlocks.BARREL_ACACIA);
+		registerBlockModel(LWBlocks.SEALED_BARREL_ACACIA);
+		registerBlockModel(LWBlocks.BARREL_DARKOAK);
+		registerBlockModel(LWBlocks.SEALED_BARREL_DARKOAK);
+		
 		ModelLoader.setCustomStateMapper(LWBlocks.TANNIN, new StateMapperBase() {
 			@Override
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {

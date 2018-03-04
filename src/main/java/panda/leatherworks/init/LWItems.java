@@ -25,7 +25,7 @@ public final class LWItems {
 	
 	private LWItems(){LeatherWorks.logger.info("Registering Items");}
 
-	public static final ItemArmor.ArmorMaterial DUMMYLEATHER = EnumHelper.addArmorMaterial("leather", "leatherworks:leather", 5, new int[]{0,0,0,0}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+	public static final ItemArmor.ArmorMaterial DUMMYLEATHER = EnumHelper.addArmorMaterial("leather", "leatherworks:leather", 5, new int[]{0,0,0,0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 
 	public static final Item RAWHIDE_COW = simply(new Item(), "rawhide_cow");
 	public static final Item RAWHIDE_PIG = simply(new Item(), "rawhide_pig");
@@ -33,8 +33,6 @@ public final class LWItems {
 	public static final Item RAWHIDE_WOLF = simply(new Item(), "rawhide_wolf");
 	public static final Item RAWHIDE_POLARBEAR = simply(new Item(), "rawhide_polarbear");
 	public static final Item RAWHIDE_MOOSHROOM = simply(new Item(), "rawhide_mooshroom");
-	
-	
 	
 	public static final Item BARK_OAK = simply(new Item(), "bark_oak");
 	public static final Item BARK_SPRUCE = simply(new Item(), "bark_spruce");
@@ -146,9 +144,24 @@ public final class LWItems {
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_SPRUCE);
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_DARKOAK);
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_JUNGLE);
-		registerItemBlock(registry, LWBlocks.SEALED_BARREL);
-		registerItemBlock(registry, LWBlocks.BARREL);
-		registerItemBlock(registry, LWBlocks.DRYING_RACK);
+		registerItemBlock(registry, LWBlocks.SEALED_BARREL_OAK);
+		registerItemBlock(registry, LWBlocks.SEALED_BARREL_SPRUCE);
+		registerItemBlock(registry, LWBlocks.SEALED_BARREL_BIRCH);
+		registerItemBlock(registry, LWBlocks.SEALED_BARREL_JUNGLE);
+		registerItemBlock(registry, LWBlocks.SEALED_BARREL_ACACIA);
+		registerItemBlock(registry, LWBlocks.SEALED_BARREL_DARKOAK);
+		registerItemBlock(registry, LWBlocks.BARREL_OAK);
+		registerItemBlock(registry, LWBlocks.BARREL_SPRUCE);
+		registerItemBlock(registry, LWBlocks.BARREL_BIRCH);
+		registerItemBlock(registry, LWBlocks.BARREL_JUNGLE);
+		registerItemBlock(registry, LWBlocks.BARREL_ACACIA);
+		registerItemBlock(registry, LWBlocks.BARREL_DARKOAK);
+		registerItemBlock(registry, LWBlocks.DRYING_RACK_OAK);
+		registerItemBlock(registry, LWBlocks.DRYING_RACK_SPRUCE);
+		registerItemBlock(registry, LWBlocks.DRYING_RACK_BIRCH);
+		registerItemBlock(registry, LWBlocks.DRYING_RACK_JUNGLE);
+		registerItemBlock(registry, LWBlocks.DRYING_RACK_ACACIA);
+		registerItemBlock(registry, LWBlocks.DRYING_RACK_DARKOAK);
 	}
 
 	private static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {

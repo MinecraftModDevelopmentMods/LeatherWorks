@@ -1,0 +1,11 @@
+1.63.0
+hides can be washed in water blocks
+flint is consumed to scrape hides (temporary)
+Fixed tattered armor being enchantable
+Added an inefficient recipe to tan hides without a drying rack (If water progression is changed)
+Debarked logs changed to full blocks and use 1.13 textures in preparation for 1.13.
+Flattened all item meta and some block meta in preparation for 1.13. this won't happen again but if you had the previous version, THIS WILL REMOVE ITEMS FROM YOUR PREVIOUS SAVE.
+Packs not ready yet; will crash your game.
+Redoing drying rack, added temporary recipe to craft prepared leather to leather in hand
+added drying racks for each wood
+added barrels for each wood

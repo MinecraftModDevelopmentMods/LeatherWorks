@@ -2,8 +2,8 @@
   "forge_marker": 1,
   "defaults": {
         "textures": {
-          "top": "leatherworks:blocks/barrel_top",
-		  "side": "leatherworks:blocks/barrel_side"
+          "top": "leatherworks:blocks/barrel_top_oak",
+		  "side": "leatherworks:blocks/barrel_side_oak"
         }
 	},
     "variants": {

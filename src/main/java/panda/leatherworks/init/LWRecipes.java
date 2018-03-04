@@ -28,10 +28,7 @@ public class LWRecipes {
 	private LWRecipes(){LeatherWorks.logger.info("Registering Recipes");}
 
 	public static void register() {
-		removeRecipe(new ResourceLocation("minecraft:leather_leggings"));
-		removeRecipe(new ResourceLocation("minecraft:leather_helmet"));
-		removeRecipe(new ResourceLocation("minecraft:leather_chestplate"));
-		removeRecipe(new ResourceLocation("minecraft:leather_boots"));
+		removeRecipe(new ResourceLocation("minecraft:leather"));
 		
 		DryingRecipes.addDryingRecipe(new ItemStack(LWItems.LEATHER_SOAKED), Items.LEATHER, 60, Items.ROTTEN_FLESH, 0.05f);
 	}
