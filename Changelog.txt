@@ -9,3 +9,7 @@ Packs not ready yet; will crash your game.
 Redoing drying rack, added temporary recipe to craft prepared leather to leather in hand
 added drying racks for each wood
 added barrels for each wood
+1.64.0
+started config file
+Packs are new and better than ever. Thanks Shadows_Of_Fire!
+fixed washing of dyed packs

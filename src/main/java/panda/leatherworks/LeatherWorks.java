@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import panda.leatherworks.common.GuiHandler;
 import panda.leatherworks.common.eventhandler.BucketHandler;
@@ -25,7 +26,7 @@ import panda.leatherworks.proxy.CommonProxy;
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "1.62.0";
+	public static final String VERSION = "1.63.0";
 	public static final String NAME = "Leather Works";
 	public static SimpleNetworkWrapper wrapper;
 	
@@ -35,6 +36,7 @@ public class LeatherWorks {
 	@SidedProxy(clientSide = "panda.leatherworks.proxy.ClientProxy",serverSide = "panda.leatherworks.proxy.ServerProxy")
 	public static CommonProxy PROXY;
 	public static Logger logger;
+	public static Configuration config;
 	
 //Add tanner to village?
 	@EventHandler
@@ -42,6 +44,8 @@ public class LeatherWorks {
 		logger = event.getModLog();
 		wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(LeatherWorks.MODID);
 		PROXY.registerMessageHandlers(wrapper);
+		config = new Configuration(event.getSuggestedConfigurationFile());
+		ConfigLeatherWorks.load(config);
 		LWRecipes.register();
 		
 		MinecraftForge.EVENT_BUS.register(new LivingDropsHandler());
@@ -55,6 +59,7 @@ public class LeatherWorks {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event){
+		ConfigLeatherWorks.parseBlacklist();
 		PROXY.registerColorHandlers();
 	}
 	

@@ -361,9 +361,15 @@ public class BlockBarrel extends Block
                 if (i > 0 && (item instanceof ItemPack ) && f == 0
                 	&& item != LWItems.PACK_BROWN && !worldIn.isRemote)
                 {
-                	item.setDamage(heldItem, 0);
+                	ItemStack stackout = new ItemStack(LWItems.PACK_BROWN);
+                	if(heldItem.hasTagCompound()){
+                		stackout.setTagCompound(heldItem.getTagCompound().copy());
+					  }
+                	
+                	playerIn.setHeldItem(hand, stackout);
                     this.setFluidLevel(worldIn, pos, state, i - 1);
                     playerIn.addStat(StatList.ARMOR_CLEANED);
+                    worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 1f, 1f);
                     return true;
                 }
 
