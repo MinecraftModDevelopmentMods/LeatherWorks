@@ -2,12 +2,11 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
-		maven {name = 'gradle'url 'https://plugins.gradle.org/m2/'}
+		maven {name = 'gradle' url = 'https://plugins.gradle.org/m2/'}
 		maven {name = 'sonatype' url = 'https://oss.sonatype.org/content/groups/public'}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
     }
 }
 
@@ -194,12 +193,6 @@ curseforge {
       changelog = file('CHANGELOG.txt')
       releaseType = project.cf_release_type
       addGameVersion(project.mc_version)
-      mainArtifact(jar) {
-        relations {
-          requiredLibrary 'mmd-orespawn'
-          optionalLibrary 'additional-loot-tables'
-        }
-      }
     }
   }
 }
