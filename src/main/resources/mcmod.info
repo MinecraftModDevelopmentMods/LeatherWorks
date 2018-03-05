@@ -5,11 +5,11 @@
   "description": "Redefining Leather Crafting",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/MinecraftModDevelopmentMods/LeatherWorks",
   "updateUrl": "",
   "authorList": ["Cleverpanda714"],
   "credits": "",
-  "logoFile": "",
+  "logoFile": "/logo.png",
   "screenshots": [],
   "dependencies": []
 }

@@ -9,10 +9,6 @@ import panda.leatherworks.common.crafting.IDryingRecipe;
 public class TileEntityDryingRack extends TileEntityItemRack implements ITickable {
 	private int dryingTicks = 0;
 
-	public TileEntityDryingRack() {
-
-	}
-
 	@Override
 	public void update() {
 		if (!getWorld().isRemote) {

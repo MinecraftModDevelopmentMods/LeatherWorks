@@ -24,7 +24,7 @@ public class ItemEnderPack extends Item {
 		if (world.isRemote) { //client side
 			player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F, 1F);
 		} else {
-			player.openGui(LeatherWorks.INSTANCE, GuiHandler.ENDER_PACK_GUI, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+			player.openGui(LeatherWorks.instance, GuiHandler.ENDER_PACK_GUI, world, (int) player.posX, (int) player.posY, (int) player.posZ);
 		}
 		player.addStat(StatList.ENDERCHEST_OPENED);
 		return new ActionResult<>(EnumActionResult.PASS, itemStackIn);

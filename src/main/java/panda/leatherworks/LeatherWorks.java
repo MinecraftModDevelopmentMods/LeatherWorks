@@ -33,19 +33,19 @@ public class LeatherWorks {
 	public static SimpleNetworkWrapper wrapper;
 	
 	@Mod.Instance(MODID)
-	public static LeatherWorks INSTANCE;
+	public static LeatherWorks instance;
 
 	@SidedProxy(clientSide = "panda.leatherworks.proxy.ClientProxy",serverSide = "panda.leatherworks.proxy.ServerProxy")
-	public static CommonProxy PROXY;
+	public static CommonProxy proxy;
 	public static Logger logger;
-	public static Configuration config;
+	public Configuration config;
 	
 //Add tanner to village?
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event){
 		logger = event.getModLog();
 		wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(LeatherWorks.MODID);
-		PROXY.registerMessageHandlers(wrapper);
+		proxy.registerMessageHandlers(wrapper);
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		ConfigLeatherWorks.load(config);
 		LWRecipes.register();
@@ -55,7 +55,7 @@ public class LeatherWorks {
 		MinecraftForge.EVENT_BUS.register(new DebarkHandler());
 		MinecraftForge.EVENT_BUS.register(new TooltipEventHandler());
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
 		GameRegistry.registerTileEntity(TileEntityDryingRack.class, "leatherworks:drying_rack");
 		GameRegistry.registerTileEntity(TileEntityTrunk.class, "leatherworks:leather_trunk");
@@ -64,7 +64,7 @@ public class LeatherWorks {
 	@EventHandler
 	public void init(FMLInitializationEvent event){
 		ConfigLeatherWorks.parseBlacklist();
-		PROXY.registerColorHandlers();
+		proxy.registerColorHandlers();
 	}
 	
 	public static final CreativeTabs LeatherTab = new CreativeTabs(LeatherWorks.MODID) {

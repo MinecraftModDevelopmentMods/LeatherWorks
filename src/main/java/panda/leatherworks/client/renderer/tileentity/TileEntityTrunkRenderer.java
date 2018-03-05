@@ -1,6 +1,5 @@
 package panda.leatherworks.client.renderer.tileentity;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -14,10 +13,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
     private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("leatherworks:textures/models/trunk_normal.png");
     private final ModelTrunk simpleChest = new ModelTrunk();
 
-    public TileEntityTrunkRenderer()
-    {
-    }
-
+    @Override
     public void render(TileEntityTrunk te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
         GlStateManager.enableDepth();

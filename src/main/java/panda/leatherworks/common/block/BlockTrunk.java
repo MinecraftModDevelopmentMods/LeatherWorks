@@ -3,7 +3,6 @@ package panda.leatherworks.common.block;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
@@ -18,7 +17,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -50,27 +48,31 @@ public class BlockTrunk  extends BlockContainer{
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 	
+    @Override
 	public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
-
+    @Override
     public boolean isFullCube(IBlockState state)
     {
         return false;
     }
 	
+	@Override
 	@SideOnly(Side.CLIENT)
     public boolean hasCustomBreakingProgress(IBlockState state)
     {
         return true;
     }
 	
+	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state)
     {
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 	
+	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         if (source.getBlockState(pos.north()).getBlock() == this)
@@ -91,15 +93,17 @@ public class BlockTrunk  extends BlockContainer{
         }
     }
 	
+	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 	
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState oldstate, EntityLivingBase placer, ItemStack stack)
     {
         EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3).getOpposite();
-        state = state.withProperty(FACING, enumfacing);
+        IBlockState state = oldstate.withProperty(FACING, enumfacing);
         BlockPos blockpos = pos.north();
         BlockPos blockpos1 = pos.south();
         BlockPos blockpos2 = pos.west();
@@ -154,6 +158,7 @@ public class BlockTrunk  extends BlockContainer{
         }
     }
 	
+	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
         int i = 0;
@@ -185,6 +190,7 @@ public class BlockTrunk  extends BlockContainer{
         return i <= 1;
     }
 	
+	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -198,23 +204,18 @@ public class BlockTrunk  extends BlockContainer{
         super.breakBlock(worldIn, pos, state);
     }
 	
+	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        if (worldIn.isRemote)
-        {
-            return true;
-        }
-        else
+        if (!worldIn.isRemote)
         {
             ILockableContainer ilockablecontainer = this.getLockableContainer(worldIn, pos);
-
             if (ilockablecontainer != null)
             {
                 playerIn.displayGUIChest(ilockablecontainer);
             }
-
-            return true;
         }
+        return true;
     }
 	
 	@Nullable
@@ -298,16 +299,19 @@ public class BlockTrunk  extends BlockContainer{
         return false;
     }
 	
+	@Override
 	public boolean hasComparatorInputOverride(IBlockState state)
     {
         return true;
     }
-
+	
+	@Override
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
     {
         return Container.calcRedstoneFromInventory(this.getLockableContainer(worldIn, pos));
     }
-    
+	
+	@Override
 	public IBlockState getStateFromMeta(int meta)
     {
         EnumFacing enumfacing = EnumFacing.getFront(meta);
@@ -320,21 +324,25 @@ public class BlockTrunk  extends BlockContainer{
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 	
+	@Override
 	public int getMetaFromState(IBlockState state)
     {
         return state.getValue(FACING).getIndex();
     }
 	
+	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot)
     {
         return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 	
+	@Override
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
         return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
-
+	
+	@Override
     protected BlockStateContainer createBlockState()
     {
         return new BlockStateContainer(this, FACING);

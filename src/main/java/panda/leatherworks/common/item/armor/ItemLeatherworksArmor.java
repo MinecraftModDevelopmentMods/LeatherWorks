@@ -12,7 +12,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ItemLeatherworksArmor extends ItemArmor implements ISpecialArmor {
 
@@ -34,11 +33,11 @@ public class ItemLeatherworksArmor extends ItemArmor implements ISpecialArmor {
 				Random rand = entity.world.rand;
 				if(tags.hasNoTags()){
 					((EntityPlayer)entity).inventory.armorInventory.set(slot, ItemStack.EMPTY);
-					ItemStack StackOut = new ItemStack(brokenarmor,1,0);
+					ItemStack stackOut = new ItemStack(brokenarmor,1,0);
 						if(stack.hasTagCompound()){
-							StackOut.setTagCompound(stack.getTagCompound().copy());
+							stackOut.setTagCompound(stack.getTagCompound().copy());
 						  }
-					((EntityPlayer)entity).inventory.armorInventory.set(slot, StackOut);
+					((EntityPlayer)entity).inventory.armorInventory.set(slot, stackOut);
 					return;
 				}else{
 					for(int i = 0; i < count; i++){
@@ -61,16 +60,15 @@ public class ItemLeatherworksArmor extends ItemArmor implements ISpecialArmor {
 					NBTTagList newtags = stack.getTagCompound().getTagList("altench", 10);
 
 					count = tags.tagCount();
-					for(int j = 0; j < count; j++){
+					for(int j = 0; j < count;--count, j++){
 						newtags.appendTag(tags.removeTag(j));
 						--j;
-						--count;
 					}
 
 					((EntityPlayer)entity).inventory.armorInventory.set(slot, ItemStack.EMPTY);
-					ItemStack StackOut = new ItemStack(brokenarmor,1,0);
-						StackOut.setTagCompound(stack.getTagCompound().copy());
-					((EntityPlayer)entity).inventory.armorInventory.set(slot, StackOut);
+					ItemStack stackOut = new ItemStack(brokenarmor,1,0);
+						stackOut.setTagCompound(stack.getTagCompound().copy());
+					((EntityPlayer)entity).inventory.armorInventory.set(slot, stackOut);
 				}
 			}
 		}else{

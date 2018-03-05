@@ -76,28 +76,27 @@ public class DebarkHandler {
 			meta = block.getMetaFromState(state);
 
 			switch(meta % 4){
-			case 0:
-				return LWBlocks.DEBARKED_LOG_OAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 1:
 				return LWBlocks.DEBARKED_LOG_SPRUCE.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 2:
 				return LWBlocks.DEBARKED_LOG_BIRCH.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			case 3:
 				return LWBlocks.DEBARKED_LOG_JUNGLE.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
+			default:
+				return LWBlocks.DEBARKED_LOG_OAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 			}
 		}else 
 			if( block== Blocks.LOG2){
 				meta = block.getMetaFromState(state);
-				switch(meta % 4){
-				case 0:
+				if(meta % 4 == 0){
 					return LWBlocks.DEBARKED_LOG_ACACIA.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
-				case 1:
+				}else
+				if(meta % 4 == 1){
 					return LWBlocks.DEBARKED_LOG_DARKOAK.getDefaultState().withProperty(BlockDebarkedLog.LOG_AXIS,axis );
 				}
 			}
 		return null;
 	}
-
 
 	private ItemStack findCorrectStack(IBlockState state) {
 		Block block = state.getBlock();
@@ -105,23 +104,23 @@ public class DebarkHandler {
 		if( block== Blocks.LOG){
 			meta = block.getMetaFromState(state);
 			switch(meta%4){
-			case 0:
-				return new ItemStack(LWItems.BARK_OAK);
 			case 1:
 				return new ItemStack(LWItems.BARK_SPRUCE);
 			case 2:
 				return new ItemStack(LWItems.BARK_BIRCH);
 			case 3:
 				return new ItemStack(LWItems.BARK_JUNGLE);
+			default:
+				return new ItemStack(LWItems.BARK_OAK);
 			}
 
 		}else 
 			if( block== Blocks.LOG2){
 				meta = block.getMetaFromState(state);
-				switch(meta%4){
-				case 0:
+				if(meta % 4 == 0){
 					return new ItemStack(LWItems.BARK_ACACIA);
-				case 1:
+				}else
+				if(meta % 4 == 1){
 					return new ItemStack(LWItems.BARK_DARKOAK);
 				}
 			}

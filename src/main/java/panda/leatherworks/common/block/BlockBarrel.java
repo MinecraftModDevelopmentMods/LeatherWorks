@@ -44,17 +44,17 @@ public class BlockBarrel extends Block
 {
     public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 3);
     public static final PropertyInteger FLUID = PropertyInteger.create("fluid", 0, 1);
-    public static Block decorationBlock;
+    private Block decorationBlock;
     protected static final AxisAlignedBB AABB_LEGS = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.125D);
     protected static final AxisAlignedBB AABB_WALL_SOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.875D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_EAST = new AxisAlignedBB(0.875D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
 
-    public BlockBarrel(Block Decoration)
+    public BlockBarrel(Block decoration)
     {
         super(Material.WOOD, MapColor.WOOD);
-        this.decorationBlock = Decoration;
+        decorationBlock = decoration;
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0).withProperty(FLUID, 0));
         this.setTickRandomly(true);
     }
@@ -122,7 +122,7 @@ public class BlockBarrel extends Block
                     	heldItem.shrink(1);
                     }
 
-                    worldIn.setBlockState(pos, this.decorationBlock.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 2);
+                    worldIn.setBlockState(pos, decorationBlock.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 2);
                 }
                 worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1, true);
 
@@ -451,10 +451,6 @@ public class BlockBarrel extends Block
 	@Override
     public void fillWithRain(World worldIn, BlockPos pos)
     {
-
-       // if (worldIn.rand.nextInt(2) == 0)
-        //{
-
             float f = worldIn.getBiome(pos).getTemperature(pos);
 
             if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F)
@@ -466,7 +462,6 @@ public class BlockBarrel extends Block
                     worldIn.setBlockState(pos, iblockstate.cycleProperty(LEVEL), 2);
                 }
             }
-        //}
     }
 
     @Override
@@ -533,9 +528,11 @@ public class BlockBarrel extends Block
         	return this.getDefaultState().withProperty(LEVEL, 2).withProperty(FLUID, 1);
         case 7:
         	return this.getDefaultState().withProperty(LEVEL, 3).withProperty(FLUID, 1);
+        default:
+        	return this.getDefaultState();
         }
     	
-    	return this.getDefaultState();
+    	
     }
 
     @Override

@@ -1,5 +1,6 @@
 package panda.leatherworks.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -29,7 +30,7 @@ import com.google.common.collect.ImmutableMap;
 import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.common.crafting.DryingRecipes;
 
-public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
+public class BlockDryingRack extends Block {
 
 	public static final PropertyEnum<EnumFacing> FACING = PropertyDirection.create("facing", facing -> facing != EnumFacing.DOWN);
 	
@@ -48,10 +49,8 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 				// Simulate first
 				ItemStack extract = itemHandler.extractItem(0, 1, true);
 				if (extract.isEmpty()) {
-					if(!player.getHeldItem(hand).isEmpty()){
-						if (DryingRecipes.hasRecipe(player.getHeldItem(hand))) {
-							player.setHeldItem(hand, itemHandler.insertItem(0, player.getHeldItem(hand), false));
-						}
+					if(!player.getHeldItem(hand).isEmpty() && DryingRecipes.hasRecipe(player.getHeldItem(hand))){
+						player.setHeldItem(hand, itemHandler.insertItem(0, player.getHeldItem(hand), false));
 					}
 				} else if (player.inventory.addItemStackToInventory(extract)) {
 					itemHandler.extractItem(0, 1, false);
@@ -108,9 +107,18 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 		return side == EnumFacing.UP;
 	}
 	
-	@Override
+	
 	public Class<TileEntityDryingRack> getTileEntityClass() {
 		return TileEntityDryingRack.class;
+	}
+	
+	public TileEntityDryingRack getTileEntity(IBlockAccess world, BlockPos pos) {
+		return (TileEntityDryingRack)world.getTileEntity(pos);
+	}
+	
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
 	
 	@Nullable
@@ -252,4 +260,7 @@ public class BlockDryingRack extends BlockTileEntity<TileEntityDryingRack> {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return BOUNDS.get(state.getValue(FACING));
 	}
+	
+	
+
 }

@@ -181,6 +181,20 @@ publishing {
   }
 }
 
+processResources {
+  inputs.property 'version', project.version
+  inputs.property 'mcversion', project.minecraft.version
+
+  from (sourceSets.main.resources.srcDirs) {
+    include 'mcmod.info'
+    expand 'version': short_version, 'mcversion': project.minecraft.version
+  }
+
+  from (sourceSets.main.resources.srcDirs) {
+    exclude 'mcmod.info'
+  }
+}
+
 curseforge {
   if (project.hasProperty('cf_project_id') && project.hasProperty('cf_release_type') &&
       ((project.cf_release_type == "alpha") || (project.cf_release_type == "beta") || (project.cf_release_type == "release"))) {

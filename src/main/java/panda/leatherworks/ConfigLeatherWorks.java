@@ -18,8 +18,10 @@ import panda.leatherworks.init.LWItems;
 //https://github.com/Shadows-of-Fire/EnderBags/blob/master/src/main/java/gigabit101/EnderBags/config/ConfigEnderBag.java
 public class ConfigLeatherWorks {
 	
-	protected static final List<Pair<Item, Integer>> BLACKLIST = new ArrayList<>();
+	protected static final List<Pair<Item, Integer>> BLACKLISTREGISTRY = new ArrayList<>();
 	private static String[] blacklist;
+	
+	private ConfigLeatherWorks(){LeatherWorks.logger.info("Loading Config");}
 	
 	public static void load(Configuration config) {
 		config.load();
@@ -73,12 +75,12 @@ public class ConfigLeatherWorks {
 			}
 
 			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(split[0], split[1]));
-			BLACKLIST.add(Pair.of(item, Integer.parseInt(split[2])));
+			BLACKLISTREGISTRY.add(Pair.of(item, Integer.parseInt(split[2])));
 		}
 	}
 
 	public static boolean isBlacklistedFromBag(ItemStack stack) {
-		for (Pair<Item, Integer> p : BLACKLIST) {
+		for (Pair<Item, Integer> p : BLACKLISTREGISTRY) {
 			if (p.getLeft() == stack.getItem() && (p.getRight() == OreDictionary.WILDCARD_VALUE || p.getRight() == stack.getMetadata())) return true;
 		}
 		return false;

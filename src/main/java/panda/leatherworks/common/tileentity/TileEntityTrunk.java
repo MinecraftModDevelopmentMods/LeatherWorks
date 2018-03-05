@@ -11,7 +11,6 @@ import net.minecraft.inventory.InventoryLargeChest;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
@@ -25,9 +24,6 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
     public int numPlayersUsing;
     private int ticksSinceSync;
     
-    public TileEntityTrunk()
-    {
-    }
     
     public int getSizeInventory()
     {
@@ -51,7 +47,7 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
     {
         return this.hasCustomName() ? this.customName : "container.trunk";
     }
-    
+    @Override
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
@@ -67,7 +63,7 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
             this.customName = compound.getString("CustomName");
         }
     }
-
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
@@ -100,7 +96,6 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
         if (!this.world.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + i + j + k) % 200 == 0)
         {
             this.numPlayersUsing = 0;
-            float f = 5.0F;
 
             for (EntityPlayer entityplayer : this.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((double)((float)i - 5.0F), (double)((float)j - 5.0F), (double)((float)k - 5.0F), (double)((float)(i + 1) + 5.0F), (double)((float)(j + 1) + 5.0F), (double)((float)(k + 1) + 5.0F))))
             {
@@ -117,7 +112,6 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
         }
 
         this.prevLidAngle = this.lidAngle;
-        float f1 = 0.1F;
 
         if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F)
         {
@@ -146,7 +140,6 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
                 this.lidAngle = 1.0F;
             }
 
-            float f3 = 0.5F;
 
             if (this.lidAngle < 0.5F && f2 >= 0.5F)
             {
@@ -163,7 +156,7 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
             }
         }
     }
-    
+    @Override
     public boolean receiveClientEvent(int id, int type)
     {
         if (id == 1)
@@ -176,7 +169,7 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
             return super.receiveClientEvent(id, type);
         }
     }
-
+    @Override
     public void openInventory(EntityPlayer player)
     {
         if (!player.isSpectator())
@@ -191,7 +184,7 @@ public class TileEntityTrunk extends TileEntityLockableLoot implements ITickable
             this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), false);
         }
     }
-
+    @Override
     public void closeInventory(EntityPlayer player)
     {
         if (!player.isSpectator() && this.getBlockType() instanceof BlockChest)

@@ -41,7 +41,7 @@ public class GuiPack extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		
-		this.mc.getTextureManager().bindTexture(new ResourceLocation("leatherworks:textures/gui/container/pack_"+getNumFromPack(item)+".png"));
+		this.mc.getTextureManager().bindTexture(new ResourceLocation("leatherworks:textures/gui/container/"+item.getItem().getRegistryName().getResourcePath()+".png"));
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 	}
 	
@@ -51,10 +51,4 @@ public class GuiPack extends GuiContainer {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
 	}
-
-	private int getNumFromPack(ItemStack stack) {
-
-		return 0;
-	}
-	
 }
