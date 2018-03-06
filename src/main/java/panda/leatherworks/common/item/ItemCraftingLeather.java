@@ -35,7 +35,7 @@ public class ItemCraftingLeather extends Item {
 
 				if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
 				{
-					worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_SPLASH, SoundCategory.NEUTRAL, 1.0F, (float) (1.0F + (worldIn.rand.nextGaussian()) * 0.4F));
+					worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_SPLASH, SoundCategory.NEUTRAL, 1.0F, (float) (1.0F + worldIn.rand.nextGaussian()* 0.4F));
 					BlockPos clickPos = raytraceresult.getBlockPos().offset(raytraceresult.sideHit);
 					//doWaterSplashEffect(worldIn,clickPos);
 					ItemStack itemStackout = new ItemStack(LWItems.LEATHER_WASHED,itemStackIn.getCount(),itemStackIn.getMetadata(),itemStackIn.getTagCompound());

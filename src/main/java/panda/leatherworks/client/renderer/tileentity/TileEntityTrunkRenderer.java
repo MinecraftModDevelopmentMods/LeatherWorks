@@ -12,7 +12,8 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 {
     private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("leatherworks:textures/models/trunk_normal.png");
     private final ModelTrunk simpleChest = new ModelTrunk();
-
+    
+    
     @Override
     public void render(TileEntityTrunk te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
@@ -21,7 +22,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
         GlStateManager.depthMask(true);
 
         	ModelTrunk modelchest = this.simpleChest;
-                
+        	
 
                 if (destroyStage >= 0)
                 {
@@ -42,7 +43,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
             {
                 GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
             }
-
+            GlStateManager.translate(0, 0.0625F,0);
             GlStateManager.translate((float)x, (float)y + 1.0F, (float)z + 1.0F);
             GlStateManager.scale(1.0F, -1.0F, -1.0F);
             GlStateManager.translate(0.5F, 0.5F, 0.5F);
@@ -55,6 +56,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
             f = 1.0F - f;
             f = 1.0F - f * f * f;
             modelchest.chestLid.rotateAngleX = -(f * ((float)Math.PI / 2F));
+            
             modelchest.renderAll();
             GlStateManager.disableRescaleNormal();
             GlStateManager.popMatrix();
@@ -66,6 +68,6 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
                 GlStateManager.popMatrix();
                 GlStateManager.matrixMode(5888);
             }
-        
+            GlStateManager.translate(0, -0.0625F,0);
     }
 }

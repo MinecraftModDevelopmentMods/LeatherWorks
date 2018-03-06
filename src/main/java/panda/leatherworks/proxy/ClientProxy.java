@@ -89,7 +89,7 @@ public class ClientProxy extends CommonProxy {
 		registerItemModel(LWItems.BROKEN_LEATHER_CHESTPLATE);
 		registerItemModel(LWItems.BROKEN_LEATHER_LEGGINGS);
 		registerItemModel(LWItems.BROKEN_LEATHER_BOOTS);
-
+		
 		registerBlockModel(LWBlocks.DEBARKED_LOG_OAK);
 		registerBlockModel(LWBlocks.DEBARKED_LOG_ACACIA);
 		registerBlockModel(LWBlocks.DEBARKED_LOG_BIRCH);

@@ -73,3 +73,5 @@ item.minecraft.leather_chestplate.name=Leather Tunic
 item.minecraft.leather_leggings.name=Leather Pants
 item.minecraft.leather_boots.name=Leather Boots
 leatherworks.item_not_allowed.tooltip=This item is not allowed in this bag
+container.trunk.name=Leather Trunk
+tile.leatherworks.leather_trunk.name=Leather Trunk

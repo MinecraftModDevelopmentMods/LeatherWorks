@@ -3,180 +3,94 @@ package panda.leatherworks.common;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerChest;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.ILockableContainer;
-import net.minecraft.world.LockCode;
+import panda.leatherworks.LeatherWorks;
+import panda.leatherworks.common.tileentity.TileEntityTrunk;
 
-public class InventoryTrunk implements ILockableContainer{
+public class InventoryTrunk extends Container{
 
 
-    private final ILockableContainer upperChest;
+    private final TileEntityTrunk trunkentity;
+    private static final int NUMSLOTS = 27;
 
-
-    public InventoryTrunk(ILockableContainer upperChestIn)
+    public InventoryTrunk(InventoryPlayer invPlayer, TileEntityTrunk tileentitytrunk)
     {
-        this.upperChest = upperChestIn;
+    	trunkentity = tileentitytrunk;
+    	final int HOTBAR_XPOS = 8;
+		final int HOTBAR_YPOS = 164;
+    	for (int x = 0; x < 9; x++) {
+			int slotNumber = x;
+			addSlotToContainer(new Slot(invPlayer, slotNumber, HOTBAR_XPOS + 18* x, HOTBAR_YPOS));
+		}
 
-        if (upperChestIn.isLocked())
-        {
-        	upperChestIn.setLockCode(upperChestIn.getLockCode());
-        }
+		final int PLAYER_INVENTORY_XPOS = 8;
+		final int PLAYER_INVENTORY_YPOS = 106;
+		// Add the rest of the players inventory to the gui
+		for (int y = 0; y < 3; y++) {
+			for (int x = 0; x < 9; x++) {
+				int slotNumber = 9 + y * 9+ x;
+				int xpos = PLAYER_INVENTORY_XPOS + x * 18;
+				int ypos = PLAYER_INVENTORY_YPOS + y * 18;
+				addSlotToContainer(new Slot(invPlayer, slotNumber,  xpos, ypos));
+			}
+		}
+
+		if (NUMSLOTS != trunkentity.getSizeInventory()) {
+			LeatherWorks.logger.error("Mismatched slot count in Container(" + NUMSLOTS+ ") and TileInventory (" + trunkentity.getSizeInventory()+")");
+		}
+		final int TILE_INVENTORY_XPOS = 8;
+		final int TILE_INVENTORY_YPOS = 18;
+		// Add the tile inventory container to the gui
+		for (int x = 0; x < NUMSLOTS; x++) {
+			int slotNumber = x;
+			addSlotToContainer(new Slot(trunkentity, slotNumber, TILE_INVENTORY_XPOS + 18*(x%9), TILE_INVENTORY_YPOS + 18*(x/9)));
+		}
     }
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return this.upperChest.getSizeInventory();
-    }
+	@Override
+	public boolean canInteractWith(EntityPlayer player)
+	{
+		return trunkentity.isUsableByPlayer(player);
+	}
 
-    public boolean isEmpty()
-    {
-        return this.upperChest.isEmpty();
-    }
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer player, int sourceSlotIndex)
+	{
+		Slot sourceSlot = inventorySlots.get(sourceSlotIndex);
+		if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;  //EMPTY_ITEM
+		ItemStack sourceStack = sourceSlot.getStack();
+		ItemStack copyOfSourceStack = sourceStack.copy();
 
-    /**
-     * Return whether the given inventory is part of this large chest.
-     */
-    public boolean isPartOfLargeChest(IInventory inventoryIn)
-    {
-        return this.upperChest == inventoryIn;
-    }
+		if (sourceSlotIndex >= 0 && sourceSlotIndex < 0 + 27) {
 
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    public String getName()
-    {
-            return this.upperChest.getName();
-    }
+			if (!mergeItemStack(sourceStack, 27, 27+ NUMSLOTS, false)){
+				return ItemStack.EMPTY;
+			}
+		} else if (sourceSlotIndex >= 27 && sourceSlotIndex < 27 + NUMSLOTS) {
+			if (!mergeItemStack(sourceStack, 0, 27, false)) {
+				return ItemStack.EMPTY;
+			}
+		} else {
+			LeatherWorks.logger.error("Invalid slotIndex:" + sourceSlotIndex);
+			return ItemStack.EMPTY;
+		}
 
-    /**
-     * Returns true if this thing is named
-     */
-    public boolean hasCustomName()
-    {
-        return this.upperChest.hasCustomName();
-    }
+		if (sourceStack.getCount() == 0) {
+			sourceSlot.putStack(ItemStack.EMPTY);
+		} else {
+			sourceSlot.onSlotChanged();
+		}
 
-    /**
-     * Get the formatted ChatComponent that will be used for the sender's username in chat
-     */
-    public ITextComponent getDisplayName()
-    {
-        return (this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), 0));
-    }
+		sourceSlot.onTake(player, sourceStack);
+		return copyOfSourceStack;
+	}
+	
+    @Override
+	public void onContainerClosed(EntityPlayer playerIn)
+	{
+		super.onContainerClosed(playerIn);
+		this.trunkentity.closeInventory(playerIn);
+	}
 
-    /**
-     * Returns the stack in the given slot.
-     */
-    public ItemStack getStackInSlot(int index)
-    {
-        return this.upperChest.getStackInSlot(index);
-    }
-
-    /**
-     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
-     */
-    public ItemStack decrStackSize(int index, int count)
-    {
-        return this.upperChest.decrStackSize(index, count);
-    }
-
-    /**
-     * Removes a stack from the given slot and returns it.
-     */
-    public ItemStack removeStackFromSlot(int index)
-    {
-        return this.upperChest.removeStackFromSlot(index);
-    }
-
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
-    public void setInventorySlotContents(int index, ItemStack stack)
-    {
-        this.upperChest.setInventorySlotContents(index, stack);
-    }
-
-    public int getInventoryStackLimit()
-    {
-        return this.upperChest.getInventoryStackLimit();
-    }
-
-    public void markDirty()
-    {
-        this.upperChest.markDirty();
-
-    }
-
-    public boolean isUsableByPlayer(EntityPlayer player)
-    {
-        return this.upperChest.isUsableByPlayer(player);
-    }
-
-    public void openInventory(EntityPlayer player)
-    {
-        this.upperChest.openInventory(player);
-    }
-
-    public void closeInventory(EntityPlayer player)
-    {
-        this.upperChest.closeInventory(player);
-    }
-
-    public boolean isItemValidForSlot(int index, ItemStack stack)
-    {
-        return true;
-    }
-
-    public int getField(int id)
-    {
-        return 0;
-    }
-
-    public void setField(int id, int value)
-    {
-    }
-
-    public int getFieldCount()
-    {
-        return 0;
-    }
-
-    public boolean isLocked()
-    {
-        return this.upperChest.isLocked();
-    }
-
-    public void setLockCode(LockCode code)
-    {
-        this.upperChest.setLockCode(code);
-    }
-
-    public LockCode getLockCode()
-    {
-        return this.upperChest.getLockCode();
-    }
-
-    public String getGuiID()
-    {
-        return this.upperChest.getGuiID();
-    }
-
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        return new ContainerChest(playerInventory, this, playerIn);
-    }
-
-    public void clear()
-    {
-        this.upperChest.clear();
-    }
 }
