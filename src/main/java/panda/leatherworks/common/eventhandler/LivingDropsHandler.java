@@ -6,8 +6,11 @@ import java.util.Random;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityDonkey;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityMooshroom;
+import net.minecraft.entity.passive.EntityMule;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Items;
@@ -25,12 +28,13 @@ public class LivingDropsHandler {
 	public void onLivingDrops(LivingDropsEvent event) {
 		Random rand = event.getEntityLiving().world.rand;
 		int fortune = event.getLootingLevel();
-		
+		boolean hasLeather = hasLeatherDrops(event);
 		if (event.getEntityLiving() instanceof EntityCow && !(event.getEntityLiving() instanceof EntityMooshroom)) {
 			replaceDrops(event,LWItems.RAWHIDE_COW);
 		}else 
 		if (event.getEntityLiving() instanceof EntityPig) {
-			addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));
+			
+			if(!hasLeather){addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));}
 			replaceDrops(event,LWItems.RAWHIDE_PIG);
 		}else 
 		if (event.getEntityLiving() instanceof EntityHorse) {
@@ -41,12 +45,24 @@ public class LivingDropsHandler {
 			replaceDrops(event,LWItems.RAWHIDE_MOOSHROOM);
 		}else 
 		if (event.getEntityLiving() instanceof EntityWolf) {
-			addLeatherDrops(event,modifyDrops(fortune,rand));
+			if(!hasLeather){addLeatherDrops(event,modifyDrops(fortune,rand));}
 			replaceDrops(event,LWItems.RAWHIDE_WOLF);
 		}else 
 		if (event.getEntityLiving() instanceof EntityPolarBear) {
-			addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));
+			if(!hasLeather){addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));}
 			replaceDrops(event,LWItems.RAWHIDE_POLARBEAR);
+		}
+		else 
+		if (event.getEntityLiving() instanceof EntityLlama) {
+			replaceDrops(event,LWItems.RAWHIDE_LLAMA);
+		}
+		else 
+		if (event.getEntityLiving() instanceof EntityMule) {
+			replaceDrops(event,LWItems.RAWHIDE_MULE);
+		}
+		else 
+		if (event.getEntityLiving() instanceof EntityDonkey) {
+			replaceDrops(event,LWItems.RAWHIDE_DONKEY);
 		}
 	}
 	
@@ -88,5 +104,15 @@ public class LivingDropsHandler {
 			return i + 1;
 		}
 		return 1;
+	}
+	private boolean hasLeatherDrops(LivingDropsEvent e){
+		for(int i = 0; i < e.getDrops().size(); i++){
+
+			if (e.getDrops().get(i).getItem().getItem() == Items.LEATHER)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -51,6 +51,9 @@ public class ClientProxy extends CommonProxy {
 		registerItemModel(LWItems.RAWHIDE_MOOSHROOM);
 		registerItemModel(LWItems.RAWHIDE_WOLF);
 		registerItemModel(LWItems.RAWHIDE_POLARBEAR);
+		registerItemModel(LWItems.RAWHIDE_LLAMA);
+		registerItemModel(LWItems.RAWHIDE_DONKEY);
+		registerItemModel(LWItems.RAWHIDE_MULE);
 		
 		registerItemModel(LWItems.PACK_RED);
 		registerItemModel(LWItems.PACK_BLACK);

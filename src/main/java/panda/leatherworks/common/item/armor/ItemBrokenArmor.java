@@ -14,9 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.init.LWItems;
 
 public class ItemBrokenArmor extends ItemArmor {
@@ -110,7 +112,7 @@ public class ItemBrokenArmor extends ItemArmor {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> list, ITooltipFlag advanced)
-	{
+	{	
 		if (stack.hasTagCompound())
 		{
 			NBTTagList nbttaglist = stack.getTagCompound().getTagList("altench", 10);

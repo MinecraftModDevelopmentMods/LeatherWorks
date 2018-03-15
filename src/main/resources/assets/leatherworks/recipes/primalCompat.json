@@ -1,0 +1,16 @@
+{
+    "conditions": [{
+        "type": "minecraft:item_exists",
+        "item": "primal:hide_raw"
+    }],
+  "type":"minecraft:crafting_shapeless",
+
+    "ingredients": [
+        { "item": "primal:hide_raw"}
+],
+  "result": {
+
+    "item": "leatherworks:crafting_leather_scraped"
+  }
+
+}

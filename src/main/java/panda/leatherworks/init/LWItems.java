@@ -33,6 +33,9 @@ public final class LWItems {
 	public static final Item RAWHIDE_WOLF = simply(new Item(), "rawhide_wolf");
 	public static final Item RAWHIDE_POLARBEAR = simply(new Item(), "rawhide_polarbear");
 	public static final Item RAWHIDE_MOOSHROOM = simply(new Item(), "rawhide_mooshroom");
+	public static final Item RAWHIDE_LLAMA =  simply(new Item(), "rawhide_llama");
+	public static final Item RAWHIDE_MULE = simply(new Item(), "rawhide_mule");
+	public static final Item RAWHIDE_DONKEY = simply(new Item(), "rawhide_donkey");
 	
 	public static final Item BARK_OAK = simply(new Item(), "bark_oak");
 	public static final Item BARK_SPRUCE = simply(new Item(), "bark_spruce");
@@ -81,6 +84,10 @@ public final class LWItems {
 	public static final Item LEATHER_LEGGINGS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.LEGS, BROKEN_LEATHER_LEGGINGS).setUnlocalizedName("minecraft.leather_leggings").setRegistryName("minecraft:leather_leggings");
 	public static final Item LEATHER_BOOTS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.FEET, BROKEN_LEATHER_BOOTS).setUnlocalizedName("minecraft.leather_boots").setRegistryName("minecraft:leather_boots");
 
+	
+
+	
+
 	private static Item simply(Item item, String name) {
 		return item.setRegistryName(LeatherWorks.MODID, name).setUnlocalizedName(LeatherWorks.MODID + "." + name).setCreativeTab(LeatherWorks.LeatherTab);
 	}
@@ -95,6 +102,9 @@ public final class LWItems {
 		registry.register(RAWHIDE_WOLF);
 		registry.register(RAWHIDE_POLARBEAR);
 		registry.register(RAWHIDE_MOOSHROOM);
+		registry.register(RAWHIDE_LLAMA);
+		registry.register(RAWHIDE_MULE);
+		registry.register(RAWHIDE_DONKEY);
 		
 		registry.register(LEATHER_SCRAPED);
 		registry.register(LEATHER_WASHED);
