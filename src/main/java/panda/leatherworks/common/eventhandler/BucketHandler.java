@@ -7,6 +7,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import panda.leatherworks.LeatherWorks;
+import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
 
 public class BucketHandler {
@@ -28,7 +30,10 @@ public class BucketHandler {
 				event.getTarget().sideHit, event.getEmptyBucket())) {
 			return;
 		}
-
+		LeatherWorks.logger.info(event.getWorld().getBlockState(blockpos).getBlock());
+		if(event.getWorld().getBlockState(blockpos).getBlock() != LWBlocks.TANNIN){
+			return;
+		}
 		// remove the fluid and return the appropriate filled bucket
 		event.setResult(Result.ALLOW);
 		ItemStack bucket = new ItemStack(LWItems.TANNIN_BUCKET);

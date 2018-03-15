@@ -57,6 +57,7 @@ public class BlockBarrel extends Block
         decorationBlock = decoration;
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0).withProperty(FLUID, 0));
         this.setTickRandomly(true);
+        this.setHardness(2.0F);
     }
 
     @Override

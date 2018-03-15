@@ -3,7 +3,7 @@
     "variants": {
 		"tannin": {
             "model": "forge:fluid",
-            "custom": { "fluid": "tannin" }
+            "custom": { "fluid": "leatherworks:tannin" }
         }
     }
 }

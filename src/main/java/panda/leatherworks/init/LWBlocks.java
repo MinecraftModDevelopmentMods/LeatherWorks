@@ -36,16 +36,16 @@ public final class LWBlocks {
 	public static final Block BARREL_SPRUCE = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_SPRUCE), "barrel_spruce");
 	
 	public static final Block SEALED_BARREL_BIRCH = simply(new BlockDummyWoodPillar(), "sealed_barrel_birch");
-	public static final Block BARREL_BIRCH = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_SPRUCE), "barrel_birch");
+	public static final Block BARREL_BIRCH = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_BIRCH), "barrel_birch");
 	
 	public static final Block SEALED_BARREL_JUNGLE = simply(new BlockDummyWoodPillar(), "sealed_barrel_jungle");
-	public static final Block BARREL_JUNGLE = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_SPRUCE), "barrel_jungle");
+	public static final Block BARREL_JUNGLE = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_JUNGLE), "barrel_jungle");
 	
 	public static final Block SEALED_BARREL_ACACIA = simply(new BlockDummyWoodPillar(), "sealed_barrel_acacia");
-	public static final Block BARREL_ACACIA = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_SPRUCE), "barrel_acacia");
+	public static final Block BARREL_ACACIA = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_ACACIA), "barrel_acacia");
 	
 	public static final Block SEALED_BARREL_DARKOAK = simply(new BlockDummyWoodPillar(), "sealed_barrel_darkoak");
-	public static final Block BARREL_DARKOAK = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_SPRUCE), "barrel_darkoak");
+	public static final Block BARREL_DARKOAK = simply(new BlockBarrel(LWBlocks.SEALED_BARREL_DARKOAK), "barrel_darkoak");
 	
 	public static final Block DRYING_RACK_OAK = simply(new BlockDryingRack(),"drying_rack_oak");
 	public static final Block DRYING_RACK_SPRUCE = simply(new BlockDryingRack(),"drying_rack_spruce");
