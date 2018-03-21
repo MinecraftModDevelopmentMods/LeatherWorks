@@ -49,7 +49,6 @@ public class BlockTrunk  extends BlockContainer{
     @Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-    	LeatherWorks.logger.info("hey");
         if (!worldIn.isRemote && !isBlocked(worldIn, pos))
         {
         	playerIn.openGui(LeatherWorks.instance, GuiHandler.TRUNK_GUI, worldIn, pos.getX(), pos.getY(), pos.getZ());

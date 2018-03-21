@@ -5,16 +5,20 @@ import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import panda.leatherworks.LeatherWorks;
@@ -29,7 +33,9 @@ public class LWRecipes {
 
 	public static void register() {
 		removeRecipe(new ResourceLocation("minecraft:leather"));
-		
+		GameRegistry.addShapelessRecipe(new ResourceLocation("leatherworks:tannin_bottle"), new ResourceLocation(""),
+				new ItemStack(LWItems.TANNIN_BOTTLE), Ingredient.fromItem(LWItems.TANNIN_BALL) ,
+				Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
 		DryingRecipes.addDryingRecipe(new ItemStack(LWItems.LEATHER_SOAKED), Items.LEATHER, 60, Items.ROTTEN_FLESH, 0.05f);
 	}
 	

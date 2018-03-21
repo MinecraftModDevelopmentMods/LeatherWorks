@@ -178,11 +178,7 @@ public class BlockBarrel extends Block
                         ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
                     }
                 }
-                if(f==0){
-                	state.cycleProperty(FLUID);//TODO DOESNT CHANGE PROPERTY?
-                }
-                this.setFluidLevel(worldIn, pos, state, i + 1);
-                
+                this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 1), i + 1);
             }
             
             if (item == Items.POTIONITEM && i < 3 && !worldIn.isRemote && (f == 0 || i==0 ))

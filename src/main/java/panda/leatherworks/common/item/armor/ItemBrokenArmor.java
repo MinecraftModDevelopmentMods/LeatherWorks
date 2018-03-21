@@ -116,7 +116,6 @@ public class ItemBrokenArmor extends ItemArmor {
 		if (stack.hasTagCompound())
 		{
 			NBTTagList nbttaglist = stack.getTagCompound().getTagList("altench", 10);
-
 			if (nbttaglist != null)
 			{
 				for (int j = 0; j < nbttaglist.tagCount(); ++j)

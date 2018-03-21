@@ -1,20 +1,21 @@
-1.63.0
-hides can be washed in water blocks
-flint is consumed to scrape hides (temporary)
-Fixed tattered armor being enchantable
-Added an inefficient recipe to tan hides without a drying rack (If water progression is changed)
-Debarked logs changed to full blocks and use 1.13 textures in preparation for 1.13.
-Flattened all item meta and some block meta in preparation for 1.13. this won't happen again but if you had the previous version, THIS WILL REMOVE ITEMS FROM YOUR PREVIOUS SAVE.
-Packs not ready yet; will crash your game.
-Redoing drying rack, added temporary recipe to craft prepared leather to leather in hand
-added drying racks for each wood
-added barrels for each wood
-1.64.0
-started config file
-Packs are new and better than ever. Thanks Shadows_Of_Fire!
-fixed washing of dyed packs
-1.65.0
-added tooltip to pack gui
-fixed drying rack rotations/translations
-changed drying rack item scale
-starting trunks. (Do not use)
+1.67.0
+fixed trunk rendering issue
+fixed restoring tattered armor not restoring enchantments
+changed trunk model to normal chest to make my life easier
+removed tannin bucket recipe
+fixed issue with filling barrels with tannin bottle
+
+1.66.1
+fixed issue with in world conversion of barrels to sealed barrels
+fixed bucket block breaking bug
+
+1.66.0
+added Llama hide
+added Donkeyhide
+added Mulehide
+basic compatability with primal core: raw hide can be directly crafted into scraped hide
+fixed "tattered armor shows "when on X" in tooltip"
+fixed crash with PrimalCore
+
+1.65.4
+More leather trunk stuff

@@ -1,7 +1,9 @@
 package panda.leatherworks.common.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -101,55 +103,58 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 		return player.getDistanceSq(pos.add(0.5, 0.5, 0.5)) < 64;
 	}
     
+    @Override
     public void update()
     {
-    	
-    	//LeatherWorks.logger.info(numPlayersUsing);
-        int i = this.pos.getX();
-        int j = this.pos.getY();
-        int k = this.pos.getZ();
-        ++this.ticksSinceSync;
-        
-        if (this.numPlayersUsing < 0)
-        {
-            this.numPlayersUsing = 0;
-        }
-        
 
-        if (!this.world.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + i + j + k) % 200 == 0)
+        if (this.world != null && !this.world.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + this.pos.getX() + this.pos.getY() + this.pos.getZ()) % 200 == 0)
+
         {
             this.numPlayersUsing = 0;
 
-            for (EntityPlayer entityplayer : this.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((double)((float)i - 5.0F), (double)((float)j - 5.0F), (double)((float)k - 5.0F), (double)((float)(i + 1) + 5.0F), (double)((float)(j + 1) + 5.0F), (double)((float)(k + 1) + 5.0F))))
+            float f = 5.0F;
+
+            for (EntityPlayer player : this.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(this.pos.getX() - f, this.pos.getY() - f, this.pos.getZ() - f, this.pos.getX() + 1 + f, this.pos.getY() + 1 + f, this.pos.getZ() + 1 + f)))
             {
-                if (entityplayer.openContainer instanceof InventoryTrunk)
+                if (player.openContainer instanceof InventoryTrunk)
                 {
-                	++this.numPlayersUsing;
+                    ++this.numPlayersUsing;
                 }
             }
         }
 
+        if (this.world != null && !this.world.isRemote && this.ticksSinceSync < 0)
+        {
+            this.world.addBlockEvent(this.pos,  this.getBlockType(), 3, ((this.numPlayersUsing << 3) & 0xF8) | (this.facing.ordinal() & 0x7));
+        }
+
+
+        this.ticksSinceSync++;
+
         this.prevLidAngle = this.lidAngle;
+
+        float angle = 0.1F;
 
         if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F)
         {
-            double d1 = (double)i + 0.5D;
-            double d2 = (double)k + 0.5D;
+            double x = this.pos.getX() + 0.5D;
+            double y = this.pos.getY() + 0.5D;
+            double z = this.pos.getZ() + 0.5D;
 
-            this.world.playSound(null, d1, (double)j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+            this.world.playSound(null, x, y, z, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
         }
 
         if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F)
         {
-            float f2 = this.lidAngle;
+            float currentAngle = this.lidAngle;
 
             if (this.numPlayersUsing > 0)
             {
-                this.lidAngle += 0.1F;
+                this.lidAngle += angle;
             }
             else
             {
-                this.lidAngle -= 0.1F;
+                this.lidAngle -= angle;
             }
 
             if (this.lidAngle > 1.0F)
@@ -157,14 +162,15 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
                 this.lidAngle = 1.0F;
             }
 
+            float maxAngle = 0.5F;
 
-            if (this.lidAngle < 0.5F && f2 >= 0.5F)
+            if (this.lidAngle < maxAngle && currentAngle >= maxAngle)
             {
-                double d3 = (double)i + 0.5D;
-                double d0 = (double)k + 0.5D;
+                double x = this.pos.getX() + 0.5D;
+                double y = this.pos.getY() + 0.5D;
+                double z = this.pos.getZ() + 0.5D;
 
-
-                this.world.playSound(null, d3, (double)j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 1F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                this.world.playSound(null, x, y, z, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
             }
 
             if (this.lidAngle < 0.0F)
@@ -217,7 +223,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
         if (id == 1)
         {
             this.numPlayersUsing = type;
-            return true;
+            
         }
         else if (id == 2)
         {
@@ -228,7 +234,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
             this.facing = EnumFacing.VALUES[type & 0x7];
             this.numPlayersUsing = (type & 0xF8) >> 3;
         }
-           return super.receiveClientEvent(id, type);
+        return true;
 
     }
 	
@@ -278,7 +284,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 
 	@Override
 	public void closeInventory(EntityPlayer player) {
-		if (!player.isSpectator() && this.getBlockType() instanceof BlockTrunk)
+		if (!player.isSpectator())
         {
             --this.numPlayersUsing;
             this.world.addBlockEvent(this.pos, this.getBlockType(), 1, this.numPlayersUsing);

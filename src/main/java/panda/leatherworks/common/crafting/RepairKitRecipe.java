@@ -6,6 +6,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -70,6 +71,14 @@ public RepairKitRecipe(Item itemIn,Item itemOut,Item repairItem, int value) {
 	}
 	  ItemStack stackReturn = new ItemStack(this.repairedArmor,1,newdamage);
 	  if(oldArmor.hasTagCompound()){
+		  NBTTagList dummytags = oldArmor.getTagCompound().getTagList("altench", 10);
+		    
+		  NBTTagList enchantTag = oldArmor.getTagCompound().getTagList("ench", 10);
+		  
+		  for(int i = 0; i < dummytags.tagCount(); i++){
+			  enchantTag.appendTag(dummytags.get(i));
+		  }
+		  oldArmor.getTagCompound().removeTag("altench");
 		  stackReturn.setTagCompound(oldArmor.getTagCompound().copy());
 	  }
 	  return stackReturn;
