@@ -13,13 +13,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.client.network.messagehandler.MessageUpdateRackHandler;
-import panda.leatherworks.client.renderer.tileentity.TileEntityItemRackRenderer;
+import panda.leatherworks.client.renderer.tileentity.TileEntityDryingRackRenderer;
 import panda.leatherworks.client.renderer.tileentity.TileEntityTrunkRenderer;
 import panda.leatherworks.common.item.armor.ItemBrokenArmor;
 import panda.leatherworks.common.network.MessageUpdateRack;
-import panda.leatherworks.common.tileentity.TileEntityItemRack;
+import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.common.tileentity.TileEntityTrunk;
 import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
@@ -54,22 +55,29 @@ public class ClientProxy extends CommonProxy {
 		registerItemModel(LWItems.RAWHIDE_LLAMA);
 		registerItemModel(LWItems.RAWHIDE_DONKEY);
 		registerItemModel(LWItems.RAWHIDE_MULE);
-		
-		registerItemModel(LWItems.PACK_RED);
-		registerItemModel(LWItems.PACK_BLACK);
-		registerItemModel(LWItems.PACK_BLUE); 
-		registerItemModel(LWItems.PACK_BROWN);
-		registerItemModel(LWItems.PACK_CYAN); 
-		registerItemModel(LWItems.PACK_GRAY); 
-		registerItemModel(LWItems.PACK_GREEN);
-		registerItemModel(LWItems.PACK_LIGHT_BLUE);
-		registerItemModel(LWItems.PACK_LIME); 
-		registerItemModel(LWItems.PACK_MAGENTA);
-		registerItemModel(LWItems.PACK_ORANGE);
-		registerItemModel(LWItems.PACK_PINK); 
-		registerItemModel(LWItems.PACK_PURPLE);
-		registerItemModel(LWItems.PACK_YELLOW);
-		registerItemModel(LWItems.PACK_SILVER);
+
+		if(!ConfigLeatherWorks.disableAllPacks){
+			registerItemModel(LWItems.PACK_BROWN);
+			if(!ConfigLeatherWorks.disableColoredPacks){
+				registerItemModel(LWItems.PACK_RED);
+				registerItemModel(LWItems.PACK_BLACK);
+				registerItemModel(LWItems.PACK_BLUE); 
+				registerItemModel(LWItems.PACK_CYAN); 
+				registerItemModel(LWItems.PACK_GRAY); 
+				registerItemModel(LWItems.PACK_GREEN);
+				registerItemModel(LWItems.PACK_LIGHT_BLUE);
+				registerItemModel(LWItems.PACK_LIME); 
+				registerItemModel(LWItems.PACK_MAGENTA);
+				registerItemModel(LWItems.PACK_ORANGE);
+				registerItemModel(LWItems.PACK_PINK); 
+				registerItemModel(LWItems.PACK_PURPLE);
+				registerItemModel(LWItems.PACK_YELLOW);
+				registerItemModel(LWItems.PACK_SILVER);
+			}
+			if(!ConfigLeatherWorks.disableEnderPack){
+				registerItemModel(LWItems.ENDER_PACK);
+			}
+		}
 		registerItemModel(LWItems.BARK_OAK);
 		registerItemModel(LWItems.BARK_ACACIA);
 		registerItemModel(LWItems.BARK_BIRCH);
@@ -85,7 +93,6 @@ public class ClientProxy extends CommonProxy {
 		registerItemModel(LWItems.LEATHER_SCRAPED);
 		registerItemModel(LWItems.LEATHER_WASHED);
 		
-		registerItemModel(LWItems.ENDER_PACK);
 		registerItemModel(LWItems.LEATHER_STRIP);
 		registerItemModel(LWItems.LEATHER_SHEET);
 		registerItemModel(LWItems.BROKEN_LEATHER_HELMET);
@@ -117,7 +124,9 @@ public class ClientProxy extends CommonProxy {
 		registerBlockModel(LWBlocks.SEALED_BARREL_ACACIA);
 		registerBlockModel(LWBlocks.BARREL_DARKOAK);
 		registerBlockModel(LWBlocks.SEALED_BARREL_DARKOAK);
+		if(!ConfigLeatherWorks.disableTrunk){
 		registerBlockModel(LWBlocks.LEATHER_TRUNK);
+		}
 		
 		ModelLoader.setCustomStateMapper(LWBlocks.TANNIN, new StateMapperBase() {
 			@Override
@@ -126,8 +135,10 @@ public class ClientProxy extends CommonProxy {
 			}
 		});
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemRack.class, new TileEntityItemRackRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDryingRack.class, new TileEntityDryingRackRenderer());
+		if(!ConfigLeatherWorks.disableTrunk){
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrunk.class, new TileEntityTrunkRenderer());
+		}
 	}
 
 	private static void registerBlockModel(Block block) {

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.BlockRotatedPillar;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Blocks;
@@ -15,6 +16,7 @@ public class BlockDummyWoodPillar extends BlockRotatedPillar{
 
 	public BlockDummyWoodPillar() {
 		super(Material.WOOD);
+		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 5);
     	this.blockHardness = 3;
 		this.blockResistance = 2;

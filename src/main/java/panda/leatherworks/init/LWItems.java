@@ -12,6 +12,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.item.ItemBucketTannin;
 import panda.leatherworks.common.item.ItemCraftingLeather;
@@ -122,23 +123,29 @@ public final class LWItems {
 		registry.register(LEATHER_SHEET);
 		registry.register(REPAIR_KIT);
 		
-		registry.register(PACK_RED);
-		registry.register(PACK_ORANGE);
-		registry.register(PACK_YELLOW);
-		registry.register(PACK_LIME); 
-		registry.register(PACK_GREEN);
-		registry.register(PACK_CYAN);
-		registry.register(PACK_LIGHT_BLUE);
-		registry.register(PACK_BLUE); 
-		registry.register(PACK_PURPLE);
-		registry.register(PACK_MAGENTA);
-		registry.register(PACK_PINK);
-		registry.register(PACK_BROWN);
-		registry.register(PACK_GRAY); 
-		registry.register(PACK_SILVER);
-		registry.register(PACK_BLACK);
-
-		registry.register(ENDER_PACK);
+		if(!ConfigLeatherWorks.disableAllPacks){
+			registry.register(PACK_BROWN);
+			if(!ConfigLeatherWorks.disableColoredPacks){
+				registry.register(PACK_RED);
+				registry.register(PACK_ORANGE);
+				registry.register(PACK_YELLOW);
+				registry.register(PACK_LIME); 
+				registry.register(PACK_GREEN);
+				registry.register(PACK_CYAN);
+				registry.register(PACK_LIGHT_BLUE);
+				registry.register(PACK_BLUE); 
+				registry.register(PACK_PURPLE);
+				registry.register(PACK_MAGENTA);
+				registry.register(PACK_PINK);
+				registry.register(PACK_GRAY); 
+				registry.register(PACK_SILVER);
+				registry.register(PACK_BLACK);
+			}
+			if(!ConfigLeatherWorks.disableEnderPack){
+				registry.register(ENDER_PACK);
+			}
+		}
+		
 		registry.register(BROKEN_LEATHER_HELMET);
 		registry.register(BROKEN_LEATHER_CHESTPLATE);
 		registry.register(BROKEN_LEATHER_LEGGINGS);
@@ -147,6 +154,12 @@ public final class LWItems {
 		registry.register(LEATHER_CHESTPLATE);
 		registry.register(LEATHER_LEGGINGS);
 		registry.register(LEATHER_BOOTS);
+		registerItemBlock(registry, LWBlocks.BARREL_OAK);
+		registerItemBlock(registry, LWBlocks.BARREL_SPRUCE);
+		registerItemBlock(registry, LWBlocks.BARREL_BIRCH);
+		registerItemBlock(registry, LWBlocks.BARREL_JUNGLE);
+		registerItemBlock(registry, LWBlocks.BARREL_ACACIA);
+		registerItemBlock(registry, LWBlocks.BARREL_DARKOAK);
 		
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_OAK);
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_ACACIA);
@@ -160,19 +173,15 @@ public final class LWItems {
 		registerItemBlock(registry, LWBlocks.SEALED_BARREL_JUNGLE);
 		registerItemBlock(registry, LWBlocks.SEALED_BARREL_ACACIA);
 		registerItemBlock(registry, LWBlocks.SEALED_BARREL_DARKOAK);
-		registerItemBlock(registry, LWBlocks.BARREL_OAK);
-		registerItemBlock(registry, LWBlocks.BARREL_SPRUCE);
-		registerItemBlock(registry, LWBlocks.BARREL_BIRCH);
-		registerItemBlock(registry, LWBlocks.BARREL_JUNGLE);
-		registerItemBlock(registry, LWBlocks.BARREL_ACACIA);
-		registerItemBlock(registry, LWBlocks.BARREL_DARKOAK);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_OAK);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_SPRUCE);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_BIRCH);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_JUNGLE);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_ACACIA);
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_DARKOAK);
+		if(!ConfigLeatherWorks.disableTrunk){
 		registerItemBlock(registry, LWBlocks.LEATHER_TRUNK);
+		}
 	}
 
 	private static void registerItemBlock(IForgeRegistry<Item> registry, Block block) {

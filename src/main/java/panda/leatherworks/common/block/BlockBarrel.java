@@ -11,6 +11,7 @@ import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -54,6 +55,7 @@ public class BlockBarrel extends Block
     public BlockBarrel(Block decoration)
     {
         super(Material.WOOD, MapColor.WOOD);
+        this.setSoundType(SoundType.WOOD);
         decorationBlock = decoration;
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0).withProperty(FLUID, 0));
         this.setTickRandomly(true);

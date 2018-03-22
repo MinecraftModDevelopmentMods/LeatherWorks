@@ -1,3 +1,16 @@
+1.68.0
+fixed gui draw calls
+Fixed drying rack not updating rendering when items are withdrawn
+fixed sound type issues 
+added dye oredicts for crafting packs
+removed easy drying of leather now that drying rack is usable
+Drying racks can now hold items without a valid drying recipe
+changed render box for drying rack so that held items are always visible
+changed drying recipe time to 8 mins game time.
+Added config options for disabling certain objects and tweaking values.
+changed order of creative menu. Only new worlds will see this.
+OLD CONFIG FILES SHOULD PROBABLY BE DELETED
+
 1.67.0
 fixed trunk rendering issue
 fixed restoring tattered armor not restoring enchantments

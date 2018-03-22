@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.crafting.DryingRecipes;
 import panda.leatherworks.common.crafting.FakeRecipe;
@@ -36,7 +37,7 @@ public class LWRecipes {
 		GameRegistry.addShapelessRecipe(new ResourceLocation("leatherworks:tannin_bottle"), new ResourceLocation(""),
 				new ItemStack(LWItems.TANNIN_BOTTLE), Ingredient.fromItem(LWItems.TANNIN_BALL) ,
 				Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
-		DryingRecipes.addDryingRecipe(new ItemStack(LWItems.LEATHER_SOAKED), Items.LEATHER, 60, Items.ROTTEN_FLESH, 0.05f);
+		DryingRecipes.addDryingRecipe(new ItemStack(LWItems.LEATHER_SOAKED), Items.LEATHER, ConfigLeatherWorks.leatherDryingTime, Items.ROTTEN_FLESH, ConfigLeatherWorks.leatherFailureChance/100f);
 	}
 	
 	@SubscribeEvent

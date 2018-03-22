@@ -1,6 +1,7 @@
 package panda.leatherworks.common.block;
 
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -33,6 +34,7 @@ public class BlockTrunk  extends BlockContainer{
         super(Material.WOOD);
         this.setDefaultState(this.blockState.getBaseState());
         this.setHardness(3);
+        this.setSoundType(SoundType.WOOD);
     }
     
     public TileEntity createNewTileEntity(World worldIn, int meta)

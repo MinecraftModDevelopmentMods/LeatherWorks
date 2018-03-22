@@ -1,4 +1,8 @@
 {
+"conditions": [{
+        "type": "minecraft:item_exists",
+        "item": "leatherworks:pack_blue"
+    }],
   "result": {
     "item": "leatherworks:pack_blue"
   },
@@ -7,8 +11,8 @@
       "item": "leatherworks:pack_brown"
     },
     {
-      "item": "minecraft:dye",
-      "data": 4
+       "ore": "dyeBlue",
+	   "type": "forge:ore_dict"
     }
   ],
   "type": "minecraft:crafting_shapeless"

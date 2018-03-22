@@ -6,6 +6,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockBarrel;
 import panda.leatherworks.common.block.BlockDebarkedLog;
@@ -90,7 +91,9 @@ public final class LWBlocks {
 		registry.register(DRYING_RACK_JUNGLE);
 		registry.register(DRYING_RACK_ACACIA);
 		registry.register(DRYING_RACK_DARKOAK);
+		if(!ConfigLeatherWorks.disableTrunk){
 		registry.register(LEATHER_TRUNK);
+		}
 		
 	}
 }

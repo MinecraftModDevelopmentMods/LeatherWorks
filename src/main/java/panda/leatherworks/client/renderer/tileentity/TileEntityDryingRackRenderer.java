@@ -5,6 +5,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import panda.leatherworks.common.block.BlockDryingRack;
+import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.common.tileentity.TileEntityItemRack;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -18,9 +19,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 
 @SideOnly(Side.CLIENT)
-public class TileEntityItemRackRenderer extends TileEntitySpecialRenderer<TileEntityItemRack> {
+public class TileEntityDryingRackRenderer extends TileEntitySpecialRenderer<TileEntityDryingRack> {
 	@Override
-	public void render(TileEntityItemRack te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void render(TileEntityDryingRack te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		ItemStack stack = te.inventory.getStackInSlot(0);
 		if (!stack.isEmpty()) {
 			GlStateManager.enableRescaleNormal();

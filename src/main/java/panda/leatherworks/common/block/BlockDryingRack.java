@@ -42,21 +42,21 @@ public class BlockDryingRack extends Block {
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
+		//if (!world.isRemote) {
 			TileEntityDryingRack tile = getTileEntity(world, pos);
 			IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 			if (itemHandler != null) {
 				// Simulate first
 				ItemStack extract = itemHandler.extractItem(0, 1, true);
 				if (extract.isEmpty()) {
-					if(!player.getHeldItem(hand).isEmpty() && DryingRecipes.hasRecipe(player.getHeldItem(hand))){
+					if(!player.getHeldItem(hand).isEmpty()){
 						player.setHeldItem(hand, itemHandler.insertItem(0, player.getHeldItem(hand), false));
 					}
 				} else if (player.inventory.addItemStackToInventory(extract)) {
 					itemHandler.extractItem(0, 1, false);
 				}
 			}
-		}
+		//}
 		return true;
 	}
 	

@@ -2,13 +2,17 @@ package panda.leatherworks.common.tileentity;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import panda.leatherworks.LeatherWorks;
+import panda.leatherworks.common.block.BlockDryingRack;
 import panda.leatherworks.common.network.MessageUpdateRack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -39,6 +43,11 @@ public class TileEntityItemRack extends TileEntity {
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		return this.writeToNBT(new NBTTagCompound());
+	}
+
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		return INFINITE_EXTENT_AABB;
 	}
 
 	@Override

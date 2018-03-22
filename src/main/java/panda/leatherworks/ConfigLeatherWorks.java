@@ -20,12 +20,26 @@ public class ConfigLeatherWorks {
 	
 	protected static final List<Pair<Item, Integer>> BLACKLISTREGISTRY = new ArrayList<>();
 	private static String[] blacklist;
+	public static boolean disableAllPacks;
+	public static boolean disableColoredPacks;
+	public static boolean disableEnderPack;
+	public static boolean disableTrunk;
+	public static int leatherDryingTime;
+	public static float leatherFailureChance;
 	
 	private ConfigLeatherWorks(){LeatherWorks.logger.info("Loading Config");}
 	
 	public static void load(Configuration config) {
 		config.load();
-
+		
+		leatherDryingTime = config.getInt("leatherDryingTime", "general", 9600, 1, 2147483647, "Time in ticks to dry leather. 1 second is 20 ticks. Default is 8 mins");
+		leatherFailureChance = config.getFloat("leatherFailureChance", "general", 5f, 0f, 100f, "Percent chance that drying leather will fail and return rotten flesh");
+		
+		disableAllPacks = config.getBoolean("disableAllPacks", "general", false, "Remove all packs from the game");
+		disableColoredPacks = config.getBoolean("disableColoredPacks", "general", false, "Remove colored packs from the game");
+		disableEnderPack = config.getBoolean("disableEnderPack", "general", false, "Remove Ender packs from the game");
+		disableTrunk = config.getBoolean("disableTrunk", "general", false,  "Remove the Leather Trunk from the game");
+		
 		blacklist = config.getStringList("blacklist", "blacklist", new String[] {
 			LWItems.PACK_BLACK.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
 			LWItems.PACK_BLUE.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,

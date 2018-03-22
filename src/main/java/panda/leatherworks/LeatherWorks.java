@@ -28,7 +28,7 @@ import panda.leatherworks.proxy.CommonProxy;
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "1.67.0";
+	public static final String VERSION = "1.68.0";
 	public static final String NAME = "Leather Works";
 	public static SimpleNetworkWrapper wrapper;
 	
@@ -58,7 +58,9 @@ public class LeatherWorks {
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
 		GameRegistry.registerTileEntity(TileEntityDryingRack.class, "leatherworks:drying_rack");
+		if(!ConfigLeatherWorks.disableTrunk){
 		GameRegistry.registerTileEntity(TileEntityTrunk.class, "leatherworks:leather_trunk");
+		}
 	}
 
 	@EventHandler

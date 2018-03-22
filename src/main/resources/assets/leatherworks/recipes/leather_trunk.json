@@ -1,4 +1,8 @@
 {
+	"conditions": [{
+        "type": "minecraft:item_exists",
+        "item": "leatherworks:leather_trunk"
+    }],
   "result": {
     "item": "leatherworks:leather_trunk"
   },

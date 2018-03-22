@@ -13,17 +13,19 @@ public class TileEntityDryingRack extends TileEntityItemRack implements ITickabl
 	public void update() {
 		if (!getWorld().isRemote) {
 			ItemStack input = inventory.getStackInSlot(0);
-			IDryingRecipe recipe = DryingRecipes.getDryingRecipe(input);
-			if (recipe != null) {
-				if (++dryingTicks >= recipe.getDurationTicks(input)){
-					ItemStack output = recipe.getOutput(input, getWorld().rand);
-					this.inventory.setStackInSlot(0, output);
+			if(DryingRecipes.hasRecipe(input)){
+				IDryingRecipe recipe = DryingRecipes.getDryingRecipe(input);
+				if (recipe != null) {
+					if (++dryingTicks >= recipe.getDurationTicks(input)){
+						ItemStack output = recipe.getOutput(input, getWorld().rand);
+						this.inventory.setStackInSlot(0, output);
+						dryingTicks = 0;
+					}
+					markDirty();
+				} else if (dryingTicks != 0) {
 					dryingTicks = 0;
+					markDirty();
 				}
-				markDirty();
-			} else if (dryingTicks != 0) {
-				dryingTicks = 0;
-				markDirty();
 			}
 		}
 	} 
