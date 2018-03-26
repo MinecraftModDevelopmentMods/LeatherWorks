@@ -11,8 +11,8 @@
       "item": "leatherworks:pack_brown"
     },
     {
-      "item": "minecraft:dye",
-      "data": 9
+       "ore": "dyePink",
+	   "type": "forge:ore_dict"
     }
   ],
   "type": "minecraft:crafting_shapeless"

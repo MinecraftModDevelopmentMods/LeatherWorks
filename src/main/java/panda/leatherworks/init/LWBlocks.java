@@ -1,6 +1,7 @@
 package panda.leatherworks.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -11,6 +12,7 @@ import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockBarrel;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.common.block.BlockDryingRack;
+import panda.leatherworks.common.block.BlockDummyWood;
 import panda.leatherworks.common.block.BlockDummyWoodPillar;
 import panda.leatherworks.common.block.BlockTanninFluid;
 import panda.leatherworks.common.block.BlockTrunk;
@@ -56,6 +58,16 @@ public final class LWBlocks {
 	public static final Block DRYING_RACK_DARKOAK = simply(new BlockDryingRack(),"drying_rack_darkoak");
 	public static final Block LEATHER_TRUNK = simply(new BlockTrunk(),"leather_trunk");
 	
+	//I know they are currently in the game as meta blocks but this way I can have proper lang files.
+	public static final Block BARK_OAK = simply(new BlockDummyWood(),"oak_bark_block");
+	public static final Block BARK_SPRUCE = simply(new BlockDummyWood(),"spruce_bark_block");
+	public static final Block BARK_BIRCH = simply(new BlockDummyWood(),"birch_bark_block");
+	public static final Block BARK_JUNGLE = simply(new BlockDummyWood(),"jungle_bark_block");
+	public static final Block BARK_ACACIA = simply(new BlockDummyWood(),"acacia_bark_block");
+	public static final Block BARK_DARKOAK = simply(new BlockDummyWood(),"darkoak_bark_block");
+	
+	
+	
 
 	private static Block simply(Block block, String name) {
 		return block.setRegistryName(LeatherWorks.MODID, name).setUnlocalizedName(LeatherWorks.MODID + "." + name).setCreativeTab(LeatherWorks.LeatherTab);
@@ -72,6 +84,13 @@ public final class LWBlocks {
 		registry.register(DEBARKED_LOG_SPRUCE);
 		registry.register(DEBARKED_LOG_DARKOAK);
 		registry.register(DEBARKED_LOG_JUNGLE);
+		registry.register(BARK_OAK);
+		registry.register(BARK_SPRUCE);
+		registry.register(BARK_BIRCH);
+		registry.register(BARK_JUNGLE);
+		registry.register(BARK_ACACIA);
+		registry.register(BARK_DARKOAK);
+		
 		registry.register(SEALED_BARREL_OAK);
 		registry.register(BARREL_OAK);
 		registry.register(SEALED_BARREL_SPRUCE);

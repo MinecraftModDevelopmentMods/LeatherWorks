@@ -1,9 +1,7 @@
 package panda.leatherworks.common.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,7 +19,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.InventoryTrunk;
-import panda.leatherworks.common.block.BlockTrunk;
 
 public class TileEntityTrunk extends TileEntity implements IInventory, ITickable{
 	
@@ -106,8 +103,8 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
     @Override
     public void update()
     {
-
-        if (this.world != null && !this.world.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + this.pos.getX() + this.pos.getY() + this.pos.getZ()) % 200 == 0)
+    	
+        if (this.world != null && !this.world.isRemote  && this.numPlayersUsing != 0 && (this.ticksSinceSync + this.pos.getX() + this.pos.getY() + this.pos.getZ()) % 200 == 0)
 
         {
             this.numPlayersUsing = 0;
@@ -141,7 +138,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
             double y = this.pos.getY() + 0.5D;
             double z = this.pos.getZ() + 0.5D;
 
-            this.world.playSound(null, x, y, z, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+            this.world.playSound(null, x, y, z, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.BLOCKS, 6F, this.world.rand.nextFloat() * 0.1F + 0.6F);
         }
 
         if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F)
@@ -170,7 +167,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
                 double y = this.pos.getY() + 0.5D;
                 double z = this.pos.getZ() + 0.5D;
 
-                this.world.playSound(null, x, y, z, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                this.world.playSound(null, x, y, z, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.BLOCKS, 6F, this.world.rand.nextFloat() * 0.1F + 0.6F);
             }
 
             if (this.lidAngle < 0.0F)
@@ -267,7 +264,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 
 	@Override
 	public void openInventory(EntityPlayer player) {
-		LeatherWorks.logger.info(numPlayersUsing);
+
 		if (!player.isSpectator())
         {
             if (this.numPlayersUsing < 0)
@@ -287,6 +284,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 		if (!player.isSpectator())
         {
             --this.numPlayersUsing;
+
             this.world.addBlockEvent(this.pos, this.getBlockType(), 1, this.numPlayersUsing);
             this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), false);
         }

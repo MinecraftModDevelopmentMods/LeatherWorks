@@ -106,6 +106,12 @@ public class ClientProxy extends CommonProxy {
 		registerBlockModel(LWBlocks.DEBARKED_LOG_SPRUCE);
 		registerBlockModel(LWBlocks.DEBARKED_LOG_DARKOAK);
 		registerBlockModel(LWBlocks.DEBARKED_LOG_JUNGLE);
+		registerBlockModel(LWBlocks.BARK_OAK);
+		registerBlockModel(LWBlocks.BARK_BIRCH);
+		registerBlockModel(LWBlocks.BARK_JUNGLE);
+		registerBlockModel(LWBlocks.BARK_SPRUCE);
+		registerBlockModel(LWBlocks.BARK_ACACIA);
+		registerBlockModel(LWBlocks.BARK_DARKOAK);
 		registerBlockModel(LWBlocks.DRYING_RACK_OAK);
 		registerBlockModel(LWBlocks.DRYING_RACK_ACACIA);
 		registerBlockModel(LWBlocks.DRYING_RACK_BIRCH);

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PLP",
+    "P P",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:planks",
+	  "data":2
+    },
+  "L": {
+      "item": "minecraft:wooden_pressure_plate"
+    }
+  },
+  "result": {
+    "item": "leatherworks:sealed_barrel_birch"
+  }
+}

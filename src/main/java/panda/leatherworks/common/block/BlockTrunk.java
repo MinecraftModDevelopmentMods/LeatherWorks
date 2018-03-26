@@ -12,6 +12,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -33,7 +34,7 @@ public class BlockTrunk  extends BlockContainer{
     {
         super(Material.WOOD);
         this.setDefaultState(this.blockState.getBaseState());
-        this.setHardness(3);
+        this.setHardness(5);
         this.setSoundType(SoundType.WOOD);
     }
     
@@ -54,6 +55,8 @@ public class BlockTrunk  extends BlockContainer{
         if (!worldIn.isRemote && !isBlocked(worldIn, pos))
         {
         	playerIn.openGui(LeatherWorks.instance, GuiHandler.TRUNK_GUI, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        	((IInventory) worldIn.getTileEntity(pos)).openInventory(playerIn);
+        	playerIn.addStat(StatList.CHEST_OPENED);
         }
         return true;
     }

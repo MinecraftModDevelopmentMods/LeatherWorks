@@ -1,5 +1,5 @@
 {
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "pattern": [
     "PLP",
     "P P",
@@ -7,14 +7,14 @@
   ],
   "key": {
     "P": {
-      "type": "forge:ore_dict",
-      "ore": "plankWood"
+      "item": "minecraft:planks",
+	  "data":3
     },
   "L": {
       "item": "minecraft:wooden_pressure_plate"
     }
   },
   "result": {
-    "item": "leatherworks:sealed_barrel_oak"
+    "item": "leatherworks:sealed_barrel_jungle"
   }
 }

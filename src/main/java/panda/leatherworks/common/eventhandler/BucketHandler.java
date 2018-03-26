@@ -30,7 +30,6 @@ public class BucketHandler {
 				event.getTarget().sideHit, event.getEmptyBucket())) {
 			return;
 		}
-		LeatherWorks.logger.info(event.getWorld().getBlockState(blockpos).getBlock());
 		if(event.getWorld().getBlockState(blockpos).getBlock() != LWBlocks.TANNIN){
 			return;
 		}

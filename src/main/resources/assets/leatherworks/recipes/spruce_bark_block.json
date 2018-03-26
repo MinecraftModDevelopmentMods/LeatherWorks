@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "leatherworks:spruce_bark"
+  },
+  "pattern": [
+    "PP",
+    "PP"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "leatherworks:bark_spruce",
+	"count": 3
+    }
+  }
+}
