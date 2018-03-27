@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "leatherworks:jungle_bark"
+    "item": "leatherworks:jungle_bark",
+	"count": 3
   },
   "pattern": [
     "PP",
@@ -9,8 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "leatherworks:bark_jungle",
-	"count": 3
+      "item": "leatherworks:bark_jungle"
     }
   }
 }

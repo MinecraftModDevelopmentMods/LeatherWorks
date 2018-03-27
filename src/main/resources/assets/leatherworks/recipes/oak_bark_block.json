@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "leatherworks:oak_bark"
+    "item": "leatherworks:oak_bark",
+	"count": 3
   },
   "pattern": [
     "PP",
@@ -9,8 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "leatherworks:bark_oak",
-	"count": 3
+      "item": "leatherworks:bark_oak"
     }
   }
 }

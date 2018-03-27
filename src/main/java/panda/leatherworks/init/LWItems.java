@@ -167,6 +167,12 @@ public final class LWItems {
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_SPRUCE);
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_DARKOAK);
 		registerItemBlock(registry, LWBlocks.DEBARKED_LOG_JUNGLE);
+		registerItemBlock(registry, LWBlocks.BARK_OAK);
+		registerItemBlock(registry, LWBlocks.BARK_ACACIA);
+		registerItemBlock(registry, LWBlocks.BARK_BIRCH);
+		registerItemBlock(registry, LWBlocks.BARK_DARKOAK);
+		registerItemBlock(registry, LWBlocks.BARK_JUNGLE);
+		registerItemBlock(registry, LWBlocks.BARK_SPRUCE);
 		registerItemBlock(registry, LWBlocks.SEALED_BARREL_OAK);
 		registerItemBlock(registry, LWBlocks.SEALED_BARREL_SPRUCE);
 		registerItemBlock(registry, LWBlocks.SEALED_BARREL_BIRCH);

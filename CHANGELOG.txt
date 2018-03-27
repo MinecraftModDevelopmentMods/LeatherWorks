@@ -1,3 +1,11 @@
+1.69.2
+Fixed Leather chest animation and sounds!
+drying rack recipie must be in the bottom 3 slots now. This should allow for games with TiCon for the time being.
+Fixed missing sealed barrel recipes
+Removed duplicate or redundant recipes
+Added bark blocks
+added JEI support
+
 1.68.0
 fixed gui draw calls
 Fixed drying rack not updating rendering when items are withdrawn

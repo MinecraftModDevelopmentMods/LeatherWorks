@@ -59,12 +59,12 @@ public final class LWBlocks {
 	public static final Block LEATHER_TRUNK = simply(new BlockTrunk(),"leather_trunk");
 	
 	//I know they are currently in the game as meta blocks but this way I can have proper lang files.
-	public static final Block BARK_OAK = simply(new BlockDummyWood(),"oak_bark_block");
-	public static final Block BARK_SPRUCE = simply(new BlockDummyWood(),"spruce_bark_block");
-	public static final Block BARK_BIRCH = simply(new BlockDummyWood(),"birch_bark_block");
-	public static final Block BARK_JUNGLE = simply(new BlockDummyWood(),"jungle_bark_block");
-	public static final Block BARK_ACACIA = simply(new BlockDummyWood(),"acacia_bark_block");
-	public static final Block BARK_DARKOAK = simply(new BlockDummyWood(),"darkoak_bark_block");
+	public static final Block BARK_OAK = simply(new BlockDummyWood(),"oak_bark");
+	public static final Block BARK_SPRUCE = simply(new BlockDummyWood(),"spruce_bark");
+	public static final Block BARK_BIRCH = simply(new BlockDummyWood(),"birch_bark");
+	public static final Block BARK_JUNGLE = simply(new BlockDummyWood(),"jungle_bark");
+	public static final Block BARK_ACACIA = simply(new BlockDummyWood(),"acacia_bark");
+	public static final Block BARK_DARKOAK = simply(new BlockDummyWood(),"darkoak_bark");
 	
 	
 	

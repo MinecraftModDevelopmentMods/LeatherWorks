@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "leatherworks:acacia_bark"
+    "item": "leatherworks:acacia_bark",
+	"count": 3
   },
   "pattern": [
     "PP",
@@ -9,8 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "leatherworks:bark_acacia",
-	"count": 3
+      "item": "leatherworks:bark_acacia"
     }
   }
 }
