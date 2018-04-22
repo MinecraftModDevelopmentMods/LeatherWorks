@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.common.item.ItemCraftingLeather;
 import panda.leatherworks.common.item.ItemPack;
 import panda.leatherworks.init.LWBlocks;
@@ -379,13 +380,25 @@ public class BlockBarrel extends Block
                 	if(heldItem.getItem() == LWItems.LEATHER_SCRAPED && f ==0){
                 		this.setFluidLevel(worldIn, pos, state, i - 1);
 
-                    	playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_WASHED,heldItem.getCount()));
-
+                		if(ConfigLeatherWorks.allowBatchProcessing){
+                			playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_WASHED,heldItem.getCount()));
+                		}
+                		else{
+                			heldItem.shrink(1);
+                			playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
+                		}
                         return true;
                 	}else
                 		if(heldItem.getItem() == LWItems.LEATHER_WASHED && f ==1){
                     		this.setFluidLevel(worldIn, pos, state, i - 1);
-                    		playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_SOAKED,heldItem.getCount()));
+                    		if(ConfigLeatherWorks.allowBatchProcessing){
+                    			playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_SOAKED,heldItem.getCount()));
+                    		}
+                    		else{
+                    			heldItem.shrink(1);
+                    			playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_SOAKED));
+                    		}
+                    		
                             return true;
                     	}
                 }

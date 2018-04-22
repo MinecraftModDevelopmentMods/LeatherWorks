@@ -1,3 +1,15 @@
+1.71.2
+actually added scraping for "toolKnife"
+fixed bark drop spawning
+added config allowBatchProcessing, which if disabled, forces 1 unit of liquid per hide processed and consumes world water blocks
+
+1.71.0
+Added bark scraping for any "toolKnife" for Primitive Tools
+
+1.70.0
+added default replacement for leather drops I dont explicitly handle. (Cow hide)
+Added config option to disable batch processing of hides.
+
 1.69.2
 Fixed Leather chest animation and sounds!
 drying rack recipie must be in the bottom 3 slots now. This should allow for games with TiCon for the time being.

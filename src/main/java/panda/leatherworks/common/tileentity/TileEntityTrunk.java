@@ -17,6 +17,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.InventoryTrunk;
 
@@ -122,7 +124,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 
         if (this.world != null && !this.world.isRemote && this.ticksSinceSync < 0)
         {
-            this.world.addBlockEvent(this.pos,  this.getBlockType(), 3, ((this.numPlayersUsing << 3) & 0xF8) | (this.facing.ordinal() & 0x7));
+            this.world.addBlockEvent(this.pos,  this.getBlockType(), 3, ((this.numPlayersUsing << 3) & 0xF8) | (this.facing.getHorizontalIndex() & 0x7));
         }
 
 
@@ -191,7 +193,8 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 			}
 		}
 		parentNBTTagCompound.setTag("Items", dataForAllSlots);
-		parentNBTTagCompound.setByte("facing", (byte) this.facing.ordinal());
+		LeatherWorks.logger.info("Saving: " + (byte) this.facing.getHorizontalIndex());
+		parentNBTTagCompound.setByte("facing", (byte) this.facing.getHorizontalIndex());
 		
 		return parentNBTTagCompound;
 	}
@@ -211,7 +214,9 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 				this.itemStacks.set(slotIndex, new ItemStack(dataForOneSlot));
 			}
 		}
-		this.facing = EnumFacing.VALUES[parentNBTTagCompound.getByte("facing")];
+		
+		this.facing = EnumFacing.getHorizontal(parentNBTTagCompound.getByte("facing"));
+		LeatherWorks.logger.info("Loading: " + this.facing);
 	}
 	
 	@Override
@@ -224,11 +229,11 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
         }
         else if (id == 2)
         {
-            this.facing = EnumFacing.VALUES[type];
+            this.facing = EnumFacing.getHorizontal(type);
         }
         else if (id == 3)
         {
-            this.facing = EnumFacing.VALUES[type & 0x7];
+            this.facing = EnumFacing.getHorizontal(type & 0x7);
             this.numPlayersUsing = (type & 0xF8) >> 3;
         }
         return true;
@@ -316,7 +321,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
     {
         NBTTagCompound compound = new NBTTagCompound();
 
-        compound.setByte("facing", (byte) this.facing.ordinal());
+        compound.setByte("facing", (byte) this.facing.getHorizontalIndex());
 
         return new SPacketUpdateTileEntity(this.pos, 0, compound);
     }
@@ -328,7 +333,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
         {
             NBTTagCompound compound = pkt.getNbtCompound();
 
-            this.facing = EnumFacing.VALUES[compound.getByte("facing")];
+            this.facing = EnumFacing.getHorizontal(compound.getByte("facing"));
         }
     }
 

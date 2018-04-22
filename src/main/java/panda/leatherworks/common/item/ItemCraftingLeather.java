@@ -12,6 +12,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.init.LWItems;
 
 
@@ -38,7 +39,16 @@ public class ItemCraftingLeather extends Item {
 					worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_BOBBER_SPLASH, SoundCategory.NEUTRAL, 1.0F, (float) (1.0F + worldIn.rand.nextGaussian()* 0.4F));
 					BlockPos clickPos = raytraceresult.getBlockPos().offset(raytraceresult.sideHit);
 					//doWaterSplashEffect(worldIn,clickPos);
-					ItemStack itemStackout = new ItemStack(LWItems.LEATHER_WASHED,itemStackIn.getCount(),itemStackIn.getMetadata(),itemStackIn.getTagCompound());
+					ItemStack itemStackout;
+					if(ConfigLeatherWorks.allowBatchProcessing){
+						itemStackout = new ItemStack(LWItems.LEATHER_WASHED,itemStackIn.getCount(),itemStackIn.getMetadata(),itemStackIn.getTagCompound());
+            		}
+            		else{
+            			itemStackout = new ItemStack(LWItems.LEATHER_SCRAPED,itemStackIn.getCount()-1,itemStackIn.getMetadata(),itemStackIn.getTagCompound());
+            			playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
+            			worldIn.setBlockToAir(blockpos);
+            		}
+					 
 					return new ActionResult<>(EnumActionResult.SUCCESS, itemStackout);
 				}
 			}

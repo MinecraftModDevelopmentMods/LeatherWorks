@@ -1,5 +1,6 @@
 package panda.leatherworks.common.eventhandler;
 
+import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
@@ -15,10 +16,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class DebarkHandler {
 	@SubscribeEvent(priority=net.minecraftforge.fml.common.eventhandler.EventPriority.LOWEST)
@@ -27,7 +30,8 @@ public class DebarkHandler {
 		World world = player.getEntityWorld();
 
 		IBlockState state = world.getBlockState(event.getPos());
-
+		BlockPos pos = event.getPos().offset(event.getFace());
+		
 		if ( !(state.getBlock() instanceof BlockLog)|| state.getBlock() instanceof BlockDebarkedLog) {
 			return;
 		}
@@ -36,7 +40,6 @@ public class DebarkHandler {
 
 		if(!world.isRemote){
 			ItemStack heldStack = player.getHeldItemMainhand();
-
 			if (!heldStack.isEmpty() && heldStack.getItem() == Items.FLINT && world.rand.nextInt(20) == 0)
 			{
 				
@@ -45,7 +48,8 @@ public class DebarkHandler {
 					world.setBlockState(event.getPos(), newState, 3);
 					ItemStack stackOut = findCorrectStack(state);
 					if (!stackOut.isEmpty()) {
-						EntityItem entityitem = new EntityItem(world, player.posX, player.posY, player.posZ, stackOut);
+						
+						EntityItem entityitem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stackOut);
 						world.spawnEntity(entityitem);
 
 						if (!(player instanceof FakePlayer)) {
@@ -53,12 +57,32 @@ public class DebarkHandler {
 						}
 					}
 				}
+			}else{
+				
+				
+				if(!heldStack.isEmpty() && checkOres("toolKnife",heldStack) && world.rand.nextInt(10) == 0){
+					IBlockState newState = findCorrectState(state);
+					if(newState != null){
+						world.setBlockState(event.getPos(), newState, 3);
+						ItemStack stackOut = findCorrectStack(state);
+						if (!stackOut.isEmpty()) {
+							EntityItem entityitem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stackOut);
+							world.spawnEntity(entityitem);
+							heldStack.attemptDamageItem(1, world.rand, null);
+							if (!(player instanceof FakePlayer)) {
+								entityitem.onCollideWithPlayer(player);
+							}
+						}
+					}
+				}
 			}
-		}else{
+		}else
+		{
 			ItemStack heldStack = player.getHeldItemMainhand();
 
-			if (!heldStack.isEmpty() && heldStack.getItem() == Items.FLINT)
+			if (!heldStack.isEmpty() && (heldStack.getItem() == Items.FLINT || checkOres("toolKnife",heldStack) ))
 			{
+				
 				world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
 				player.swingArm(EnumHand.MAIN_HAND);	
 			}
@@ -125,5 +149,14 @@ public class DebarkHandler {
 				}
 			}
 		return ItemStack.EMPTY;
+	}
+	
+	private boolean checkOres(String key,ItemStack stack){
+		for(ItemStack stack2 : OreDictionary.getOres(key)){
+			if(stack2.getItem() == stack.getItem()){
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -7,6 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.tileentity.TileEntityTrunk;
 
 @SideOnly(Side.CLIENT)
@@ -25,7 +26,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
         }
 
         EnumFacing facing = te.getFacing();
-
+        //LeatherWorks.logger.info("Loading: " + facing);
         if (destroyStage >= 0)
         {
             this.bindTexture(DESTROY_STAGES[destroyStage]);

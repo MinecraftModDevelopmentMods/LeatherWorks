@@ -28,7 +28,7 @@ import panda.leatherworks.proxy.CommonProxy;
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "1.69.2";
+	public static final String VERSION = "1.71.2";
 	public static final String NAME = "Leather Works";
 	public static SimpleNetworkWrapper wrapper;
 	
@@ -67,6 +67,7 @@ public class LeatherWorks {
 	public void init(FMLInitializationEvent event){
 		ConfigLeatherWorks.parseBlacklist();
 		proxy.registerColorHandlers();
+		proxy.registerOreDicts();
 	}
 	
 	public static final CreativeTabs LeatherTab = new CreativeTabs(LeatherWorks.MODID) {

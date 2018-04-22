@@ -63,6 +63,8 @@ public class LivingDropsHandler {
 		else 
 		if (event.getEntityLiving() instanceof EntityDonkey) {
 			replaceDrops(event,LWItems.RAWHIDE_DONKEY);
+		}else{
+			replaceDrops(event,LWItems.RAWHIDE_COW);
 		}
 	}
 	
