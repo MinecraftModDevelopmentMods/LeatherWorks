@@ -1,3 +1,13 @@
+1.72.2
+Added more oredicts
+Fixed leather trunk orientation bug
+
+1.72.0
+Changed recipe names for clarity
+Added Ore Dictionary support for recipes
+Added Russian lang file
+Added Ore Dict for rawhide
+
 1.71.2
 actually added scraping for "toolKnife"
 fixed bark drop spawning

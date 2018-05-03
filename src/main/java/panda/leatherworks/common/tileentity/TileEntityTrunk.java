@@ -193,9 +193,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 			}
 		}
 		parentNBTTagCompound.setTag("Items", dataForAllSlots);
-		LeatherWorks.logger.info("Saving: " + (byte) this.facing.getHorizontalIndex());
 		parentNBTTagCompound.setByte("facing", (byte) this.facing.getHorizontalIndex());
-		
 		return parentNBTTagCompound;
 	}
 
@@ -216,7 +214,6 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 		}
 		
 		this.facing = EnumFacing.getHorizontal(parentNBTTagCompound.getByte("facing"));
-		LeatherWorks.logger.info("Loading: " + this.facing);
 	}
 	
 	@Override
