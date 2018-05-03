@@ -28,5 +28,6 @@ public class CommonProxy {
 	    
 	private void registerHide(Item item){
 	   OreDictionary.registerOre("resourceHide", item);
+	   OreDictionary.registerOre("rawhide", item);
 	}
 }

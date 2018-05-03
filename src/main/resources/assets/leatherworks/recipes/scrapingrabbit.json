@@ -1,8 +1,4 @@
 {
-    "conditions": [{
-        "type": "minecraft:item_exists",
-        "item": "leatherworks:leather_strip"
-    }],
   "type":"leatherworks:shapeless_scraping",
 
   "ingredients": [

@@ -11,10 +11,11 @@
     "LIL",
     "SLS"
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "leatherworks:leather_strip"
+       "type":"forge:ore_dict",
+		"ore":"leatherStrip"
     },
     "I": {
       "item": "minecraft:gold_ingot"
