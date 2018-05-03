@@ -317,24 +317,20 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
     }
 	
 	@Override
-    public SPacketUpdateTileEntity getUpdatePacket()
-    {
-        NBTTagCompound compound = new NBTTagCompound();
+  public SPacketUpdateTileEntity getUpdatePacket()
+  {
+      return new SPacketUpdateTileEntity(this.pos, -1, this.getUpdateTag());
+  }
 
-        compound.setByte("facing", (byte) this.facing.getHorizontalIndex());
+  @Override
+  public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+  {
+      this.readFromNBT(pkt.getNbtCompound());
+  }
 
-        return new SPacketUpdateTileEntity(this.pos, 0, compound);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
-    {
-        if (pkt.getTileEntityType() == 0)
-        {
-            NBTTagCompound compound = pkt.getNbtCompound();
-
-            this.facing = EnumFacing.getHorizontal(compound.getByte("facing"));
-        }
-    }
-
+  @Override
+  public NBTTagCompound getUpdateTag()
+  {
+      return this.writeToNBT(new NBTTagCompound());
+  }
 }
