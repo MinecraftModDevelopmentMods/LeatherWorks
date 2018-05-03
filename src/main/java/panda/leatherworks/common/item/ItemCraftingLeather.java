@@ -1,6 +1,7 @@
 package panda.leatherworks.common.item;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -45,7 +46,10 @@ public class ItemCraftingLeather extends Item {
             		}
             		else{
             			itemStackout = new ItemStack(LWItems.LEATHER_SCRAPED,itemStackIn.getCount()-1,itemStackIn.getMetadata(),itemStackIn.getTagCompound());
-            			playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
+            			if(!playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED))){
+            				EntityItem entityitem = new EntityItem(worldIn, clickPos.getX(), clickPos.getY(), clickPos.getZ(), new ItemStack(LWItems.LEATHER_WASHED));
+            				worldIn.spawnEntity(entityitem);
+            			}
             			worldIn.setBlockToAir(blockpos);
             		}
 					 

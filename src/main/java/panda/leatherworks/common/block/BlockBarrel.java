@@ -19,6 +19,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -396,7 +397,10 @@ public class BlockBarrel extends Block
                     		}
                     		else{
                     			heldItem.shrink(1);
-                    			playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_SOAKED));
+                    			if(!playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_SOAKED))){
+                    				EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY()+0.5f, pos.getZ(), new ItemStack(LWItems.LEATHER_SOAKED));
+                    				worldIn.spawnEntity(entityitem);
+                    			}
                     		}
                     		
                             return true;

@@ -2,6 +2,7 @@
 actually added scraping for "toolKnife"
 fixed bark drop spawning
 added config allowBatchProcessing, which if disabled, forces 1 unit of liquid per hide processed and consumes world water blocks
+ore dict hides as "resourceHide"
 
 1.71.0
 Added bark scraping for any "toolKnife" for Primitive Tools
