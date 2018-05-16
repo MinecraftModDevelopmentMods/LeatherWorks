@@ -14,9 +14,9 @@ public class BlockDebarkedLog extends BlockLog
     {
     	this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
     	Blocks.FIRE.setFireInfo(this, 5, 5);
-    	this.blockHardness = 3;
+    	this.blockHardness = 2;
 		this.blockResistance = 2;
-		this.setHarvestLevel("axe", 1);
+		this.setHarvestLevel("axe", 0);
     }
 
     @Override

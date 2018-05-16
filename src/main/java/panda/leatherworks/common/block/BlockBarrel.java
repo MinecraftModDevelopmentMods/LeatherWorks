@@ -3,9 +3,11 @@ package panda.leatherworks.common.block;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import panda.leatherworks.ConfigLeatherWorks;
+import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.item.ItemCraftingLeather;
 import panda.leatherworks.common.item.ItemPack;
 import panda.leatherworks.init.LWBlocks;
@@ -33,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntityBanner;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -42,6 +45,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockBarrel extends Block
 {
@@ -117,6 +122,7 @@ public class BlockBarrel extends Block
         {
             int i = state.getValue(LEVEL);
             int f = state.getValue(FLUID);
+            
             Item item = heldItem.getItem();
         	if (item == Item.getItemFromBlock(Blocks.WOODEN_PRESSURE_PLATE))
             {
@@ -185,31 +191,26 @@ public class BlockBarrel extends Block
                 this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 1), i + 1);
             }
             
-            if (item == Items.POTIONITEM && i < 3 && !worldIn.isRemote && (f == 0 || i==0 ))
+            if (item == Items.POTIONITEM&& !worldIn.isRemote && i < 3  && (f == 0 || i==0 ))
             {
-            	if(PotionUtils.getPotionFromItem(new ItemStack(item)) == PotionTypes.WATER ){
-                if (!playerIn.capabilities.isCreativeMode)
-                {
-                    ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
 
-                    if (heldItem.getCount() == 1)
-                    {
-                        playerIn.setHeldItem(hand, itemstack1);
-                    }
-                    else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
-                    {
-                        playerIn.dropItem(itemstack1, false);
-                    }
-                    else if (playerIn instanceof EntityPlayerMP)
-                    {
-                        ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                    }
-                }
-                if(f==1){
-                	worldIn.setBlockState(pos,state.withProperty(FLUID, 0),3);
-                }
-                this.setFluidLevel(worldIn, pos, state, i + 1);
-                
+            	if(PotionUtils.getPotionFromItem(heldItem) == PotionTypes.WATER ){
+            		if (!playerIn.capabilities.isCreativeMode){
+                    	ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
+                    	if (heldItem.getCount() == 1)
+                    	{
+                    		playerIn.setHeldItem(hand, itemstack1);
+                    	}
+                    	else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+                    	{
+                        	playerIn.dropItem(itemstack1, false);
+                    	}
+                    	else if (playerIn instanceof EntityPlayerMP)
+                    	{
+                    		((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                    	}
+                	}
+                	this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 0), i + 1); 
             	}
             }
             if (item == Items.WATER_BUCKET)
@@ -289,7 +290,7 @@ public class BlockBarrel extends Block
                                 playerIn.dropItem(new ItemStack(LWItems.TANNIN_BUCKET), false);
                             }
                         }
-
+                        worldIn.setBlockState(pos, this.getDefaultState().withProperty(FLUID, 0) , 2);
                         this.setFluidLevel(worldIn, pos, state, 0);
                     }
 
@@ -550,6 +551,15 @@ public class BlockBarrel extends Block
     	
     	
     }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    @Nonnull
+    public BlockRenderLayer getBlockLayer()
+    {
+        return BlockRenderLayer.CUTOUT_MIPPED;
+    }
+    
 
     @Override
     public int getMetaFromState(IBlockState state)

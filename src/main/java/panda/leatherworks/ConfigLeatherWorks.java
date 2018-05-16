@@ -28,6 +28,7 @@ public class ConfigLeatherWorks {
 	public static float leatherFailureChance;
 	public static boolean allowBatchProcessing;
 	public static boolean disableColoredTrunks;
+	public static boolean consumeFlint;
 	
 	private ConfigLeatherWorks(){LeatherWorks.logger.info("Loading Config");}
 	
@@ -43,7 +44,8 @@ public class ConfigLeatherWorks {
 		disableTrunk = config.getBoolean("disableTrunk", "general", false,  "Remove the Leather Trunks from the game");
 		disableColoredTrunks = config.getBoolean("disableTrunk", "general", false,  "Remove colored Leather Trunks from the game");
 		
-		allowBatchProcessing = config.getBoolean("allowBatchProcessing", "general", true, "If enabled, 1 unit of water or tannin will be required to process each hide.");
+		allowBatchProcessing = config.getBoolean("allowBatchProcessing", "general", true, "If disabled, 1 unit of water or tannin will be required to process each hide.");
+		consumeFlint = config.getBoolean("consumeFlint", "general", false, "If enabled, Scraping hides will consume flint");
 		
 		blacklist = config.getStringList("blacklist", "blacklist", new String[] {
 			LWItems.PACK_BLACK.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,

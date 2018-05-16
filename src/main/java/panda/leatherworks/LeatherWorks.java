@@ -29,14 +29,14 @@ import panda.leatherworks.proxy.CommonProxy;
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "1.74.0";
+	public static final String VERSION = "1.75.0";
 	public static final String NAME = "Leather Works";
 	public static SimpleNetworkWrapper wrapper;
 	
 	@Mod.Instance(MODID)
 	public static LeatherWorks instance;
 
-	@SidedProxy(clientSide = "panda.leatherworks.proxy.ClientProxy",serverSide = "panda.leatherworks.proxy.ServerProxy")
+	@SidedProxy(clientSide = "panda.leatherworks.proxy.ClientProxy", serverSide = "panda.leatherworks.proxy.ServerProxy")
 	public static CommonProxy proxy;
 	public static Logger logger;
 	public Configuration config;

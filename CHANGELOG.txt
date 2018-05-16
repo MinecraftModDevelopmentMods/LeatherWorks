@@ -1,4 +1,8 @@
-1.74.0
+1.75.0
+Repair kit recipe will no longer consume as many kits as you give it
+Allowed not consuming flint for scraping, by default
+Fixed barrel interaction with water bottles
+Should have fixed multiplayer issue with packs?
 Changed Debarking handler to use a registry system
 Added support for familiar fauna and Twilight forest
 Tweaked some textures

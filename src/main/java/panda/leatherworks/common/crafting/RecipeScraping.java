@@ -7,6 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,10 +19,13 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
 
 public class RecipeScraping implements IRecipeFactory{
@@ -48,8 +53,21 @@ public class RecipeScraping implements IRecipeFactory{
         
         @Override
         public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-        {
-            return NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        { 
+        	NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        	if(!ConfigLeatherWorks.consumeFlint){
+            for (int i = 0; i < nonnulllist.size(); ++i){
+                ItemStack itemstack = inv.getStackInSlot(i);
+                if(!itemstack.isEmpty()){
+                	if(itemstack.getItem() == Items.FLINT){
+                    	nonnulllist.set(i, new ItemStack(Items.FLINT));
+                	}
+                }else{
+                	 nonnulllist.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
+                } 
+            }
+        	}
+            return nonnulllist;
         }
 
         @Override

@@ -36,9 +36,8 @@ public class ItemPack extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
     	ItemStack itemStack = player.getHeldItem(handIn);
-
-        	 Block hit = world.getBlockState(player.rayTrace(3,1f).getBlockPos()).getBlock();
-        	 if(!(hit instanceof BlockCauldron || hit instanceof BlockBarrel) &&!player.isSneaking() ){
+//&& !world.isRemote
+        	 if(!player.isSneaking() ){
         		 player.openGui(LeatherWorks.instance, GuiHandler.PACK_GUI, world, 0,0,0);
         		 return new ActionResult(EnumActionResult.PASS, itemStack);
         	 }

@@ -2,6 +2,7 @@ package panda.leatherworks.common.crafting;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -92,7 +93,31 @@ public RepairKitRecipe(Item itemIn,Item itemOut,Item repairItem, int value) {
 
   @Override
   public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
-    return NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+	  NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+	  
+	  int numPacks = 0;
+	  ItemStack oldArmor = ItemStack.EMPTY;
+	  for(int i = 0; i < inv.getSizeInventory(); i++){
+		  ItemStack stack = inv.getStackInSlot(i);
+		  if(stack.getItem() == repairKit){
+			  numPacks++;
+		  }
+		  if(stack.getItem() == brokenArmor){
+			  oldArmor = stack;
+		  }
+	  } 
+	 
+	  if(numPacks != 1 && oldArmor.isEmpty() && brokenArmor.getDamage(oldArmor) < this.repairValue*numPacks){
+		  numPacks = numPacks - (int) Math.ceil(this.repairedArmor.getMaxDamage()/(float)this.repairValue);
+		 
+		  nonnulllist.set(0, new ItemStack(repairKit,numPacks));
+	  }else
+		  if(numPacks != 1 && !oldArmor.isEmpty() && this.repairedArmor.getMaxDamage() < this.repairValue*numPacks){
+			  numPacks = numPacks - (int) Math.ceil(brokenArmor.getDamage(oldArmor)/(float)this.repairValue);
+			 
+			  nonnulllist.set(0, new ItemStack(repairKit,numPacks));
+		  }  
+    return nonnulllist;
   }
 
   @Override
