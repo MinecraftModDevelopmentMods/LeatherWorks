@@ -84,3 +84,6 @@ tile.leatherworks.birch_bark.name=Birch Bark
 tile.leatherworks.jungle_bark.name=Jungle Bark
 tile.leatherworks.acacia_bark.name=Acacia Bark
 tile.leatherworks.darkoak_bark.name=Dark Oak Bark
+
+item.leatherworks.rawhide_deer.name=Deer Hide
+item.leatherworks.rawhide_boar.name=Wild Boar Hide

@@ -27,6 +27,7 @@ public class ConfigLeatherWorks {
 	public static int leatherDryingTime;
 	public static float leatherFailureChance;
 	public static boolean allowBatchProcessing;
+	public static boolean disableColoredTrunks;
 	
 	private ConfigLeatherWorks(){LeatherWorks.logger.info("Loading Config");}
 	
@@ -39,7 +40,8 @@ public class ConfigLeatherWorks {
 		disableAllPacks = config.getBoolean("disableAllPacks", "general", false, "Remove all packs from the game");
 		disableColoredPacks = config.getBoolean("disableColoredPacks", "general", false, "Remove colored packs from the game");
 		disableEnderPack = config.getBoolean("disableEnderPack", "general", false, "Remove Ender packs from the game");
-		disableTrunk = config.getBoolean("disableTrunk", "general", false,  "Remove the Leather Trunk from the game");
+		disableTrunk = config.getBoolean("disableTrunk", "general", false,  "Remove the Leather Trunks from the game");
+		disableColoredTrunks = config.getBoolean("disableTrunk", "general", false,  "Remove colored Leather Trunks from the game");
 		
 		allowBatchProcessing = config.getBoolean("allowBatchProcessing", "general", true, "If enabled, 1 unit of water or tannin will be required to process each hide.");
 		

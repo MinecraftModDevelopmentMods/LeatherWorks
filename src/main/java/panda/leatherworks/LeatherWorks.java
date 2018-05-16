@@ -19,6 +19,7 @@ import panda.leatherworks.common.eventhandler.BucketHandler;
 import panda.leatherworks.common.eventhandler.DebarkHandler;
 import panda.leatherworks.common.eventhandler.LivingDropsHandler;
 import panda.leatherworks.common.eventhandler.TooltipEventHandler;
+import panda.leatherworks.common.registries.BarkRegistry;
 import panda.leatherworks.common.tileentity.TileEntityDryingRack;
 import panda.leatherworks.common.tileentity.TileEntityTrunk;
 import panda.leatherworks.init.LWItems;
@@ -28,7 +29,7 @@ import panda.leatherworks.proxy.CommonProxy;
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "1.72.2";
+	public static final String VERSION = "1.74.0";
 	public static final String NAME = "Leather Works";
 	public static SimpleNetworkWrapper wrapper;
 	
@@ -40,7 +41,6 @@ public class LeatherWorks {
 	public static Logger logger;
 	public Configuration config;
 	
-//Add tanner to village?
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event){
 		logger = event.getModLog();
@@ -66,6 +66,7 @@ public class LeatherWorks {
 	@EventHandler
 	public void init(FMLInitializationEvent event){
 		ConfigLeatherWorks.parseBlacklist();
+		BarkRegistry.initBarks();
 		proxy.registerColorHandlers();
 		proxy.registerOreDicts();
 	}

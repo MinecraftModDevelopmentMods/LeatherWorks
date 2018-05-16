@@ -1,0 +1,16 @@
+{  
+   "type":"leatherworks:shapeless_scraping",
+   "ingredients":[  
+      {  
+         "item":"minecraft:flint"
+      },
+      {  
+         "type":"forge:ore_dict",
+	"ore":"rawhide"
+      }
+   ],
+   "result":{  
+      "item":"leatherworks:crafting_leather_scraped",
+      "count":1
+   }
+}

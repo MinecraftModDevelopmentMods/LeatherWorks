@@ -85,6 +85,9 @@ public final class LWItems {
 	public static final Item LEATHER_LEGGINGS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.LEGS, BROKEN_LEATHER_LEGGINGS).setUnlocalizedName("minecraft.leather_leggings").setRegistryName("minecraft:leather_leggings");
 	public static final Item LEATHER_BOOTS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.FEET, BROKEN_LEATHER_BOOTS).setUnlocalizedName("minecraft.leather_boots").setRegistryName("minecraft:leather_boots");
 
+	public static final Item RAWHIDE_DEER = simply(new Item(), "rawhide_deer");
+	public static final Item RAWHIDE_BOAR = simply(new Item(), "rawhide_boar");
+
 	
 
 	
@@ -106,6 +109,8 @@ public final class LWItems {
 		registry.register(RAWHIDE_LLAMA);
 		registry.register(RAWHIDE_MULE);
 		registry.register(RAWHIDE_DONKEY);
+		registry.register(RAWHIDE_DEER);
+		registry.register(RAWHIDE_BOAR);
 		
 		registry.register(LEATHER_SCRAPED);
 		registry.register(LEATHER_WASHED);
@@ -154,6 +159,7 @@ public final class LWItems {
 		registry.register(LEATHER_CHESTPLATE);
 		registry.register(LEATHER_LEGGINGS);
 		registry.register(LEATHER_BOOTS);
+		
 		registerItemBlock(registry, LWBlocks.BARREL_OAK);
 		registerItemBlock(registry, LWBlocks.BARREL_SPRUCE);
 		registerItemBlock(registry, LWBlocks.BARREL_BIRCH);
@@ -187,6 +193,9 @@ public final class LWItems {
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_DARKOAK);
 		if(!ConfigLeatherWorks.disableTrunk){
 		registerItemBlock(registry, LWBlocks.LEATHER_TRUNK);
+		if(!ConfigLeatherWorks.disableColoredTrunks){
+			
+		}
 		}
 	}
 

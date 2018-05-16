@@ -58,6 +58,7 @@ public final class LWBlocks {
 	public static final Block DRYING_RACK_DARKOAK = simply(new BlockDryingRack(),"drying_rack_darkoak");
 	public static final Block LEATHER_TRUNK = simply(new BlockTrunk(),"leather_trunk");
 	
+	
 	//I know they are currently in the game as meta blocks but this way I can have proper lang files.
 	public static final Block BARK_OAK = simply(new BlockDummyWood(),"oak_bark");
 	public static final Block BARK_SPRUCE = simply(new BlockDummyWood(),"spruce_bark");
@@ -112,6 +113,9 @@ public final class LWBlocks {
 		registry.register(DRYING_RACK_DARKOAK);
 		if(!ConfigLeatherWorks.disableTrunk){
 		registry.register(LEATHER_TRUNK);
+		if(!ConfigLeatherWorks.disableColoredTrunks){
+			
+		}
 		}
 		
 	}

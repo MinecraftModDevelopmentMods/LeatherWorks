@@ -7,6 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -24,6 +27,7 @@ import panda.leatherworks.common.InventoryTrunk;
 
 public class TileEntityTrunk extends TileEntity implements IInventory, ITickable{
 	
+
 	private static final int NUMSLOTS = 27;
 	private NonNullList<ItemStack> itemStacks = NonNullList.<ItemStack>withSize(NUMSLOTS, ItemStack.EMPTY);
 	public float lidAngle;

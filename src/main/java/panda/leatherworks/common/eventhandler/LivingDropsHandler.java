@@ -3,6 +3,8 @@ package panda.leatherworks.common.eventhandler;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.entity.passive.EntityCow;
@@ -20,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import panda.leatherworks.init.LWItems;
 
 public class LivingDropsHandler {
@@ -63,7 +66,17 @@ public class LivingDropsHandler {
 		else 
 		if (event.getEntityLiving() instanceof EntityDonkey) {
 			replaceDrops(event,LWItems.RAWHIDE_DONKEY);
-		}else{
+		}else
+		if (EntityRegistry.getEntry(event.getEntityLiving().getClass()).getRegistryName().getResourcePath().contains("deer")) {
+			
+			if(!hasLeather){addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));}
+			replaceDrops(event,LWItems.RAWHIDE_DEER);
+		}else
+			if (EntityRegistry.getEntry(event.getEntityLiving().getClass()).getRegistryName().getResourcePath().contains("boar")) {
+				
+				if(!hasLeather){addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));}
+				replaceDrops(event,LWItems.RAWHIDE_BOAR);
+			}else{
 			replaceDrops(event,LWItems.RAWHIDE_COW);
 		}
 	}

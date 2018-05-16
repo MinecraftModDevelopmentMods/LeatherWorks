@@ -1,3 +1,11 @@
+1.74.0
+Changed Debarking handler to use a registry system
+Added support for familiar fauna and Twilight forest
+Tweaked some textures
+Get CraftTweaker support for Aether and BearWithMe Here:
+https://www.dropbox.com/s/o50in08ujr0qwzq/LWModCompat-BearWithMe.zs?dl=0
+https://www.dropbox.com/s/1kbwjxecukyv3v1/LWModCompat-Aether.zs?dl=0
+
 1.72.2
 Added more oredicts
 Fixed leather trunk orientation bug

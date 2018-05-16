@@ -55,7 +55,9 @@ public class ClientProxy extends CommonProxy {
 		registerItemModel(LWItems.RAWHIDE_LLAMA);
 		registerItemModel(LWItems.RAWHIDE_DONKEY);
 		registerItemModel(LWItems.RAWHIDE_MULE);
-
+		registerItemModel(LWItems.RAWHIDE_DEER);
+		registerItemModel(LWItems.RAWHIDE_BOAR);
+		
 		if(!ConfigLeatherWorks.disableAllPacks){
 			registerItemModel(LWItems.PACK_BROWN);
 			if(!ConfigLeatherWorks.disableColoredPacks){
@@ -132,6 +134,9 @@ public class ClientProxy extends CommonProxy {
 		registerBlockModel(LWBlocks.SEALED_BARREL_DARKOAK);
 		if(!ConfigLeatherWorks.disableTrunk){
 		registerBlockModel(LWBlocks.LEATHER_TRUNK);
+		if(!ConfigLeatherWorks.disableColoredTrunks){
+			
+		}
 		}
 		
 		ModelLoader.setCustomStateMapper(LWBlocks.TANNIN, new StateMapperBase() {
