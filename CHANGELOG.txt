@@ -1,3 +1,6 @@
+1.75.2
+hotfix
+
 1.75.0
 Repair kit recipe will no longer consume as many kits as you give it
 Allowed not consuming flint for scraping, by default

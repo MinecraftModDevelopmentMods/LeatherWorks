@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPolarBear;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityDonkey;
 import net.minecraft.entity.passive.EntityHorse;
@@ -32,6 +33,9 @@ public class LivingDropsHandler {
 		Random rand = event.getEntityLiving().world.rand;
 		int fortune = event.getLootingLevel();
 		boolean hasLeather = hasLeatherDrops(event);
+		if(!(event.getEntityLiving() instanceof EntityAnimal)){
+			return;
+		}
 		if (event.getEntityLiving() instanceof EntityCow && !(event.getEntityLiving() instanceof EntityMooshroom)) {
 			replaceDrops(event,LWItems.RAWHIDE_COW);
 		}else 
