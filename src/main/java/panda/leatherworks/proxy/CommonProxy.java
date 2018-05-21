@@ -1,5 +1,6 @@
 package panda.leatherworks.proxy;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -42,6 +43,12 @@ public class CommonProxy {
 		registerBark(LWItems.BARK_JUNGLE);
 		registerBark(LWItems.BARK_OAK);
 		registerBark(LWItems.BARK_SPRUCE);
+		
+		OreDictionary.registerOre("toolAxe", Items.WOODEN_AXE);
+		OreDictionary.registerOre("toolAxe", Items.STONE_AXE);
+		OreDictionary.registerOre("toolAxe", Items.IRON_AXE);
+		OreDictionary.registerOre("toolAxe", Items.GOLDEN_AXE);
+		OreDictionary.registerOre("toolAxe", Items.DIAMOND_AXE);
 
 	}
 	    

@@ -1,5 +1,9 @@
+1.75.3
+scraping hotfix
+can use axes to scrape now
+
 1.75.2
-hotfix
+drops hotfix
 
 1.75.0
 Repair kit recipe will no longer consume as many kits as you give it

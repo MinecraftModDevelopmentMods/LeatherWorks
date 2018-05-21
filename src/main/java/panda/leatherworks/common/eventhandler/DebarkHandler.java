@@ -1,5 +1,6 @@
 package panda.leatherworks.common.eventhandler;
 
+import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.common.registries.BarkRegistry;
 import panda.leatherworks.init.LWSoundEvents;
@@ -29,18 +30,18 @@ public class DebarkHandler {
 		World world = player.getEntityWorld();
 		
 		BlockPos pos = event.getPos().offset(event.getFace());
-		IBlockState state = world.getBlockState(pos);
-		
-		if ( !(state.getBlock() instanceof BlockLog)|| state.getBlock() instanceof BlockDebarkedLog) {
+		IBlockState state = world.getBlockState(event.getPos());
+
+		if ( !(state.getBlock() instanceof BlockLog) || state.getBlock() instanceof BlockDebarkedLog) {
 			return;
 		}
-
+		
 		if(!world.isRemote){
 			ItemStack heldStack = player.getHeldItemMainhand();
 			Pair pair = new Pair(state.getBlock(),state.getBlock().getMetaFromState(state) % 4);
-
+			
 			if (BarkRegistry.hasBark(pair) && !heldStack.isEmpty() && (heldStack.getItem() == Items.FLINT && world.rand.nextInt(20) == 0)
-					|| checkOres("toolKnife",heldStack) && world.rand.nextInt(10) == 0)
+					|| checkOres("toolKnife",heldStack) && world.rand.nextInt(10) == 0  || checkOres("toolAxe",heldStack) && world.rand.nextInt(14) == 0)
 			{
 				IBlockState newState = BarkRegistry.getDebarkedLog(pair).getDefaultState();
 				if(newState != null){
@@ -62,7 +63,7 @@ public class DebarkHandler {
 		{
 			ItemStack heldStack = player.getHeldItemMainhand();
 
-			if (!heldStack.isEmpty() && (heldStack.getItem() == Items.FLINT || checkOres("toolKnife",heldStack) ))
+			if (!heldStack.isEmpty() && (heldStack.getItem() == Items.FLINT || checkOres("toolKnife",heldStack) || checkOres("toolAxe",heldStack) ))
 			{
 				world.playSound(player, player.posX, player.posY, player.posZ, LWSoundEvents.TOOL_SCRAPE, SoundCategory.PLAYERS, 0.4F, 1.0F);
 				player.swingArm(EnumHand.MAIN_HAND);	

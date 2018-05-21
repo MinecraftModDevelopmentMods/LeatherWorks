@@ -29,7 +29,7 @@ import panda.leatherworks.proxy.CommonProxy;
 @Mod(modid = LeatherWorks.MODID, name = LeatherWorks.NAME, version = LeatherWorks.VERSION)
 public class LeatherWorks {
 	public static final String MODID = "leatherworks";
-	public static final String VERSION = "1.75.2";
+	public static final String VERSION = "1.75.3";
 	public static final String NAME = "Leather Works";
 	public static SimpleNetworkWrapper wrapper;
 	
@@ -77,5 +77,9 @@ public class LeatherWorks {
 			return new ItemStack(LWItems.RAWHIDE_COW);
 		}
 	};
+	
+	public static void debug(String text){
+		logger.info(text);
+	}
 	
 }
