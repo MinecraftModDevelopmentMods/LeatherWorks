@@ -179,19 +179,23 @@ public class BlockBarrel extends Block
                     {
                         playerIn.setHeldItem(hand, itemstack1);
                     }
-                    else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
-                    {
-                        playerIn.dropItem(itemstack1, false);
+                    else{
+                    	heldItem.shrink(1);
+                    	if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+                        {
+                            playerIn.dropItem(itemstack1, false);
+                        }
+                        else if (playerIn instanceof EntityPlayerMP)
+                        {
+                            ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                        }
                     }
-                    else if (playerIn instanceof EntityPlayerMP)
-                    {
-                        ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                    }
+                    
                 }
                 this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 1), i + 1);
             }
             
-            if (item == Items.POTIONITEM&& !worldIn.isRemote && i < 3  && (f == 0 || i==0 ))
+            if (item == Items.POTIONITEM && !worldIn.isRemote && i < 3  && (f == 0 || i==0 ))
             {
 
             	if(PotionUtils.getPotionFromItem(heldItem) == PotionTypes.WATER ){
@@ -308,19 +312,23 @@ public class BlockBarrel extends Block
                         {
                             playerIn.setHeldItem(hand, itemstack1);
                         }
-                        else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
-                        {
-                            playerIn.dropItem(itemstack1, false);
+                        else{
+                        	heldItem.shrink(1);
+                        	if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+                        	{
+                                playerIn.dropItem(itemstack1, false);
+                            }
+                            else if (playerIn instanceof EntityPlayerMP)
+                            {
+                                ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                            }
                         }
-                        else if (playerIn instanceof EntityPlayerMP)
-                        {
-                            ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                        }
+                        
                     }
 
                     this.setFluidLevel(worldIn, pos, state, i - 1);
                 }else
-                	if (i > 0 && !worldIn.isRemote && f ==1)
+                	if (i > 0 && !worldIn.isRemote && f == 1)
                     {
                         if (!playerIn.capabilities.isCreativeMode)
                         {
@@ -330,13 +338,16 @@ public class BlockBarrel extends Block
                             {
                                 playerIn.setHeldItem(hand, itemstack1);
                             }
-                            else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+                            else{
+                            	heldItem.shrink(1);
+                            	if (!playerIn.inventory.addItemStackToInventory(itemstack1))
                             {
                                 playerIn.dropItem(itemstack1, false);
                             }
                             else if (playerIn instanceof EntityPlayerMP)
                             {
                                 ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                            }
                             }
                         }
 

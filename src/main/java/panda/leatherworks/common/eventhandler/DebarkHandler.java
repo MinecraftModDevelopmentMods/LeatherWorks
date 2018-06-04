@@ -1,8 +1,10 @@
 package panda.leatherworks.common.eventhandler;
 
+import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.common.registries.BarkRegistry;
+import panda.leatherworks.init.LWItems;
 import panda.leatherworks.init.LWSoundEvents;
 import akka.japi.Pair;
 import net.minecraft.block.BlockLog;
@@ -47,6 +49,9 @@ public class DebarkHandler {
 				if(newState != null){
 					world.setBlockState(event.getPos(), newState, 3);
 					ItemStack stackOut = BarkRegistry.getBark(pair);
+					if(ConfigLeatherWorks.singleBarkItem){
+						stackOut = new ItemStack(LWItems.BARK_OAK);
+					}
 					if (!stackOut.isEmpty()) {
 						EntityItem entityitem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stackOut);
 						world.spawnEntity(entityitem);
