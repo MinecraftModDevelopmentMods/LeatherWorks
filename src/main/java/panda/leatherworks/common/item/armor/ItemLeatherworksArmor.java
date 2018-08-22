@@ -31,7 +31,7 @@ public class ItemLeatherworksArmor extends ItemArmor implements ISpecialArmor {
 				NBTTagList tags = stack.getEnchantmentTagList();
 				int count = tags.tagCount();
 				Random rand = entity.world.rand;
-				if(tags.hasNoTags()){
+				if(tags.isEmpty()){
 					((EntityPlayer)entity).inventory.armorInventory.set(slot, ItemStack.EMPTY);
 					ItemStack stackOut = new ItemStack(brokenarmor,1,0);
 						if(stack.hasTagCompound()){
