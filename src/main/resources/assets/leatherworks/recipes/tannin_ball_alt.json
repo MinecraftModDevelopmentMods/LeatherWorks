@@ -5,7 +5,8 @@
   },
   "ingredients": [
     {
-      "item": "leatherworks:bark_acacia"
+      "type": "forge:ore_dict",
+      "ore": "barkAcacia"
     }
   ],
   "type": "minecraft:crafting_shapeless"

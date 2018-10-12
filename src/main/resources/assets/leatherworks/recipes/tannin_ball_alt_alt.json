@@ -5,10 +5,12 @@
   },
   "ingredients": [
     {
-      "item": "leatherworks:bark_spruce"
+      "type": "forge:ore_dict",
+      "ore": "barkSpruce"
     },
     {
-      "item": "leatherworks:bark_spruce"
+      "type": "forge:ore_dict",
+      "ore": "barkSpruce"
     }
   ],
   "type": "minecraft:crafting_shapeless"
