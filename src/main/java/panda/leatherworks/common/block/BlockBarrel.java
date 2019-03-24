@@ -492,16 +492,16 @@ public class BlockBarrel extends Block
             }
     }
 
-    @Override
+    /*@Override
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
 		if(state.getValue(LEVEL) == 3){
 			IBlockState newstate = state.getValue(FLUID) == 1? LWBlocks.TANNIN.getDefaultState():Blocks.WATER.getDefaultState();
 			worldIn.setBlockState(pos,newstate,1);
 		}
 		super.onBlockDestroyedByPlayer(worldIn, pos, state);
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
 		IBlockState state = worldIn.getBlockState(pos);
 		if(state.getValue(LEVEL) == 3){
@@ -509,7 +509,7 @@ public class BlockBarrel extends Block
 			worldIn.setBlockState(pos,newstate,1);
 		}
 		super.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
-	}
+	}*/
 
 	@Nullable
     @Override
