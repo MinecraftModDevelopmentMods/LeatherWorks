@@ -33,7 +33,7 @@ public class CommonProxy {
 		OreDictionary.registerOre("barkWood", LWItems.LEATHER_SOAKED);
 		OreDictionary.registerOre("barkAcacia", LWItems.BARK_ACACIA);
 		OreDictionary.registerOre("barkBirch", LWItems.BARK_BIRCH);
-		OreDictionary.registerOre("barkDarkoak", LWItems.BARK_DARKOAK);
+		OreDictionary.registerOre("barkDarkOak", LWItems.BARK_DARKOAK);
 		OreDictionary.registerOre("barkJungle", LWItems.BARK_JUNGLE);
 		OreDictionary.registerOre("barkOak", LWItems.BARK_OAK);
 		OreDictionary.registerOre("barkSpruce", LWItems.BARK_SPRUCE);

@@ -10,7 +10,8 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "leatherworks:bark_jungle"
+      "type": "forge:ore_dict",
+      "ore": "barkJungle"
     }
   }
 }

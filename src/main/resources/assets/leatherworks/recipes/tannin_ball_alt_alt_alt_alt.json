@@ -4,13 +4,16 @@
   },
   "ingredients": [
     {
-      "item": "leatherworks:bark_jungle"
+      "type": "forge:ore_dict",
+      "ore": "barkJungle"
     },
     {
-      "item": "leatherworks:bark_jungle"
+      "type": "forge:ore_dict",
+      "ore": "barkJungle"
     },
     {
-      "item": "leatherworks:bark_jungle"
+      "type": "forge:ore_dict",
+      "ore": "barkJungle"
     }
   ],
   "type": "minecraft:crafting_shapeless"

@@ -4,16 +4,20 @@
   },
   "ingredients": [
     {
-      "item": "leatherworks:bark_birch"
+      "type": "forge:ore_dict",
+      "ore": "barkBirch"
     },
     {
-      "item": "leatherworks:bark_birch"
+      "type": "forge:ore_dict",
+      "ore": "barkBirch"
     },
     {
-      "item": "leatherworks:bark_birch"
+      "type": "forge:ore_dict",
+      "ore": "barkBirch"
     },
     {
-      "item": "leatherworks:bark_birch"
+      "type": "forge:ore_dict",
+      "ore": "barkBirch"
     }
   ],
   "type": "minecraft:crafting_shapeless"
