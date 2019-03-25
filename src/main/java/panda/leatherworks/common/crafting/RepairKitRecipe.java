@@ -26,7 +26,7 @@ public RepairKitRecipe(Item itemIn,Item itemOut,Item repairItem, int value) {
 	this.repairedArmor = itemOut;
 	this.repairValue = value;
 	this.repairKit = repairItem;
-    this.setRegistryName(new ResourceLocation(LeatherWorks.MODID,"repairkit_"+itemIn.getRegistryName().getResourcePath()));
+    this.setRegistryName(new ResourceLocation(LeatherWorks.MODID,"repairkit_"+itemIn.getRegistryName().getPath()));
   }
   
   @Override

@@ -35,8 +35,8 @@ public class BucketHandler {
 		}
 		// remove the fluid and return the appropriate filled bucket
 		event.setResult(Result.ALLOW);
-		ItemStack bucket = new ItemStack(LWItems.TANNIN_BUCKET);
-		event.setFilledBucket(bucket);
+//		ItemStack bucket = new ItemStack(LWItems.TANNIN_BUCKET);
+//		event.setFilledBucket(bucket);
 		event.getWorld().setBlockToAir(blockpos);
 	}
 

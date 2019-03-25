@@ -1,7 +1,6 @@
 package panda.leatherworks.init;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -67,11 +66,9 @@ public final class LWBlocks {
 	public static final Block BARK_ACACIA = simply(new BlockDummyWood(),"acacia_bark");
 	public static final Block BARK_DARKOAK = simply(new BlockDummyWood(),"darkoak_bark");
 	
-	
-	
 
 	private static Block simply(Block block, String name) {
-		return block.setRegistryName(LeatherWorks.MODID, name).setUnlocalizedName(LeatherWorks.MODID + "." + name).setCreativeTab(LeatherWorks.LeatherTab);
+		return block.setRegistryName(LeatherWorks.MODID, name).setTranslationKey(LeatherWorks.MODID + "." + name).setCreativeTab(LeatherWorks.LeatherTab);
 	}
 
 	@SubscribeEvent

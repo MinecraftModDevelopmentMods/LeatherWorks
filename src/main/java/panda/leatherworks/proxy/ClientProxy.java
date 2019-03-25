@@ -90,7 +90,7 @@ public class ClientProxy extends CommonProxy {
 		registerItemModel(LWItems.TANNIN_BOTTLE);
 		registerItemModel(LWItems.TANNIN_BALL);
 		registerItemModel(LWItems.REPAIR_KIT);
-		registerItemModel(LWItems.TANNIN_BUCKET);
+		//registerItemModel(LWItems.TANNIN_BUCKET);
 		registerItemModel(LWItems.LEATHER_SOAKED);
 		registerItemModel(LWItems.LEATHER_SCRAPED);
 		registerItemModel(LWItems.LEATHER_WASHED);

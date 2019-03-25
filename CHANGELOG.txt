@@ -1,3 +1,11 @@
+1.76.0
+Updated to latest (final) 1.12 forge
+Fixed #47, Stripping log ignores orientation
+Fixed #55, and make fluid handling proper. Thanks WolfieWaffle!
+Added a config, useExternalDebarking, for those that wish to handle bark in another fashion
+Bark items from HitWithAxe can be converted to tannin balls at a ratio of 2:1 for any of his barks.
+Fixed #38, Using chisels and bits on debarked logs changes their orientation
+
 1.75.3
 scraping hotfix
 can use axes to scrape now

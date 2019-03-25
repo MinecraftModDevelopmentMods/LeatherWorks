@@ -71,12 +71,12 @@ public class LivingDropsHandler {
 		if (event.getEntityLiving() instanceof EntityDonkey) {
 			replaceDrops(event,LWItems.RAWHIDE_DONKEY);
 		}else
-		if (EntityRegistry.getEntry(event.getEntityLiving().getClass()).getRegistryName().getResourcePath().contains("deer")) {
+		if (EntityRegistry.getEntry(event.getEntityLiving().getClass()).getRegistryName().getPath().contains("deer")) {
 			
 			if(!hasLeather){addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));}
 			replaceDrops(event,LWItems.RAWHIDE_DEER);
 		}else
-			if (EntityRegistry.getEntry(event.getEntityLiving().getClass()).getRegistryName().getResourcePath().contains("boar")) {
+			if (EntityRegistry.getEntry(event.getEntityLiving().getClass()).getRegistryName().getPath().contains("boar")) {
 				
 				if(!hasLeather){addLeatherDrops(event,rand.nextInt(2)*modifyDrops(fortune,rand));}
 				replaceDrops(event,LWItems.RAWHIDE_BOAR);

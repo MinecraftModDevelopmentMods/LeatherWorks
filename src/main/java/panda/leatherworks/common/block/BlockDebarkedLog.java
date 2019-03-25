@@ -55,21 +55,21 @@ public class BlockDebarkedLog extends BlockLog
         return iblockstate;
     }
 
-    @SuppressWarnings("incomplete-switch")
     @Override
     public int getMetaFromState(IBlockState state)
     {
         switch (state.getValue(LOG_AXIS))
         {
-            case X:
+            case Y:
                 return 0;
-            case Z:
+            case X:
                 return 1;
-            case NONE:
+            case Z:
                 return 2;
+            case NONE:
+                return 0;
         }
         return 0;
-
     }
    
 }

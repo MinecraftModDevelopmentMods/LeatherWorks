@@ -30,6 +30,7 @@ public class ConfigLeatherWorks {
 	public static boolean disableColoredTrunks;
 	public static boolean consumeFlint;
 	public static boolean singleBarkItem;
+	public static boolean useExternalDebarking;
 	
 	private ConfigLeatherWorks(){LeatherWorks.logger.info("Loading Config");}
 	
@@ -48,7 +49,8 @@ public class ConfigLeatherWorks {
 		allowBatchProcessing = config.getBoolean("allowBatchProcessing", "general", true, "If disabled, 1 unit of water or tannin will be required to process each hide.");
 		consumeFlint = config.getBoolean("consumeFlint", "general", false, "If enabled, Scraping hides will consume flint");
 		singleBarkItem = config.getBoolean("singleBarkItem", "general", false, "If enabled, Leatherworks will only use one bark item");
-		
+		useExternalDebarking = config.getBoolean("useExternalDebarking", "general", false, "If enabled, Leatherworks will disable its' debarking features so you can handle it with other mods.");
+				
 		blacklist = config.getStringList("blacklist", "blacklist", new String[] {
 			LWItems.PACK_BLACK.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,
 			LWItems.PACK_BLUE.getRegistryName().toString() + ":" + OreDictionary.WILDCARD_VALUE,

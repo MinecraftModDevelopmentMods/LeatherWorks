@@ -49,7 +49,7 @@ public final class LWItems {
 	public static final Item TANNIN_BALL = simply(new Item(), "tannin_ball");
 	public static final Item REPAIR_KIT = simply(new Item(), "repair_kit").setMaxStackSize(16);
 
-	public static final Item TANNIN_BUCKET = simply(new ItemBucketTannin(), "tannin_bucket");
+	//public static final Item TANNIN_BUCKET = simply(new ItemBucketTannin(), "tannin_bucket");
 
 	public static final Item LEATHER_SCRAPED = simply(new ItemCraftingLeather(), "crafting_leather_scraped");
 	public static final Item LEATHER_WASHED = simply(new ItemCraftingLeather(), "crafting_leather_washed");
@@ -80,20 +80,17 @@ public final class LWItems {
 	public static final Item BROKEN_LEATHER_LEGGINGS = simply(new ItemBrokenArmor(EntityEquipmentSlot.LEGS), "broken_leather_leggings");
 	public static final Item BROKEN_LEATHER_BOOTS = simply(new ItemBrokenArmor(EntityEquipmentSlot.FEET), "broken_leather_boots");
 	
-	public static final Item LEATHER_HELMET = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.HEAD, BROKEN_LEATHER_HELMET).setUnlocalizedName("minecraft.leather_helmet").setRegistryName("minecraft:leather_helmet");
-	public static final Item LEATHER_CHESTPLATE = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST , BROKEN_LEATHER_CHESTPLATE).setUnlocalizedName("minecraft.leather_chestplate").setRegistryName("minecraft:leather_chestplate");
-	public static final Item LEATHER_LEGGINGS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.LEGS, BROKEN_LEATHER_LEGGINGS).setUnlocalizedName("minecraft.leather_leggings").setRegistryName("minecraft:leather_leggings");
-	public static final Item LEATHER_BOOTS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.FEET, BROKEN_LEATHER_BOOTS).setUnlocalizedName("minecraft.leather_boots").setRegistryName("minecraft:leather_boots");
+	public static final Item LEATHER_HELMET = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.HEAD, BROKEN_LEATHER_HELMET).setTranslationKey("minecraft.leather_helmet").setRegistryName("minecraft:leather_helmet");
+	public static final Item LEATHER_CHESTPLATE = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST , BROKEN_LEATHER_CHESTPLATE).setTranslationKey("minecraft.leather_chestplate").setRegistryName("minecraft:leather_chestplate");
+	public static final Item LEATHER_LEGGINGS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.LEGS, BROKEN_LEATHER_LEGGINGS).setTranslationKey("minecraft.leather_leggings").setRegistryName("minecraft:leather_leggings");
+	public static final Item LEATHER_BOOTS = new ItemLeatherworksArmor(ItemArmor.ArmorMaterial.LEATHER, EntityEquipmentSlot.FEET, BROKEN_LEATHER_BOOTS).setTranslationKey("minecraft.leather_boots").setRegistryName("minecraft:leather_boots");
 
 	public static final Item RAWHIDE_DEER = simply(new Item(), "rawhide_deer");
 	public static final Item RAWHIDE_BOAR = simply(new Item(), "rawhide_boar");
 
-	
-
-	
 
 	private static Item simply(Item item, String name) {
-		return item.setRegistryName(LeatherWorks.MODID, name).setUnlocalizedName(LeatherWorks.MODID + "." + name).setCreativeTab(LeatherWorks.LeatherTab);
+		return item.setRegistryName(LeatherWorks.MODID, name).setTranslationKey(LeatherWorks.MODID + "." + name).setCreativeTab(LeatherWorks.LeatherTab);
 	}
 
 	@SubscribeEvent
@@ -123,7 +120,7 @@ public final class LWItems {
 		registry.register(BARK_DARKOAK);
 		registry.register(TANNIN_BALL);
 		registry.register(TANNIN_BOTTLE);
-		registry.register(TANNIN_BUCKET);
+		//registry.register(TANNIN_BUCKET);
 		registry.register(LEATHER_STRIP);
 		registry.register(LEATHER_SHEET);
 		registry.register(REPAIR_KIT);

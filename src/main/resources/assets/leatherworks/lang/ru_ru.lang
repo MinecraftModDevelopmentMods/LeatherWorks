@@ -84,3 +84,4 @@ tile.leatherworks.birch_bark.name=Кора берёзы
 tile.leatherworks.jungle_bark.name=Кора тропического дерева
 tile.leatherworks.acacia_bark.name=Кора акации
 tile.leatherworks.darkoak_bark.name=Кора тёмного дуба
+fluid.leatherworks:tannin=таннина

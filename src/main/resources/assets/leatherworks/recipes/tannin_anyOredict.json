@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "leatherworks:tannin_ball",
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "barkWood"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "barkWood"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

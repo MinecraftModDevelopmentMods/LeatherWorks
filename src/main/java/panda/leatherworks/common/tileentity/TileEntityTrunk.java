@@ -217,7 +217,7 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
 			}
 		}
 		
-		this.facing = EnumFacing.getHorizontal(parentNBTTagCompound.getByte("facing"));
+		this.facing = EnumFacing.HORIZONTALS[parentNBTTagCompound.getByte("facing")];
 	}
 	
 	@Override
@@ -230,11 +230,11 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
         }
         else if (id == 2)
         {
-            this.facing = EnumFacing.getHorizontal(type);
+            this.facing = EnumFacing.HORIZONTALS[type];
         }
         else if (id == 3)
         {
-            this.facing = EnumFacing.getHorizontal(type & 0x7);
+            this.facing = EnumFacing.HORIZONTALS[type & 0x7];
             this.numPlayersUsing = (type & 0xF8) >> 3;
         }
         return true;

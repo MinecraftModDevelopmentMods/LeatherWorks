@@ -7,7 +7,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import panda.leatherworks.ConfigLeatherWorks;
-import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.item.ItemCraftingLeather;
 import panda.leatherworks.common.item.ItemPack;
 import panda.leatherworks.init.LWBlocks;
@@ -45,6 +44,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -98,7 +103,7 @@ public class BlockBarrel extends Block
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         int i = state.getValue(LEVEL);
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
@@ -110,143 +115,125 @@ public class BlockBarrel extends Block
         }
     }
     
+    private boolean drainBarrel(EntityPlayer playerIn, ItemStack heldItem, EnumHand hand, World worldIn, BlockPos pos, IBlockState state)
+    {
+        
+        // Get the fluid handler item which is needed to modify fluids on the itemstack
+        IFluidHandlerItem fluidHandlerItem = FluidUtil.getFluidHandler(heldItem);
+        
+    	if (fluidHandlerItem.getTankProperties()[0].getCapacity() >= Fluid.BUCKET_VOLUME)
+    	{
+    	    
+    		// Fill if not creative
+            if (!playerIn.capabilities.isCreativeMode)
+            {
+            	
+                // Which fluid is this
+            	int fluidInt = state.getValue(FLUID);
+            	Fluid fluid = FluidRegistry.WATER;
+            	
+            	if (fluidInt == 1)
+            	{
+            		fluid = LWBlocks.TANNIN_FLUID;
+            	}
+                
+	        	// Add the fluid to the stack
+	        	fluidHandlerItem.fill(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+	        	
+	        	// Get the stack based on the handler and actually set the players hand to it
+	        	playerIn.setHeldItem(hand, fluidHandlerItem.getContainer());
+            }
+    	}
+    	
+        worldIn.setBlockState(pos, this.getDefaultState().withProperty(FLUID, 0) , 2);
+        this.setFluidLevel(worldIn, pos, state, 0);
+        worldIn.updateComparatorOutputLevel(pos, this);
+        
+        return true;
+    }
+    
+    private boolean fillBarrel(EntityPlayer playerIn, ItemStack heldItem, EnumHand hand, Fluid fluid, World worldIn, BlockPos pos, IBlockState state)
+    {
+    	
+    	// Get the fluid handler item which is needed to modify fluids on the itemstack
+    	IFluidHandlerItem fluidHandlerItem = FluidUtil.getFluidHandler(heldItem);
+    	if (fluidHandlerItem.getTankProperties()[0].getCapacity() >= Fluid.BUCKET_VOLUME)
+    	{
+    		
+    		// Drain if not creative
+            if (!playerIn.capabilities.isCreativeMode)
+            {
+	        	// Remove the fluid from the stack
+	        	fluidHandlerItem.drain(Fluid.BUCKET_VOLUME, true);
+	        	
+	        	// Get the stack based on the handler and actually set the players hand to it
+	        	playerIn.setHeldItem(hand, fluidHandlerItem.getContainer());
+            }
+        	
+            // Which fluid is this
+            int fluidInt = 0;
+            
+            if (fluid == LWBlocks.TANNIN_FLUID)
+            {
+            	fluidInt = 1;
+            }
+            
+            worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(3, 0, 3)).withProperty(FLUID, fluidInt) , 2);
+            worldIn.updateComparatorOutputLevel(pos, this);
+    	}
+    	
+    	return true;
+    }
+    
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
     	ItemStack heldItem = playerIn.getHeldItem(hand);
+    	
         if (heldItem.isEmpty())
         {
             return true;
         }
         else
         {
-            int i = state.getValue(LEVEL);
+            int level = state.getValue(LEVEL);
             int f = state.getValue(FLUID);
-            
+            FluidStack fluidStack = FluidUtil.getFluidContained(heldItem);
             Item item = heldItem.getItem();
-        	if (item == Item.getItemFromBlock(Blocks.WOODEN_PRESSURE_PLATE))
-            {
-                if (!worldIn.isRemote )
-                {
-                    if (!playerIn.capabilities.isCreativeMode)
-                    {
-                    	heldItem.shrink(1);
-                    }
-
-                    worldIn.setBlockState(pos, decorationBlock.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 2);
-                }
-                worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1, true);
-
-                return true;
-            }
-            if (item == Items.WATER_BUCKET)
-            {
-                if (i == 0 && !worldIn.isRemote )
-                {
-                    if (!playerIn.capabilities.isCreativeMode)
-                    {
-                        playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
-                    }
-
-                    worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(3, 0, 3)).withProperty(FLUID, 0) , 2);
-                    worldIn.updateComparatorOutputLevel(pos, this);
-                }
-
-                return true;
-            }else
-            	if (item == LWItems.TANNIN_BUCKET)
-                {
-                    if (i == 0 && !worldIn.isRemote )
-                    {
-                        if (!playerIn.capabilities.isCreativeMode)
-                        {
-                            playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
-                        }
-                        worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(3, 0, 3)).withProperty(FLUID, 1) , 2);
-                        worldIn.updateComparatorOutputLevel(pos, this);
-                    }
-
-                    return true;
-                }
+            boolean hasFluid = heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
             
-            if (item == LWItems.TANNIN_BOTTLE && i < 3 && !worldIn.isRemote && (f == 1 || i==0 ))
+            if (fluidStack != null)
             {
-                if (!playerIn.capabilities.isCreativeMode)
-                {
-                    ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
-
-                    if (heldItem.getCount() == 1)
-                    {
-                        playerIn.setHeldItem(hand, itemstack1);
-                    }
-                    else{
-                    	heldItem.shrink(1);
-                    	if (!playerIn.inventory.addItemStackToInventory(itemstack1))
-                        {
-                            playerIn.dropItem(itemstack1, false);
-                        }
-                        else if (playerIn instanceof EntityPlayerMP)
-                        {
-                            ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                        }
-                    }
-                    
-                }
-                this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 1), i + 1);
-            }
-            
-            if (item == Items.POTIONITEM && !worldIn.isRemote && i < 3  && (f == 0 || i==0 ))
-            {
-
-            	if(PotionUtils.getPotionFromItem(heldItem) == PotionTypes.WATER ){
-            		if (!playerIn.capabilities.isCreativeMode){
-                    	ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
-                    	if (heldItem.getCount() == 1)
-                    	{
-                    		playerIn.setHeldItem(hand, itemstack1);
-                    	}
-                    	else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
-                    	{
-                        	playerIn.dropItem(itemstack1, false);
-                    	}
-                    	else if (playerIn instanceof EntityPlayerMP)
-                    	{
-                    		((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                    	}
-                	}
-                	this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 0), i + 1); 
-            	}
-            }
-            if (item == Items.WATER_BUCKET)
-            {
-                if (i <3 && !worldIn.isRemote && f ==0)
-                {
-                    if (!playerIn.capabilities.isCreativeMode)
-                    {
-                        playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
-                    }
-
-                    this.setFluidLevel(worldIn, pos, state, 3);
-                }
-
+            	
+            	// Fluid Give
+                Fluid fluid = fluidStack.getFluid();
+                if (level == 0 && !worldIn.isRemote )
+			    {
+                    // If this is a stack with water or tannin fluid in it
+					if (fluid == FluidRegistry.WATER || fluid == LWBlocks.TANNIN_FLUID)
+				    {
+					    return fillBarrel(playerIn, heldItem, hand, fluid, worldIn, pos, state);
+				    }
+				}
+                
                 return true;
-            }else
-            	if (item == LWItems.TANNIN_BUCKET)
-                {
-                    if (i <3 && !worldIn.isRemote && f ==1)
-                    {
-                        if (!playerIn.capabilities.isCreativeMode)
-                        {
-                            playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
-                        }
-                        this.setFluidLevel(worldIn, pos, state, 3);
-                    }
-
-                    return true;
-                }else
-            if (item == LWItems.TANNIN_BALL)
+			}
+            else if (hasFluid)
             {
-                if (i >0 && !worldIn.isRemote && f ==0)
+            	
+            	// Fluid Take
+                if (level == 3 && !worldIn.isRemote )
+                {
+                	return drainBarrel(playerIn, heldItem, hand, worldIn, pos, state);
+                }
+                
+                return true;
+			}
+            else if (item == LWItems.TANNIN_BALL)
+            {
+            	
+            	// Use Tannin Ball
+                if (level >0 && !worldIn.isRemote && f == 0)
                 {
                     if (!playerIn.capabilities.isCreativeMode)
                     {
@@ -255,215 +242,302 @@ public class BlockBarrel extends Block
                     worldIn.setBlockState(pos, state.withProperty(FLUID, 1) , 2);
                     worldIn.updateComparatorOutputLevel(pos, this);
                 }
-
+                
                 return true;
             }
-            else if (item == Items.BUCKET)
+            else if (level > 0 && item instanceof ItemBanner && f == 0)
             {
-                if (i == 3 && !worldIn.isRemote && f ==0)
+            	
+            	// Use Banner
+                if (TileEntityBanner.getPatterns(heldItem) > 0 && !worldIn.isRemote)
                 {
-                    if (!playerIn.capabilities.isCreativeMode)
-                    {
-                        heldItem.shrink(1);
-
-                        if (heldItem.isEmpty())
-                        {
-                            playerIn.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
-                        }
-                        else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.WATER_BUCKET)))
-                        {
-                            playerIn.dropItem(new ItemStack(Items.WATER_BUCKET), false);
-                        }
-                    }
-
-                    this.setFluidLevel(worldIn, pos, state, 0);
-                }else
-                	if (i == 3 && !worldIn.isRemote && f ==1)
-                    {
-                        if (!playerIn.capabilities.isCreativeMode)
-                        {
-                            heldItem.shrink(1);
-
-                            if (heldItem.isEmpty())
-                            {
-                                playerIn.setHeldItem(hand, new ItemStack(LWItems.TANNIN_BUCKET));
-                            }
-                            else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(
-                                LWItems.TANNIN_BUCKET)))
-                            {
-                                playerIn.dropItem(new ItemStack(LWItems.TANNIN_BUCKET), false);
-                            }
-                        }
-                        worldIn.setBlockState(pos, this.getDefaultState().withProperty(FLUID, 0) , 2);
-                        this.setFluidLevel(worldIn, pos, state, 0);
-                    }
-
+                	useBanner(playerIn, heldItem, worldIn, pos, state, hand, level);
+                }
+                
                 return true;
+            }
+            else if (item instanceof ItemCraftingLeather)
+            {
+            	
+            	// Use Leather
+            	if (level > 0 && !worldIn.isRemote)
+            	{
+            		useLeather(playerIn, heldItem, worldIn, pos, state, hand, level, f);
+            	}
+            	
+            	return true;
+            }
+            else if (item instanceof ItemArmor)
+            {
+            	
+            	// Use Armor
+            	if (level > 0 && !worldIn.isRemote && f == 0)
+            	{
+            		useArmor(playerIn, heldItem, worldIn, pos, state, hand, level, f);
+            	}
+            	
+            	return true;
             }
             else if (item == Items.GLASS_BOTTLE)
             {
-                if (i > 0 && !worldIn.isRemote && f ==0)
+            	
+            	// Use Glass Bottle
+                if (level > 0 && !worldIn.isRemote)
+                {
+                	useEmptyBottle(playerIn, heldItem, worldIn, pos, state, hand, level, f);
+                }
+                
+                return true;
+            }
+            else if (item == LWItems.TANNIN_BOTTLE)
+            {
+            	
+            	// Use Tannin Bottle
+                if (level < 3 && !worldIn.isRemote && (f == 1 || level == 0))
+                {
+                	useTanninBottle(playerIn, heldItem, worldIn, pos, state, hand, level, f);
+                }
+                
+                return true;
+            }
+            else if (item == Items.POTIONITEM)
+            {
+            	
+            	// Use Water Bottle
+                if (level < 3 && !worldIn.isRemote && (f == 0 || level == 0))
+                {
+                	useWaterBottle(playerIn, heldItem, worldIn, pos, state, hand, level, f);
+                }
+                
+                return true;
+            }
+            else if (item == Item.getItemFromBlock(Blocks.WOODEN_PRESSURE_PLATE))
+            {
+            	
+            	// Use Pressure Plate
+                if (!worldIn.isRemote )
                 {
                     if (!playerIn.capabilities.isCreativeMode)
                     {
-                        ItemStack itemstack1 = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
-
-                        if (heldItem.getCount() == 1)
-                        {
-                            playerIn.setHeldItem(hand, itemstack1);
-                        }
-                        else{
-                        	heldItem.shrink(1);
-                        	if (!playerIn.inventory.addItemStackToInventory(itemstack1))
-                        	{
-                                playerIn.dropItem(itemstack1, false);
-                            }
-                            else if (playerIn instanceof EntityPlayerMP)
-                            {
-                                ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                            }
-                        }
-                        
+                      	heldItem.shrink(1);
                     }
-
-                    this.setFluidLevel(worldIn, pos, state, i - 1);
-                }else
-                	if (i > 0 && !worldIn.isRemote && f == 1)
-                    {
-                        if (!playerIn.capabilities.isCreativeMode)
-                        {
-                            ItemStack itemstack1 = new ItemStack(LWItems.TANNIN_BOTTLE);
-
-                            if (heldItem.getCount() == 1)
-                            {
-                                playerIn.setHeldItem(hand, itemstack1);
-                            }
-                            else{
-                            	heldItem.shrink(1);
-                            	if (!playerIn.inventory.addItemStackToInventory(itemstack1))
-                            {
-                                playerIn.dropItem(itemstack1, false);
-                            }
-                            else if (playerIn instanceof EntityPlayerMP)
-                            {
-                                ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                            }
-                            }
-                        }
-
-                        this.setFluidLevel(worldIn, pos, state, i - 1);
-                    }
-
+                    
+                    worldIn.setBlockState(pos, decorationBlock.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 2);
+                }
+                worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1, true);
+                
+                return true;
+            }
+            else if (level > 0 && (item instanceof ItemPack ) && f == 0 && item != LWItems.PACK_BROWN && !worldIn.isRemote)
+            {
+            	
+            	// Use Pack
+                ItemStack stackout = new ItemStack(LWItems.PACK_BROWN);
+                if(heldItem.hasTagCompound())
+                {
+                	stackout.setTagCompound(heldItem.getTagCompound().copy());
+                }
+                
+                playerIn.setHeldItem(hand, stackout);
+                this.setFluidLevel(worldIn, pos, state, level - 1);
+                playerIn.addStat(StatList.ARMOR_CLEANED);
+                worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 1f, 1f);
+                
                 return true;
             }
             else
             {
-                if (i > 0 && item instanceof ItemArmor && f ==0)
+            	return false;
+            }
+		}
+        
+//        return false;
+    }
+    
+    private void useWaterBottle(EntityPlayer playerIn, ItemStack heldItem, World worldIn, BlockPos pos, IBlockState state, EnumHand hand, int level, int fluid)
+    {
+    	if(PotionUtils.getPotionFromItem(heldItem) == PotionTypes.WATER)
+    	{
+    		if (!playerIn.capabilities.isCreativeMode)
+    		{
+            	ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
+            	if (heldItem.getCount() == 1)
+            	{
+            		playerIn.setHeldItem(hand, itemstack1);
+            	}
+            	else if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+            	{
+                	playerIn.dropItem(itemstack1, false);
+            	}
+            	else if (playerIn instanceof EntityPlayerMP)
+            	{
+            		((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+            	}
+        	}
+        	this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 0), level + 1); 
+    	}
+    }
+    
+    private void useTanninBottle(EntityPlayer playerIn, ItemStack heldItem, World worldIn, BlockPos pos, IBlockState state, EnumHand hand, int level, int fluid)
+    {
+        if (heldItem.getItem() == LWItems.TANNIN_BOTTLE && level < 3 && !worldIn.isRemote && (fluid == 1 || level == 0))
+        {
+            if (!playerIn.capabilities.isCreativeMode)
+            {
+                ItemStack itemstack1 = new ItemStack(Items.GLASS_BOTTLE);
+
+                if (heldItem.getCount() == 1)
                 {
-                    ItemArmor itemarmor = (ItemArmor)item;
-                    
-                    if ((itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER || itemarmor.getArmorMaterial() == LWItems.DUMMYLEATHER) && itemarmor.hasColor(heldItem) && !worldIn.isRemote)
-                    {
-                        itemarmor.removeColor(heldItem);
-                        this.setFluidLevel(worldIn, pos, state, i - 1);
-                        playerIn.addStat(StatList.ARMOR_CLEANED);
-                        return true;
-                    }
-                }
-                
-                if (i > 0 && (item instanceof ItemPack ) && f == 0
-                	&& item != LWItems.PACK_BROWN && !worldIn.isRemote)
-                {
-                	ItemStack stackout = new ItemStack(LWItems.PACK_BROWN);
-                	if(heldItem.hasTagCompound()){
-                		stackout.setTagCompound(heldItem.getTagCompound().copy());
-					  }
-                	
-                	playerIn.setHeldItem(hand, stackout);
-                    this.setFluidLevel(worldIn, pos, state, i - 1);
-                    playerIn.addStat(StatList.ARMOR_CLEANED);
-                    worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 1f, 1f);
-                    return true;
-                }
-
-                //TODO
-                if (i > 0 && item instanceof ItemCraftingLeather )
-                {
-                	
-                	if(heldItem.getItem() == LWItems.LEATHER_SCRAPED && f ==0){
-                		this.setFluidLevel(worldIn, pos, state, i - 1);
-
-                		if(ConfigLeatherWorks.allowBatchProcessing){
-                			playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_WASHED,heldItem.getCount()));
-                		}
-                		else{
-                			heldItem.shrink(1);
-                			playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
-                		}
-                        return true;
-                	}else
-                		if(heldItem.getItem() == LWItems.LEATHER_WASHED && f ==1){
-                    		this.setFluidLevel(worldIn, pos, state, i - 1);
-                    		if(ConfigLeatherWorks.allowBatchProcessing){
-                    			playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_SOAKED,heldItem.getCount()));
-                    		}
-                    		else{
-                    			heldItem.shrink(1);
-                    			if(!playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_SOAKED))){
-                    				EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY()+0.5f, pos.getZ(), new ItemStack(LWItems.LEATHER_SOAKED));
-                    				worldIn.spawnEntity(entityitem);
-                    			}
-                    		}
-                    		
-                            return true;
-                    	}
-                }
-                
-                
-
-                if (i > 0 && item instanceof ItemBanner && f ==0)
-                {
-                    if (TileEntityBanner.getPatterns(heldItem) > 0 && !worldIn.isRemote)
-                    {
-                        ItemStack itemstack = heldItem.copy();
-                        itemstack.setCount(1);
-                        TileEntityBanner.removeBannerData(itemstack);
-                        playerIn.addStat(StatList.BANNER_CLEANED);
-
-                        if (!playerIn.capabilities.isCreativeMode)
-                        {
-                            heldItem.shrink(1);
-                        }
-
-                        if (heldItem.isEmpty())
-                        {
-                            playerIn.setHeldItem(hand, itemstack);
-                        }
-                        else if (!playerIn.inventory.addItemStackToInventory(itemstack))
-                        {
-                            playerIn.dropItem(itemstack, false);
-                        }
-                        else if (playerIn instanceof EntityPlayerMP)
-                        {
-                            ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                        }
-
-                        if (!playerIn.capabilities.isCreativeMode)
-                        {
-                            this.setFluidLevel(worldIn, pos, state, i - 1);
-                        }
-                    }
-
-                    return true;
+                    playerIn.setHeldItem(hand, itemstack1);
                 }
                 else
                 {
-                    return false;
+                	heldItem.shrink(1);
+                	if (!playerIn.inventory.addItemStackToInventory(itemstack1))
+                    {
+                        playerIn.dropItem(itemstack1, false);
+                    }
+                    else if (playerIn instanceof EntityPlayerMP)
+                    {
+                        ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+                    }
                 }
+                
             }
+            this.setFluidLevel(worldIn, pos, state.withProperty(FLUID, 1), level + 1);
         }
     }
+    
+	private void useEmptyBottle(EntityPlayer playerIn, ItemStack heldItem, World worldIn, BlockPos pos, IBlockState state, EnumHand hand, int level, int fluid) {
+		
+		if (!playerIn.capabilities.isCreativeMode)
+		{
+			ItemStack itemstack1 = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
+			ItemStack itemstack2 = new ItemStack(LWItems.TANNIN_BOTTLE);
+			
+			if (heldItem.getCount() == 1)
+			{
+				playerIn.setHeldItem(hand, (fluid == 0 ? itemstack1 : itemstack2));
+			}
+			else
+			{
+				heldItem.shrink(1);
+				if (!playerIn.inventory.addItemStackToInventory((fluid == 0 ? itemstack1 : itemstack2)))
+				{
+					playerIn.dropItem((fluid == 0 ? itemstack1 : itemstack2), false);
+				}
+				else if (playerIn instanceof EntityPlayerMP)
+				{
+					((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+				}
+			}
 
+		}
+
+		this.setFluidLevel(worldIn, pos, state, level - 1);
+	}
+    
+    private void useBanner(EntityPlayer playerIn, ItemStack heldItem, World worldIn, BlockPos pos, IBlockState state, EnumHand hand, int level) {
+    	ItemStack itemstack = heldItem.copy();
+        itemstack.setCount(1);
+        TileEntityBanner.removeBannerData(itemstack);
+        playerIn.addStat(StatList.BANNER_CLEANED);
+        
+        if (!playerIn.capabilities.isCreativeMode)
+        {
+            heldItem.shrink(1);
+        }
+        
+        if (heldItem.isEmpty())
+        {
+            playerIn.setHeldItem(hand, itemstack);
+        }
+        else if (!playerIn.inventory.addItemStackToInventory(itemstack))
+        {
+            playerIn.dropItem(itemstack, false);
+        }
+        else if (playerIn instanceof EntityPlayerMP)
+        {
+            ((EntityPlayerMP)playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
+        }
+        
+        if (!playerIn.capabilities.isCreativeMode)
+        {
+            this.setFluidLevel(worldIn, pos, state, level - 1);
+        }
+    }
+    
+    private void useLeather(EntityPlayer playerIn, ItemStack heldItem, World worldIn, BlockPos pos, IBlockState state, EnumHand hand, int level, int fluid)
+    {
+        //TODO
+        if (heldItem.getItem() == LWItems.LEATHER_SCRAPED && fluid == 0)
+        {
+        	this.setFluidLevel(worldIn, pos, state, level - 1);
+        	
+        	if(ConfigLeatherWorks.allowBatchProcessing)
+        	{
+        		playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_WASHED,heldItem.getCount()));
+        	}
+        	else
+        	{
+        		heldItem.shrink(1);
+        		playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
+        	}
+//          return true;
+        }
+        else if (heldItem.getItem() == LWItems.LEATHER_WASHED && fluid == 1)
+        {
+            this.setFluidLevel(worldIn, pos, state, level - 1);
+            if (ConfigLeatherWorks.allowBatchProcessing)
+            {
+            	playerIn.setHeldItem(hand, new ItemStack(LWItems.LEATHER_SOAKED,heldItem.getCount()));
+            }
+            else
+            {
+            	heldItem.shrink(1);
+            	if (!playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_SOAKED)))
+            	{
+            		EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY()+0.5f, pos.getZ(), new ItemStack(LWItems.LEATHER_SOAKED));
+            		worldIn.spawnEntity(entityitem);
+            	}
+            }
+//          return true;
+        }
+    }
+    
+    private void useArmor(EntityPlayer playerIn, ItemStack heldItem, World worldIn, BlockPos pos, IBlockState state, EnumHand hand, int level, int fluid)
+    {
+    	Item item = heldItem.getItem();
+    	
+        if (level > 0 && item instanceof ItemArmor && fluid == 0)
+        {
+            ItemArmor itemarmor = (ItemArmor)item;
+            
+            if ((itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER || itemarmor.getArmorMaterial() == LWItems.DUMMYLEATHER) && itemarmor.hasColor(heldItem) && !worldIn.isRemote)
+            {
+                itemarmor.removeColor(heldItem);
+                this.setFluidLevel(worldIn, pos, state, level - 1);
+                playerIn.addStat(StatList.ARMOR_CLEANED);
+//                return true;
+            }
+        }
+        
+        if (level > 0 && (item instanceof ItemPack ) && fluid == 0 && item != LWItems.PACK_BROWN && !worldIn.isRemote)
+        {
+        	ItemStack stackout = new ItemStack(LWItems.PACK_BROWN);
+        	if(heldItem.hasTagCompound())
+        	{
+        		stackout.setTagCompound(heldItem.getTagCompound().copy());
+			}
+        	
+        	playerIn.setHeldItem(hand, stackout);
+            this.setFluidLevel(worldIn, pos, state, level - 1);
+            playerIn.addStat(StatList.ARMOR_CLEANED);
+            worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 1f, 1f);
+//            return true;
+        }
+    }
+    
 	@Override
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
     {
@@ -492,24 +566,24 @@ public class BlockBarrel extends Block
             }
     }
 
-    /*@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+    @Override
+	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
 		if(state.getValue(LEVEL) == 3){
 			IBlockState newstate = state.getValue(FLUID) == 1? LWBlocks.TANNIN.getDefaultState():Blocks.WATER.getDefaultState();
 			worldIn.setBlockState(pos,newstate,1);
 		}
-		super.onBlockDestroyedByPlayer(worldIn, pos, state);
-	}*/
+		super.onPlayerDestroy(worldIn, pos, state);
+	}
 
-	/*@Override
-	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
+	@Override
+	public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
 		IBlockState state = worldIn.getBlockState(pos);
 		if(state.getValue(LEVEL) == 3){
 			IBlockState newstate = state.getValue(FLUID) == 1? LWBlocks.TANNIN.getDefaultState():Blocks.WATER.getDefaultState();
 			worldIn.setBlockState(pos,newstate,1);
 		}
-		super.onBlockDestroyedByExplosion(worldIn, pos, explosionIn);
-	}*/
+		super.onExplosionDestroy(worldIn, pos, explosionIn);
+	}
 
 	@Nullable
     @Override
@@ -566,7 +640,7 @@ public class BlockBarrel extends Block
     @Override
     @SideOnly(Side.CLIENT)
     @Nonnull
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }

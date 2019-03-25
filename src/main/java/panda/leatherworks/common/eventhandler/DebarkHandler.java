@@ -1,7 +1,6 @@
 package panda.leatherworks.common.eventhandler;
 
 import panda.leatherworks.ConfigLeatherWorks;
-import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.common.registries.BarkRegistry;
 import panda.leatherworks.init.LWItems;
@@ -34,7 +33,7 @@ public class DebarkHandler {
 		BlockPos pos = event.getPos().offset(event.getFace());
 		IBlockState state = world.getBlockState(event.getPos());
 
-		if ( !(state.getBlock() instanceof BlockLog) || state.getBlock() instanceof BlockDebarkedLog) {
+		if ( !(state.getBlock() instanceof BlockLog) || state.getBlock() instanceof BlockDebarkedLog || ConfigLeatherWorks.useExternalDebarking) {
 			return;
 		}
 		
@@ -45,7 +44,7 @@ public class DebarkHandler {
 			if (BarkRegistry.hasBark(pair) && !heldStack.isEmpty() && (heldStack.getItem() == Items.FLINT && world.rand.nextInt(20) == 0)
 					|| checkOres("toolKnife",heldStack) && world.rand.nextInt(10) == 0  || checkOres("toolAxe",heldStack) && world.rand.nextInt(14) == 0)
 			{
-				IBlockState newState = BarkRegistry.getDebarkedLog(pair).getDefaultState();
+				IBlockState newState = BarkRegistry.getDebarkedLog(pair).getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS));
 				if(newState != null){
 					world.setBlockState(event.getPos(), newState, 3);
 					ItemStack stackOut = BarkRegistry.getBark(pair);
