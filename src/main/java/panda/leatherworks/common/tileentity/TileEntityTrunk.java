@@ -1,15 +1,15 @@
 package panda.leatherworks.common.tileentity;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -22,8 +22,8 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.InventoryTrunk;
+import panda.leatherworks.common.block.BlockTrunk;
 
 public class TileEntityTrunk extends TileEntity implements IInventory, ITickable{
 	
@@ -35,12 +35,30 @@ public class TileEntityTrunk extends TileEntity implements IInventory, ITickable
     private int ticksSinceSync;
     public int numPlayersUsing;
     private EnumFacing facing;
+    private EnumDyeColor color;
     
     public TileEntityTrunk()
 	{
+    	this((EnumDyeColor)null);
+	}
+    
+    public TileEntityTrunk(@Nullable EnumDyeColor colorIn)
+	{
 		clear();
 		this.facing = EnumFacing.NORTH;
+		this.color = colorIn;
 	}
+    
+    @SideOnly(Side.CLIENT)
+    public EnumDyeColor getColor()
+    {
+        if (this.color == null)
+        {
+            this.color = BlockTrunk.getColorFromBlock(this.getBlockType());
+        }
+
+        return this.color;
+    }
     
     public EnumFacing getFacing()
     {

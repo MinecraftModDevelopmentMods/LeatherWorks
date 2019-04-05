@@ -15,8 +15,24 @@ import panda.leatherworks.common.tileentity.TileEntityTrunk;
 @SideOnly(Side.CLIENT)
 public class GuiTrunk extends GuiContainer {
 
-
-	private static final ResourceLocation texture = new ResourceLocation("leatherworks:textures/gui/container/trunk.png");
+    protected static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_normal.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_orange.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_magenta.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_light_blue.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_yellow.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_lime.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_pink.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_gray.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_silver.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_cyan.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_purple.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_blue.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_normal.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_green.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_red.png"),
+    		new ResourceLocation("leatherworks:textures/gui/container/trunk_black.png")};
+    
 	private TileEntityTrunk tileEntity;
 
 	public GuiTrunk(InventoryPlayer invPlayer, TileEntityTrunk tile) {
@@ -29,7 +45,7 @@ public class GuiTrunk extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int x, int y) {
 
-		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURES[tileEntity.getColor().getMetadata()]);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 	}

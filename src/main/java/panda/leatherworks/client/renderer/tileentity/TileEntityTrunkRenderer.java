@@ -7,13 +7,29 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.tileentity.TileEntityTrunk;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntityTrunk>
 {
-    private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation("leatherworks:textures/models/trunk_normal.png");
+    protected static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+    		new ResourceLocation("leatherworks:textures/models/trunk_red.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_orange.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_magenta.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_light_blue.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_yellow.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_lime.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_pink.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_gray.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_silver.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_cyan.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_purple.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_blue.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_normal.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_green.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_red.png"),
+    		new ResourceLocation("leatherworks:textures/models/trunk_black.png")};
+
     private final ModelChest model = new ModelChest();
     
     
@@ -26,7 +42,6 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
         }
 
         EnumFacing facing = te.getFacing();
-        //LeatherWorks.logger.info("Loading: " + facing);
         if (destroyStage >= 0)
         {
             this.bindTexture(DESTROY_STAGES[destroyStage]);
@@ -38,7 +53,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
         }
         else
         {
-            this.bindTexture(TEXTURE_NORMAL);
+            this.bindTexture(TEXTURES[te.getColor().getMetadata()]);
         }
 
         GlStateManager.pushMatrix();

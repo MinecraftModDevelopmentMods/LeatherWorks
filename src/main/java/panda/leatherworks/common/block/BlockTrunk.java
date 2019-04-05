@@ -1,5 +1,6 @@
 package panda.leatherworks.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -8,9 +9,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
@@ -27,12 +31,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.GuiHandler;
 import panda.leatherworks.common.tileentity.TileEntityTrunk;
+import panda.leatherworks.init.LWBlocks;
 
 public class BlockTrunk  extends BlockContainer{
     
-    public BlockTrunk()
+	private final EnumDyeColor color;
+	
+    public BlockTrunk(EnumDyeColor colorIn)
     {
         super(Material.WOOD);
+        this.color = colorIn;
         this.setDefaultState(this.blockState.getBaseState());
         this.setHardness(5);
         this.setSoundType(SoundType.WOOD);
@@ -40,7 +48,70 @@ public class BlockTrunk  extends BlockContainer{
     
     public TileEntity createNewTileEntity(World worldIn, int meta)
     {
-        return new TileEntityTrunk();
+        return new TileEntityTrunk(this.color);
+    }
+
+    public static Block getBlockByColor(EnumDyeColor colorIn)
+    {
+        switch (colorIn)
+        {
+            case WHITE:
+                return Blocks.AIR;
+            case ORANGE:
+                return LWBlocks.LEATHER_TRUNK_ORANGE;
+            case MAGENTA:
+                return LWBlocks.LEATHER_TRUNK_MAGENTA;
+            case LIGHT_BLUE:
+                return LWBlocks.LEATHER_TRUNK_LIGHT_BLUE;
+            case YELLOW:
+                return LWBlocks.LEATHER_TRUNK_YELLOW;
+            case LIME:
+                return LWBlocks.LEATHER_TRUNK_LIME;
+            case PINK:
+                return LWBlocks.LEATHER_TRUNK_PINK;
+            case GRAY:
+                return LWBlocks.LEATHER_TRUNK_GRAY;
+            case SILVER:
+                return LWBlocks.LEATHER_TRUNK_SILVER;
+            case CYAN:
+                return LWBlocks.LEATHER_TRUNK_CYAN;
+            case BLUE:
+                return LWBlocks.LEATHER_TRUNK_BLUE;
+            case BROWN:
+                return LWBlocks.LEATHER_TRUNK;
+            case GREEN:
+                return LWBlocks.LEATHER_TRUNK_GREEN;
+            case RED:
+                return LWBlocks.LEATHER_TRUNK_RED;
+            case BLACK:
+                return LWBlocks.LEATHER_TRUNK_BLACK;
+            case PURPLE:
+            default:
+                return LWBlocks.LEATHER_TRUNK_PURPLE;
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static EnumDyeColor getColorFromItem(Item itemIn)
+    {
+        return getColorFromBlock(Block.getBlockFromItem(itemIn));
+    }
+
+    public static ItemStack getColoredItemStack(EnumDyeColor colorIn)
+    {
+        return new ItemStack(getBlockByColor(colorIn));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static EnumDyeColor getColorFromBlock(Block blockIn)
+    {
+        return blockIn instanceof BlockTrunk ? ((BlockTrunk)blockIn).getColor() : EnumDyeColor.BROWN;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public EnumDyeColor getColor()
+    {
+        return this.color;
     }
     
     @Override

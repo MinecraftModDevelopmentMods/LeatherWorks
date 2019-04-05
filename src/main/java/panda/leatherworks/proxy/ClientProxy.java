@@ -90,7 +90,6 @@ public class ClientProxy extends CommonProxy {
 		registerItemModel(LWItems.TANNIN_BOTTLE);
 		registerItemModel(LWItems.TANNIN_BALL);
 		registerItemModel(LWItems.REPAIR_KIT);
-		//registerItemModel(LWItems.TANNIN_BUCKET);
 		registerItemModel(LWItems.LEATHER_SOAKED);
 		registerItemModel(LWItems.LEATHER_SCRAPED);
 		registerItemModel(LWItems.LEATHER_WASHED);
@@ -134,9 +133,22 @@ public class ClientProxy extends CommonProxy {
 		registerBlockModel(LWBlocks.SEALED_BARREL_DARKOAK);
 		if(!ConfigLeatherWorks.disableTrunk){
 		registerBlockModel(LWBlocks.LEATHER_TRUNK);
-		if(!ConfigLeatherWorks.disableColoredTrunks){
-			
-		}
+		  if(!ConfigLeatherWorks.disableColoredTrunks){
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_RED);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_ORANGE);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_YELLOW);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_LIME);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_GREEN);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_CYAN);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_LIGHT_BLUE);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_BLUE);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_PURPLE);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_MAGENTA);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_PINK);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_SILVER);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_GRAY);
+			registerBlockModel(LWBlocks.LEATHER_TRUNK_BLACK);
+		  }
 		}
 		
 		ModelLoader.setCustomStateMapper(LWBlocks.TANNIN, new StateMapperBase() {

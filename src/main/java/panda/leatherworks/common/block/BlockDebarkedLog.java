@@ -18,7 +18,7 @@ public class BlockDebarkedLog extends BlockLog
 		this.blockResistance = 2;
 		this.setHarvestLevel("axe", 0);
     }
-
+    
     @Override
     public boolean isWood(IBlockAccess world, BlockPos pos)
     {

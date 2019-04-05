@@ -350,8 +350,6 @@ public class BlockBarrel extends Block
             	return false;
             }
 		}
-        
-//        return false;
     }
     
     private void useWaterBottle(EntityPlayer playerIn, ItemStack heldItem, World worldIn, BlockPos pos, IBlockState state, EnumHand hand, int level, int fluid)
@@ -483,7 +481,6 @@ public class BlockBarrel extends Block
         		heldItem.shrink(1);
         		playerIn.addItemStackToInventory(new ItemStack(LWItems.LEATHER_WASHED));
         	}
-//          return true;
         }
         else if (heldItem.getItem() == LWItems.LEATHER_WASHED && fluid == 1)
         {
@@ -501,7 +498,6 @@ public class BlockBarrel extends Block
             		worldIn.spawnEntity(entityitem);
             	}
             }
-//          return true;
         }
     }
     
@@ -518,7 +514,6 @@ public class BlockBarrel extends Block
                 itemarmor.removeColor(heldItem);
                 this.setFluidLevel(worldIn, pos, state, level - 1);
                 playerIn.addStat(StatList.ARMOR_CLEANED);
-//                return true;
             }
         }
         
@@ -534,7 +529,6 @@ public class BlockBarrel extends Block
             this.setFluidLevel(worldIn, pos, state, level - 1);
             playerIn.addStat(StatList.ARMOR_CLEANED);
             worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 1f, 1f);
-//            return true;
         }
     }
     

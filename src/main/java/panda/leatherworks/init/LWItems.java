@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.common.item.ItemBucketTannin;
 import panda.leatherworks.common.item.ItemCraftingLeather;
 import panda.leatherworks.common.item.ItemEnderPack;
 import panda.leatherworks.common.item.ItemPack;
@@ -48,8 +47,6 @@ public final class LWItems {
 	public static final Item TANNIN_BOTTLE = simply(new Item(), "tannin_bottle");
 	public static final Item TANNIN_BALL = simply(new Item(), "tannin_ball");
 	public static final Item REPAIR_KIT = simply(new Item(), "repair_kit").setMaxStackSize(16);
-
-	//public static final Item TANNIN_BUCKET = simply(new ItemBucketTannin(), "tannin_bucket");
 
 	public static final Item LEATHER_SCRAPED = simply(new ItemCraftingLeather(), "crafting_leather_scraped");
 	public static final Item LEATHER_WASHED = simply(new ItemCraftingLeather(), "crafting_leather_washed");
@@ -120,7 +117,6 @@ public final class LWItems {
 		registry.register(BARK_DARKOAK);
 		registry.register(TANNIN_BALL);
 		registry.register(TANNIN_BOTTLE);
-		//registry.register(TANNIN_BUCKET);
 		registry.register(LEATHER_STRIP);
 		registry.register(LEATHER_SHEET);
 		registry.register(REPAIR_KIT);
@@ -139,8 +135,8 @@ public final class LWItems {
 				registry.register(PACK_PURPLE);
 				registry.register(PACK_MAGENTA);
 				registry.register(PACK_PINK);
-				registry.register(PACK_GRAY); 
 				registry.register(PACK_SILVER);
+				registry.register(PACK_GRAY); 
 				registry.register(PACK_BLACK);
 			}
 			if(!ConfigLeatherWorks.disableEnderPack){
@@ -190,9 +186,22 @@ public final class LWItems {
 		registerItemBlock(registry, LWBlocks.DRYING_RACK_DARKOAK);
 		if(!ConfigLeatherWorks.disableTrunk){
 		registerItemBlock(registry, LWBlocks.LEATHER_TRUNK);
-		if(!ConfigLeatherWorks.disableColoredTrunks){
-			
-		}
+			if(!ConfigLeatherWorks.disableColoredTrunks){
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_RED);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_ORANGE);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_YELLOW);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_LIME);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_GREEN);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_CYAN);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_LIGHT_BLUE);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_BLUE);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_PURPLE);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_MAGENTA);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_PINK);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_GRAY);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_SILVER);
+				registerItemBlock(registry, LWBlocks.LEATHER_TRUNK_BLACK);
+			}
 		}
 	}
 

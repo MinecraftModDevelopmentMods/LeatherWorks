@@ -2,11 +2,8 @@ package panda.leatherworks.common.tileentity;
 
 import javax.annotation.Nullable;
 
-import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import panda.leatherworks.LeatherWorks;
-import panda.leatherworks.common.block.BlockDryingRack;
 import panda.leatherworks.common.network.MessageUpdateRack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

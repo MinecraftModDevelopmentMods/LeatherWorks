@@ -25,6 +25,7 @@ import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.crafting.DryingRecipes;
 import panda.leatherworks.common.crafting.FakeRecipe;
+import panda.leatherworks.common.crafting.LeatherTrunkColoring;
 import panda.leatherworks.common.crafting.RepairKitRecipe;
 
 @EventBusSubscriber
@@ -53,6 +54,7 @@ public class LWRecipes {
 	    registry.register(new RepairKitRecipe(LWItems.LEATHER_LEGGINGS, LWItems.LEATHER_LEGGINGS, LWItems.REPAIR_KIT, 20));
 	    registry.register(new RepairKitRecipe(LWItems.LEATHER_HELMET, LWItems.LEATHER_HELMET, LWItems.REPAIR_KIT, 20));
 	    registry.register(new RepairKitRecipe(LWItems.LEATHER_CHESTPLATE, LWItems.LEATHER_CHESTPLATE, LWItems.REPAIR_KIT, 20));
+	    registry.register(new LeatherTrunkColoring());
 	  }
 
 	public static void removeFurnaceRecipe(ItemStack resultItem) {

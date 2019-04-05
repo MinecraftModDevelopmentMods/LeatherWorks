@@ -1,6 +1,7 @@
 package panda.leatherworks.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -55,8 +56,21 @@ public final class LWBlocks {
 	public static final Block DRYING_RACK_JUNGLE = simply(new BlockDryingRack(),"drying_rack_jungle");
 	public static final Block DRYING_RACK_ACACIA = simply(new BlockDryingRack(),"drying_rack_acacia");
 	public static final Block DRYING_RACK_DARKOAK = simply(new BlockDryingRack(),"drying_rack_darkoak");
-	public static final Block LEATHER_TRUNK = simply(new BlockTrunk(),"leather_trunk");
-	
+	public static final Block LEATHER_TRUNK = simply(new BlockTrunk(EnumDyeColor.BROWN),"leather_trunk");
+	public static final Block LEATHER_TRUNK_RED = simply(new BlockTrunk(EnumDyeColor.RED),"leather_trunk_red");
+	public static final Block LEATHER_TRUNK_BLACK = simply(new BlockTrunk(EnumDyeColor.BLACK),"leather_trunk_black");
+	public static final Block LEATHER_TRUNK_BLUE = simply(new BlockTrunk(EnumDyeColor.BLUE),"leather_trunk_blue");
+	public static final Block LEATHER_TRUNK_CYAN = simply(new BlockTrunk(EnumDyeColor.CYAN),"leather_trunk_cyan");
+	public static final Block LEATHER_TRUNK_GRAY = simply(new BlockTrunk(EnumDyeColor.GRAY),"leather_trunk_gray");
+	public static final Block LEATHER_TRUNK_GREEN = simply(new BlockTrunk(EnumDyeColor.GREEN),"leather_trunk_green");
+	public static final Block LEATHER_TRUNK_LIGHT_BLUE = simply(new BlockTrunk(EnumDyeColor.LIGHT_BLUE),"leather_trunk_light_blue");
+	public static final Block LEATHER_TRUNK_LIME = simply(new BlockTrunk(EnumDyeColor.LIME),"leather_trunk_lime");
+	public static final Block LEATHER_TRUNK_MAGENTA = simply(new BlockTrunk(EnumDyeColor.MAGENTA),"leather_trunk_magenta");
+	public static final Block LEATHER_TRUNK_ORANGE = simply(new BlockTrunk(EnumDyeColor.ORANGE),"leather_trunk_orange");
+	public static final Block LEATHER_TRUNK_PINK = simply(new BlockTrunk(EnumDyeColor.PINK),"leather_trunk_pink");
+	public static final Block LEATHER_TRUNK_PURPLE = simply(new BlockTrunk(EnumDyeColor.PURPLE),"leather_trunk_purple");
+	public static final Block LEATHER_TRUNK_YELLOW = simply(new BlockTrunk(EnumDyeColor.YELLOW),"leather_trunk_yellow");
+	public static final Block LEATHER_TRUNK_SILVER = simply(new BlockTrunk(EnumDyeColor.SILVER),"leather_trunk_silver");
 	
 	//I know they are currently in the game as meta blocks but this way I can have proper lang files.
 	public static final Block BARK_OAK = simply(new BlockDummyWood(),"oak_bark");
@@ -110,9 +124,22 @@ public final class LWBlocks {
 		registry.register(DRYING_RACK_DARKOAK);
 		if(!ConfigLeatherWorks.disableTrunk){
 		registry.register(LEATHER_TRUNK);
-		if(!ConfigLeatherWorks.disableColoredTrunks){
-			
-		}
+			if(!ConfigLeatherWorks.disableColoredTrunks){
+				registry.register(LEATHER_TRUNK_RED);
+				registry.register(LEATHER_TRUNK_ORANGE);
+				registry.register(LEATHER_TRUNK_YELLOW);
+				registry.register(LEATHER_TRUNK_LIME);
+				registry.register(LEATHER_TRUNK_GREEN);
+				registry.register(LEATHER_TRUNK_CYAN);
+				registry.register(LEATHER_TRUNK_LIGHT_BLUE);
+				registry.register(LEATHER_TRUNK_BLUE);
+				registry.register(LEATHER_TRUNK_PURPLE);
+				registry.register(LEATHER_TRUNK_MAGENTA);
+				registry.register(LEATHER_TRUNK_PINK);
+				registry.register(LEATHER_TRUNK_GRAY);
+				registry.register(LEATHER_TRUNK_SILVER);
+				registry.register(LEATHER_TRUNK_BLACK);
+			}
 		}
 		
 	}

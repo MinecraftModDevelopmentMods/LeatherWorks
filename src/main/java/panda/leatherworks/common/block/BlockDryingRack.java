@@ -28,7 +28,6 @@ import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableMap;
 
 import panda.leatherworks.common.tileentity.TileEntityDryingRack;
-import panda.leatherworks.common.crafting.DryingRecipes;
 
 public class BlockDryingRack extends Block {
 
@@ -42,7 +41,6 @@ public class BlockDryingRack extends Block {
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		//if (!world.isRemote) {
 			TileEntityDryingRack tile = getTileEntity(world, pos);
 			IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 			if (itemHandler != null) {
@@ -56,7 +54,6 @@ public class BlockDryingRack extends Block {
 					itemHandler.extractItem(0, 1, false);
 				}
 			}
-		//}
 		return true;
 	}
 	
