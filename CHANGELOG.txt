@@ -1,3 +1,6 @@
+1.78.0
+A bunch of bug fixes from curseforge tracker
+
 1.77.0
 Added colored leather trunks
 

@@ -2,11 +2,14 @@ package panda.leatherworks.common.item;
 
 import panda.leatherworks.LeatherWorks;
 import panda.leatherworks.common.block.BlockBarrel;
+import panda.leatherworks.init.LWBlocks;
+import panda.leatherworks.init.LWItems;
 import panda.leatherworks.common.GuiHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.entity.player.EntityPlayer;
-
+import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -76,5 +79,47 @@ public class ItemPack extends Item {
     	}
     		
     	
+    }
+
+	public static ItemStack getColoredItemStack(EnumDyeColor colorIn) {
+		 return new ItemStack(getPackByColor(colorIn));
+	}
+	
+    public static Item getPackByColor(EnumDyeColor colorIn)
+    {
+        switch (colorIn)
+        {
+            case ORANGE:
+                return LWItems.PACK_ORANGE;
+            case MAGENTA:
+                return LWItems.PACK_MAGENTA;
+            case LIGHT_BLUE:
+                return LWItems.PACK_LIGHT_BLUE;
+            case YELLOW:
+                return LWItems.PACK_YELLOW;
+            case LIME:
+                return LWItems.PACK_LIME;
+            case PINK:
+                return LWItems.PACK_PINK;
+            case GRAY:
+                return LWItems.PACK_GRAY;
+            case SILVER:
+                return LWItems.PACK_SILVER;
+            case CYAN:
+                return LWItems.PACK_CYAN;
+            case BLUE:
+                return LWItems.PACK_BLUE;
+            case BROWN:
+            default:
+                return LWItems.PACK_BROWN;
+            case GREEN:
+                return LWItems.PACK_GREEN;
+            case RED:
+                return LWItems.PACK_RED;
+            case BLACK:
+                return LWItems.PACK_BLACK;
+            case PURPLE:
+                return LWItems.PACK_PURPLE;
+        }
     }
 }

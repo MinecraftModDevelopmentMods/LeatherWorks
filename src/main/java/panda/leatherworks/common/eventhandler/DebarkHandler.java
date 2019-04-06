@@ -3,6 +3,7 @@ package panda.leatherworks.common.eventhandler;
 import panda.leatherworks.ConfigLeatherWorks;
 import panda.leatherworks.common.block.BlockDebarkedLog;
 import panda.leatherworks.common.registries.BarkRegistry;
+import panda.leatherworks.init.LWBlocks;
 import panda.leatherworks.init.LWItems;
 import panda.leatherworks.init.LWSoundEvents;
 import akka.japi.Pair;
@@ -10,6 +11,7 @@ import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -44,11 +46,19 @@ public class DebarkHandler {
 			if (BarkRegistry.hasBark(pair) && !heldStack.isEmpty() && (heldStack.getItem() == Items.FLINT && world.rand.nextInt(20) == 0)
 					|| checkOres("toolKnife",heldStack) && world.rand.nextInt(10) == 0  || checkOres("toolAxe",heldStack) && world.rand.nextInt(14) == 0)
 			{
-				IBlockState newState = BarkRegistry.getDebarkedLog(pair).getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS));
+				IBlockState newState = null;
+				boolean flag = false;
+				if(BarkRegistry.getDebarkedLog(pair) == Blocks.AIR){
+					newState = LWBlocks.DEBARKED_LOG_OAK.getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS));
+					flag = true;
+				}else{
+					newState = BarkRegistry.getDebarkedLog(pair).getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS));
+				}
+				
 				if(newState != null){
 					world.setBlockState(event.getPos(), newState, 3);
 					ItemStack stackOut = BarkRegistry.getBark(pair);
-					if(ConfigLeatherWorks.singleBarkItem){
+					if(ConfigLeatherWorks.singleBarkItem || flag){
 						stackOut = new ItemStack(LWItems.BARK_OAK);
 					}
 					if (!stackOut.isEmpty()) {

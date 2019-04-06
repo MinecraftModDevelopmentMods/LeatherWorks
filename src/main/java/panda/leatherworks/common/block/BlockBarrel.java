@@ -569,16 +569,6 @@ public class BlockBarrel extends Block
 		super.onPlayerDestroy(worldIn, pos, state);
 	}
 
-	@Override
-	public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
-		IBlockState state = worldIn.getBlockState(pos);
-		if(state.getValue(LEVEL) == 3){
-			IBlockState newstate = state.getValue(FLUID) == 1? LWBlocks.TANNIN.getDefaultState():Blocks.WATER.getDefaultState();
-			worldIn.setBlockState(pos,newstate,1);
-		}
-		super.onExplosionDestroy(worldIn, pos, explosionIn);
-	}
-
 	@Nullable
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
